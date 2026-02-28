@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engremaq - Tudo para o seu Trator</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Assets/Css/Global.css">
+  <link rel="stylesheet" href="../Assets/Css/Style Index.css">
+</head>
+
+<body>
+  <!-- TOPO (Global.css) -->
+  <div class="informacao-topo">
+    <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
+
+    <div class="contatos-sociais">
+      <div class="contatos">
+        <a href="tel:+55-85-85-996883588">
+          <img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 96883588
+        </a>
+        <a href="https://wa.me/5585996883588" target="_blank" rel="noopener">
+          <img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 96883588
+        </a>
+        <a href="mailto:nicolasgomeshar@gmail.com">
+          <img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com
+        </a>
+      </div>
+
+      <div class="social-icons">
+        <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER (Global.css) -->
+  <header>
+    <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png"
+         alt="Engremaq Logo" class="logo">
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar peças...">
+      <button type="button">
+        <img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar">
+      </button>
+    </div>
+
+    <div class="right-section">
+      <nav class="main-nav">
+        <ul>
+          <li><a href="Index.html" class="active">Home</a></li>
+          <li><a href="About.html">Sobre</a></li>
+          <li><a href="Products.html">Produtos</a></li>
+          <li><a href="Contact.html">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-actions">
+        <a href="Login.html" class="action-link">
+          <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
+          <span>Entrar</span>
+        </a>
+
+        <a href="Carrinho.html" class="action-link">
+          <span class="cart-price">R$ 0,00</span>
+          <div class="cart-icon-wrapper">
+            <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+            <span class="cart-badge">0</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (banner estilo antigo) -->
+  <section class="hero-old" aria-label="Banner principal">
+    <div class="hero-slides" id="heroSlides" aria-hidden="true">
+      <!-- Imagens da web (teste) -->
+      <img class="hero-slide is-active" src="https://source.unsplash.com/2400x900/?engine,industrial,technology" alt="">
+      <img class="hero-slide" src="https://source.unsplash.com/2400x900/?tractor,farm,machine" alt="">
+      <img class="hero-slide" src="https://source.unsplash.com/2400x900/?mechanic,workshop,engine" alt="">
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1>Revendedor Autorizado Engremaq</h1>
+      <p>Potência e desempenho reconhecidos mundialmente</p>
+      <a class="hero-btn" href="#promocao">CLIQUE AQUI</a>
+    </div>
+
+    <!-- setas -->
+    <button class="hero-arrow hero-prev" type="button" aria-label="Slide anterior" id="heroPrev">‹</button>
+    <button class="hero-arrow hero-next" type="button" aria-label="Próximo slide" id="heroNext">›</button>
+  </section>
+
+  <!-- PROMOÇÃO SEMANAL -->
+  <section class="sec-yellow" id="promocao" aria-label="Promoção semanal">
+    <div class="container">
+      <div class="sec-head">
+        <h2>PROMOÇÃO SEMANAL</h2>
+        <p>Confira a seleção de ofertas que preparamos para você!</p>
+      </div>
+
+      <div class="cards-grid">
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?belt,industrial" alt="Correia">
+          </div>
+          <div class="product-body">
+            <h3>Correia (exemplo) — reposição rápida</h3>
+            <span class="product-code">COD: 000001</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?metal,mechanical,parts" alt="Peça metálica">
+          </div>
+          <div class="product-body">
+            <h3>Peça metálica (exemplo) — linha pesada</h3>
+            <span class="product-code">COD: 000002</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?filter,engine" alt="Filtro">
+          </div>
+          <div class="product-body">
+            <h3>Filtro (exemplo) — alta eficiência</h3>
+            <span class="product-code">COD: 000003</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIS VENDIDOS -->
+  <section class="sec" aria-label="Mais vendidos">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Mais vendidos</h2>
+        <p>Confira os itens mais procurados na nossa loja.</p>
+      </div>
+
+      <div class="cards-grid cards-grid-4">
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?oil,filter" alt="Filtro de óleo">
+          </div>
+          <div class="product-body">
+            <h3>Filtro de óleo (exemplo)</h3>
+            <span class="product-code">COD: 100001</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?tools,mechanic" alt="Kit manutenção">
+          </div>
+          <div class="product-body">
+            <h3>Kit manutenção (exemplo)</h3>
+            <span class="product-code">COD: 100002</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?engine,parts" alt="Peça de motor">
+          </div>
+          <div class="product-body">
+            <h3>Peça de motor (exemplo)</h3>
+            <span class="product-code">COD: 100003</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img">
+            <img src="https://source.unsplash.com/900x700/?diesel,injector" alt="Injeção diesel">
+          </div>
+          <div class="product-body">
+            <h3>Injeção / bico (exemplo)</h3>
+            <span class="product-code">COD: 100004</span>
+            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO GRANDE: “As melhores peças...” -->
+  <section class="sec sec-feature" aria-label="As melhores peças para o seu trator">
+    <div class="container feature-container">
+      <div class="feature-text">
+        <h2>As melhores peças para o seu trator</h2>
+        <div class="linha-destaque"></div>
+
+        <p>
+          Somos especialistas em peças para tratores e linha pesada, trabalhando com multimarcas e foco total em qualidade.
+          Nosso objetivo é garantir que sua máquina continue operando com força total — com atendimento ágil e suporte na cotação.
+        </p>
+
+        <p>
+          Aqui você encontra itens de manutenção, reposição e componentes essenciais com excelente custo-benefício,
+          além de orientação para escolher a peça correta para o seu equipamento.
+        </p>
+
+        <div class="feature-actions">
+          <a class="btn btn-primary" href="Products.html">Ver produtos</a>
+          <a class="btn btn-outline" href="Contact.html">Falar com a loja</a>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-mini">
+          <strong>Envio rápido</strong>
+          <span>Para todo o Brasil</span>
+        </div>
+        <div class="feature-mini">
+          <strong>Atendimento</strong>
+          <span>WhatsApp e suporte</span>
+        </div>
+        <div class="feature-mini">
+          <strong>Qualidade</strong>
+          <span>Peças selecionadas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTREGA -->
+  <section class="sec-dark" aria-label="Entrega para todo o Brasil">
+    <div class="container delivery-container">
+      <div class="delivery-left">
+        <h2>Entregamos para todo o Brasil.</h2>
+
+        <div class="delivery-items">
+          <div class="delivery-item">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/shipped.png" alt="">
+            <div>
+              <strong>Envio via transportadora</strong>
+              <p>Entregamos em Fortaleza, Região Metropolitana e para todo o país.</p>
+            </div>
+          </div>
+
+          <div class="delivery-item">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/shop.png" alt="">
+            <div>
+              <strong>Retirada na loja</strong>
+              <p>Seu pedido pode ficar disponível para retirada em nossa central por até 30 dias.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="delivery-map">
+        <div class="map-frame" aria-label="Mapa do Brasil">
+          <img src="https://lojaodostratores.com.br/wp-content/uploads/2022/06/mapa.webp" alt="Mapa Brasil">
+          <div class="map-lines" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-spacer" aria-hidden="true"></div>
+
+  <!-- FOOTER (Global.css) -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+
+    <div class="footer-main container">
+      <div class="footer-column col-logo">
+        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png"
+             alt="Logo Branca" class="footer-logo">
+        <span class="redes-text">Nos siga nas Redes Sociais</span>
+        <div class="social-links-footer">
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp"></a>
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+        </div>
+      </div>
+
+      <div class="footer-column col-contato">
+        <h3>Contato</h3>
+        <ul>
+          <li>
+            <img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Local">
+            <span>Avenida Enir Santos, Horizonte - CE</span>
+          </li>
+          <li>
+            <img src="https://img.icons8.com/ios-filled/50/ffcc00/phone.png" alt="Telefone">
+            <span>(85) 96883588</span>
+          </li>
+          <li>
+            <img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png" alt="Email">
+            <span>nicolasgomeshar@gmail.com</span>
+          </li>
+        </ul>
+        <div class="cnpj-text">
+          <strong>CNPJ:</strong> 00.000.000/0001-00<br>
+          <strong>Horário:</strong> Seg a Sex - 08h às 17h
+        </div>
+      </div>
+
+      <div class="footer-column col-menu">
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="Index.html">Home</a></li>
+          <li><a href="About.html">Sobre</a></li>
+          <li><a href="Products.html">Produtos</a></li>
+          <li><a href="Contact.html">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column col-mapa">
+        <h3>Localização</h3>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps?q=Horizonte%20CE&output=embed"
+            width="320"
+            height="220"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Engremaq - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- JS carrossel (sem contador) -->
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".hero-slide"));
+      const prev = document.getElementById("heroPrev");
+      const next = document.getElementById("heroNext");
+      if (!slides.length) return;
+
+      let index = 0;
+      let timer = null;
+      const intervalMs = 6500;
+
+      function setActive(i) {
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s, idx) => s.classList.toggle("is-active", idx === index));
+      }
+
+      function play() {
+        stop();
+        timer = setInterval(() => setActive(index + 1), intervalMs);
+      }
+
+      function stop() {
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+
+      prev && prev.addEventListener("click", function () { setActive(index - 1); play(); });
+      next && next.addEventListener("click", function () { setActive(index + 1); play(); });
+
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) stop();
+        else play();
+      });
+
+      play();
+    })();
+  </script>
+</body>
+</html>
