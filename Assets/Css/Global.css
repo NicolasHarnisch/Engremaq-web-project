@@ -1,0 +1,445 @@
+/* Global.css */
+body, html {
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* --- TOPO (Contatos e Redes) --- */
+.informacao-topo {
+    background-color: #ffcc00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px; 
+    position: relative;
+    z-index: 10;
+}
+.informacao-topo .mensagem {
+    font-size: 15px; 
+    font-weight: 500;
+    color: #111;
+}
+.contatos-sociais {
+    display: flex;
+    gap: 180px; 
+    margin-left: auto; 
+    align-items: center;
+}
+.contatos {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.social-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding-left: 15px;
+}
+.informacao-topo a {
+    color: #111;
+    text-decoration: none;
+    font-weight: 600; 
+    font-size: 15px;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+}
+.informacao-topo a:hover {
+    color: #444;
+}
+.contatos img {
+    width: 18px; 
+    height: 18px;
+    transition: transform 0.3s ease-in-out;
+    object-fit: contain;
+}
+.contatos img:hover {
+    transform: scale(1.1);
+}
+
+/* --- CABEÇALHO --- */
+header {
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    gap: 20px;
+}
+
+header .logo {
+    height: 65px; 
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 40px; 
+}
+
+.search-bar {
+    display: flex;
+    flex: 1;
+    max-width: 350px; 
+    min-width: 200px; 
+    border: 2px solid #ffcc00;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 38px; 
+    margin: 0 20px; 
+    transition: box-shadow 0.3s ease;
+}
+
+.search-bar:focus-within {
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+    border-color: #e6b800;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 0 15px;
+    font-size: 13px; 
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+}
+
+.search-bar button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #e6b800;
+}
+
+.search-bar button img {
+    width: 16px; 
+}
+
+.main-nav ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 25px; 
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600; 
+    font-size: 15px; 
+    padding: 5px 0;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.main-nav ul li a:hover, .main-nav ul li a.active {
+    color: #FFCC00;
+    transform: translateY(-2px);
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.action-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.action-link:hover {
+    color: #ffcc00;
+}
+
+.action-link span {
+    font-weight: 600;
+    font-size: 14px; 
+}
+
+.action-link img {
+    width: 22px; 
+    transition: filter 0.3s ease; 
+}
+
+.action-link:hover img {
+    filter: invert(75%) sepia(74%) saturate(543%) hue-rotate(356deg) brightness(101%) contrast(105%);
+}
+
+.cart-price {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    margin-right: 5px; 
+}
+
+.cart-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon-wrapper img {
+    width: 22px; 
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: #d9534f; 
+    color: white;
+    font-size: 9px; 
+    font-weight: bold;
+    border-radius: 50%;
+    width: 15px; 
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #fff;
+    padding: 0;
+}
+
+
+/* ==========================================================================
+   RODAPÉ (COM IMAGEM DO REPOSITÓRIO E LOGO À ESQUERDA)
+   ========================================================================== */
+.footer {
+    /* Link direto da imagem no seu repositório GitHub */
+    background-image: url('https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/izzuddin-azzam-HKBtu2w52DA-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #222;
+    color: white;
+    text-align: left; 
+    margin-top: 0; 
+    position: relative; 
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.88); 
+    z-index: 1;
+}
+
+.footer-main {
+    position: relative;
+    z-index: 2; 
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 50px 20px 40px; 
+    gap: 30px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+/* --- Coluna 1: Logo e Redes Sociais --- */
+.footer-logo {
+    max-width: 180px; 
+    margin-bottom: -30px;
+    margin-left: -50px; 
+}
+
+.redes-text {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    margin-left: -15px;
+}
+
+.social-links-footer {
+    display: flex; /* Força a ficarem lado a lado */
+    flex-direction: row;      /* Garante a direção horizontal */
+    gap: 15px;                /* Espaço entre um ícone e outro */
+    width: 100%;              /* Garante que o container não esprema os ícones */
+    justify-content: flex-start; 
+    margin-left: -15px;       
+    margin-top: 10px;         /* Espaço entre o texto e os ícones */
+}
+
+.social-links-footer img {
+    width: 22px;              /* Tamanho fixo para não dar erro */
+    height: auto;
+    display: block;
+}
+.social-links-footer img:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+/* Mantendo os títulos e contatos conforme os ajustes anteriores */
+.footer-column h3 {
+    font-size: 18px; 
+    color: #fff; 
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* --- Coluna 2: Contatos (Alinhamento Corrigido) --- */
+.col-contato ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.col-contato li {
+    display: flex;
+    align-items: flex-start; /* Alinha o ícone ao topo da primeira linha de texto */
+    gap: 12px;               /* Espaçamento uniforme entre ícone e texto */
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #ddd;
+    line-height: 1.4;        /* Ajuste para o texto não ficar espalhado */
+}
+
+.col-contato li img {
+    width: 20px;             /* Tamanho fixo para todos os ícones amarelos */
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;          /* Impede que o ícone esmague se o texto crescer */
+    margin-top: 2px;         /* Ajuste fino para alinhar com o centro da primeira linha */
+}
+
+.cnpj-text {
+    font-size: 11px;
+    color: #888;
+    margin-top: 20px;
+    text-transform: uppercase;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+/* --- Coluna 3: Menu --- */
+.col-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.col-menu li {
+    margin-bottom: 12px; 
+}
+
+.col-menu a {
+    color: #fff; 
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600; 
+    transition: color 0.3s ease;
+}
+
+.col-menu a:hover {
+    color: #FFCC00;
+}
+
+/* --- Coluna 4: Mapa Google --- */
+.map-container {
+    width: 100%;
+    background-color: #fff; 
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.map-container iframe {
+    display: block;
+    border-radius: 2px;
+}
+
+/* --- FAIXA AMARELA FINAL --- */
+.footer-bottom {
+    position: relative;
+    z-index: 2;
+    background-color: #ffcc00; 
+    padding: 15px; 
+    text-align: center; 
+    color: #111; 
+    font-size: 12px; 
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+
+@media (max-width: 1050px) {
+    header { padding: 10px 20px; }
+    .right-section { gap: 20px; }
+    .main-nav ul { gap: 15px; }
+    .search-bar { margin: 0 10px; }
+}
+
+@media (max-width: 850px) {
+    .informacao-topo { flex-direction: column; padding: 10px; gap: 10px; text-align: center; }
+    .contatos-sociais { margin-left: 0; justify-content: center; flex-wrap: wrap; gap: 15px; }
+    .social-icons { border-left: none; padding-left: 0; }
+
+    header { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px 20px; }
+    header .logo { order: 1; }
+    .right-section { order: 2; gap: 20px; }
+    .search-bar { order: 3; flex-basis: 100%; max-width: 100%; margin: 5px 0 0 0; }
+
+    .footer-main { flex-direction: column; align-items: center; text-align: center; gap: 40px; }
+    .footer-column { align-items: center; width: 100%; }
+    .col-contato li { flex-direction: column; align-items: center; text-align: center; gap: 5px; }
+    .map-container { max-width: 400px; } 
+    
+    /* Reseta os alinhamentos de margem negativa no mobile */
+    .footer-logo, .redes-text, .social-links-footer {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .right-section { flex-direction: column; width: 100%; }
+    .main-nav ul { flex-wrap: wrap; justify-content: center; }
+    .user-actions { width: 100%; justify-content: center; gap: 30px; }
+    .informacao-topo .contatos { justify-content: center; }
+}

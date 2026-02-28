@@ -3,156 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja dos Tratores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Styles2.css">
-    <style>
-        /* Animação para os elementos */
-        .entrega-section .entrega-content {
-            opacity: 0;
-            transform: translateX(-100%);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-        }
-
-        .entrega-section.show .entrega-content {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .map {
-            opacity: 0;
-            transform: translateX(100%);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-        }
-
-        .entrega-section.show .map {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    </style>
+    <title>Sobre - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Styles About.css">
 </head>
-    <!-- Linha amarela superior -->
+<body>
     <div class="informacao-topo">
         <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
-        <div class="contatos">
-            <a href="tel:+55-85-996883588"><img src="file:///C:/Users/nicol/Downloads/depositphotos_115535044-stock-illustration-phone-icon-black-icon-on-removebg-preview.png" alt="Celular"> (85) 96883588</a>
-            <a href="https://wa.me/5585996883588"><img src="file:///C:/Users/nicol/Downloads/whatsapp-removebg-preview.png" alt="WhatsApp"> (85) 96883588</a>
-            <a href="nicolasgomeshar@gmail.com"><img src="file:///C:/Users/nicol/Downloads/905509e37d5fb75b1aaf4866a93c9d46-removebg-preview.png" alt="Email"> nicolasgomeshar@gmail.com</a>
-        </div>
-        <div class="social-icons">
-            <a href="https://www.instagram.com">Instagram</a></li>
-            <a href="https://www.facebook.com">Facebook</a></li>
+        <div class="contatos-sociais">
+            <div class="contatos">
+                <a href="tel:+55-85-996883588"><img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 96883588</a>
+                <a href="https://wa.me/5585996883588"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 96883588</a>
+                <a href="mailto:nicolasgomeshar@gmail.com"><img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            </div>
         </div>
     </div>
 
-    <!-- Cabeçalho -->
     <header>
-        <img src="file:///c%3A/Users/nicol/Documents/Trabalho%20Include%20Jr/Imagens/image-removebg-preview.png" alt="Logo da Empresa" class="logo">
-        <nav>
-            <ul>
-                <li class="menu-item"><a href="home1.html">Home</a></li>
-                <li class="menu-item"><a href="sobre2.html">Sobre</a></li>
-                <li class="menu-item"><a href="produtos3.html">Produtos</a></li>
-                <li class="menu-item"><a href="contato5.html">Contato</a></li>
-                <li class="menu-item"><a href="pesquisa6.html">Pesquisar</a></li>
-            </ul>
-        </nav>        
+        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Logo da Empresa" class="logo">
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar peças...">
+            <button type="button">
+                <img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar">
+            </button>
+        </div>
+
+        <div class="right-section">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="About.html" class="active">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html">Contato</a></li>
+                </ul>
+            </nav>
+
+            <div class="user-actions">
+                <a href="Login.html" class="action-link">
+                    <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
+                    <span>Entrar</span>
+                </a>
+                
+                <a href="Carrinho.html" class="action-link">
+                    <span class="cart-price">R$ 0,00</span>
+                    <div class="cart-icon-wrapper">
+                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <span class="cart-badge">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
     </header>
 
-    <!-- Carrossel de imagens -->
-    <section id="carrossel">
-        <div class="carousel-container">
-            <div class="carousel-slide">
-                <img src="file:///c%3A/Users/nicol/Documents/Trabalho%20Include%20Jr/Imagens/Imagem%20do%20WhatsApp%20de%202024-11-17%20%C3%A0%28s%29%2016.24.59_5e907f91.jpg" alt="Carrossel 1">
-                <img src="file:///c%3A/Users/nicol/Documents/Trabalho%20Include%20Jr/Imagens/Captura%20de%20tela%202024-11-17%20161111.png" alt="Carrossel 2">
-            </div>
+    <section class="hero-sobre">
+        <div class="hero-content">
+            <h1>Conheça a Engremaq</h1>
         </div>
     </section>
 
-    <!-- Missão, Visão e Valores -->
     <section id="missao">
-        <div class="container">
-            <div class="item">
-                <img src="file:///C:/Users/nicol/Downloads/image-removebg-preview.png" alt="Logo Missão" class="logo">
+        <div class="container cards-container">
+            <div class="card-item">
+                <div class="icon-wrapper">
+                    <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq__1_-removebg-preview.png" alt="Logo Missão">
+                </div>
                 <h2>Missão</h2>
-                <p>Entender e atender com eficiência e precisão as
-                    necessidades dos nossos clientes, oferecendo produtos de
-                    qualidade e preços competitivos.</p>
+                <p>Entender e atender com eficiência e precisão as necessidades dos nossos clientes, oferecendo produtos de qualidade e preços competitivos.</p>
             </div>
-            <div class="item">
-                <img src="file:///C:/Users/nicol/Downloads/image-removebg-preview.png" alt="Logo Missão" class="logo">
-                <h2>Visão</h2>
-                <p>Ser referência de excelência em produtos para tratores e
-estar entre os principais distribuidores de peças de
-reposição do mercado.</p>
-            </div>
-            <div class="item">
-                <img src="file:///C:/Users/nicol/Downloads/image-removebg-preview.png" alt="Logo Missão" class="logo">
+            
+            <div class="card-item">
+                <div class="icon-wrapper">
+                    <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq__1_-removebg-preview.png" alt="Logo Valores">
+                </div>
                 <h2>Valores</h2>
-                <ul>
+                <ul class="lista-valores">
                     <li>Qualidade</li>
                     <li>Inovação</li>
                     <li>Compromisso com o cliente</li>
                     <li>Respeito ao meio ambiente</li>
                 </ul>
             </div>
+
+            <div class="card-item">
+                <div class="icon-wrapper">
+                    <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq__1_-removebg-preview.png" alt="Logo Visão">
+                </div>
+                <h2>Visão</h2>
+                <p>Ser referência de excelência em produtos para tratores e estar entre os principais distribuidores de peças de reposição do mercado.</p>
+            </div>
         </div>
     </section>
-    <!-- Linha amarela com o texto de contato -->
-<div class="contact-line">
-    <span>Ficou interessado? Entre em contato conosco e peça um orçamento! </span>
-    <a href="mailto:contato@engremaq.com">Clique aqui</a>
-</div>
 
-    <!-- Seção Home -->
+    <div class="contact-line">
+        <div class="container cta-container">
+            <span>Ficou interessado? Entre em contato conosco e peça um orçamento!</span>
+            <a href="mailto:contato@engremaq.com" class="btn-cta">Clique aqui</a>
+        </div>
+    </div>
+
     <section id="home">
-        <div class="home-container">
+        <div class="container home-container">
             <div class="home-textos">
                 <h2>Peças para tratores semi-novas</h2>
-                <img src="https://lojaodostratores.com.br/wp-content/uploads/2022/06/divisor-default.png" alt="Imagem dos tratores" />
-                <p>A busca por peças semi novas para tratores é a alternativa para os altos valores das peças originais para as principais marcas disponíveis no mercado.
-                <br>
-                <br>
-                    Devido aos altos valores praticados, o Lojão dos Tratores vem oferendo essa alternativa de custo e disponibilidade acessíveis, além de suporte e rápida entrega, solucionando sua necessidade por peças originais semi-novas.
-                <br> 
-                <br>   
-                    Faça um orçamento sem compromisso e veja como a nossa proposta pode vir de encontro com sua busca.</p>
-                <div class="info-links">
-                </div>
+                <div class="linha-destaque"></div>
+                <p>A busca por peças semi-novas para tratores tem se tornado a principal alternativa inteligente frente aos altos custos das peças novas cobrados pelas grandes marcas do mercado. Sabemos que manter sua máquina operando com força total é essencial, e a manutenção não precisa ser um obstáculo financeiro.</p>
+                
+                <p>Pensando nisso, a <strong>Engremaq</strong> oferece um vasto catálogo de peças originais semi-novas, rigorosamente inspecionadas e testadas por nossa equipe técnica. Garantimos uma excelente relação de custo-benefício, unindo preços muito mais acessíveis a um alto padrão de confiabilidade para o seu equipamento.</p>
+                
+                <p>Além da economia financeira, nosso grande diferencial está na disponibilidade imediata, no suporte técnico especializado e na agilidade da entrega. Nós compreendemos que, seja no campo ou na obra, máquina parada é prejuízo, e nossa missão é solucionar o seu problema no menor prazo possível.</p>
+                
+                <p>Não deixe seu trator parado. Faça um orçamento sem compromisso conosco e descubra como as nossas propostas podem ir exatamente de encontro com a sua busca!</p>
             </div>
 
             <div class="home-imagem">
-                <img src="file:///C:/Users/nicol/Pictures/Screenshots/Captura%20de%20tela%202024-11-17%20222555.png" alt="Imagem dos tratores" />
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Captura%20de%20tela%202024-11-27%20004003.png?raw=true" alt="Mecânico com trator" class="img-destaque" />
             </div>
         </div>
     </section>
 
-    <!-- Rodapé Principal -->
     <footer class="footer">
-        <div class="footer-main">
-            <!-- Coluna de Redes Sociais -->
-            <div class="footer-column">
-                <h3>Nos siga nas Redes Sociais</h3>
-                <ul class="social-links">
-                    <li><a href="https://www.facebook.com" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a></li>
-                    <li><a href="https://www.instagram.com" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a></li>
+        <div class="footer-overlay"></div>
+        
+        <div class="footer-main container">
+            
+            <div class="footer-column col-logo">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Logo Branca" class="footer-logo">
+                <span class="redes-text">Nos siga nas<br>Redes Sociais</span>
+                <div class="social-links-footer">
+                    <a href="https://wa.me/5585996883588" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp"></a>
+                    <a href="https://www.instagram.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new--v1.png" alt="Instagram"></a>
+                    <a href="https://www.facebook.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+                </div>
+            </div>
+
+            <div class="footer-column col-contato">
+                <h3>Contato</h3>
+                <ul>
+                    <li>
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Local"> 
+                        <span>Avenida Enir Santos, Lagoinha<br>Horizonte - CE</span>
+                    </li>
+                    <li>
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/phone.png" alt="Telefone"> 
+                        <span>(85) 99688-3588</span>
+                    </li>
+                    <li>
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/whatsapp--v1.png" alt="WhatsApp"> 
+                        <span>(85) 99688-3588</span>
+                    </li>
+                    <li>
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png" alt="Email"> 
+                        <span>nicolasgomeshar@gmail.com</span>
+                    </li>
+                </ul>
+                <p class="cnpj-text">ENGREMAQ COMÉRCIO DE PEÇAS<br>LTDA CNPJ: 00.000.000/0000-00</p>
+            </div>
+
+            <div class="footer-column col-menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="About.html">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html">Contato</a></li>
                 </ul>
             </div>
 
-            <!-- Coluna de Contato -->
-            <div class="footer-column">
-                <h3>Contato</h3>
-                <p>Avenida Enir Santos, Lagoinha, Horizonte - CE</p>
-                <p><strong>Celular:</strong> (85) 996883588</p>
-                <p><strong>Email:</strong> <a href="mailto:nicolasgomeshar@gmail.com">nicolasgomeshar@gmail.com</a></p>
-                <p>ENGREMAQ COMERCIO DE PEÇAS LTDA</p>
+            <div class="footer-column col-mapa">
+                <h3>Nossa localização</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15895.889091564779!2d-38.4878586!3d-4.0984955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7b9c1d1a1b1a1b1%3A0x1b1a1b1a1b1a1b1a!2sHorizonte%2C%20CE!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" width="100%" height="160" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
-        </div>
 
-        <!-- Linha de Separação -->
-        <div class="footer-bottom">
-            <p>&copy; 2024 ENGREMAQ. Todos os direitos reservados.</p>
         </div>
     </footer>
+    
+    <div class="footer-bottom">
+        <p>© 2024 ENGREMAQ COMÉRCIO DE PEÇAS LTDA. TODOS OS DIREITOS RESERVADOS.</p>
+    </div>
 </body>
 </html>
