@@ -41,12 +41,23 @@ To run this project locally, you need to have a few tools installed on your comp
 First, you need to clone the repository to your computer. To do this, open your terminal or command prompt and follow these steps:
 
 1.  **Copy the repository link**:
+<<<<<<< HEAD
     Go to the repository on GitHub and copy the clone URL. The link should look something like `https://github.com/NicolasHarnisch/construcao-de-um-site.git`.
+=======
+    Go to the repository on GitHub and copy the clone URL. The link should look something like `https://github.com/NicolasHarnisch/Engremaq-web-project.git`.
+>>>>>>> 1a8aa023a2a677a99d844befcfc3fd174301234a
 
 2.  **Clone the repository**:
     In your terminal, run the command below to clone the repository:
     ```bash
+<<<<<<< HEAD
       git clone [https://github.com/NicolasHarnisch/construcao-de-um-site.git](https://github.com/NicolasHarnisch/construcao-de-um-site.git)
     ```
 3. **Open the project**:
     Navigate into the created folder and open the `index.html` file in your browser to see the website.
+=======
+      git clone https://github.com/NicolasHarnisch/Engremaq-web-project.git
+    ```
+3. **Open the project**:
+    Navigate into the created folder and open the `index.html` file in your browser to see the website.
+>>>>>>> 1a8aa023a2a677a99d844befcfc3fd174301234a
