@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Login.css">
+</head>
+<body>
+    <div class="informacao-topo">
+        <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
+        <div class="contatos-sociais">
+            <div class="contatos">
+                <a href="tel:+5585996883588"><img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588</a>
+                <a href="https://wa.me/5585996883588" target="_blank"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588</a>
+                <a href="mailto:nicolasgomeshar@gmail.com"><img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar peças...">
+            <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
+        </div>
+        <div class="right-section">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="About.html">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="Login.html" class="action-link">
+                    <img src="https://img.icons8.com/ios-filled/50/ffcc00/user.png" alt="Conta">
+                    <span style="color: #ffcc00;">Entrar</span>
+                </a>
+                <a href="Cart.html" class="action-link">
+                    <span class="cart-price">R$ 0,00</span>
+                    <div class="cart-icon-wrapper">
+                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <span class="cart-badge">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Acesse sua conta</h2>
+                <p>Bem-vindo de volta à Engremaq!</p>
+            </div>
+            
+            <form action="#" method="POST" id="form-login">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Lembrar de mim
+                    </label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-main container">
+            <div class="footer-column col-logo">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Logo Branca" class="footer-logo">
+                <span class="redes-text">Nos siga nas Redes Sociais</span>
+                <div class="social-links-footer">
+                    <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp"></a>
+                    <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+                    <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+                </div>
+            </div>
+            <div class="footer-column col-contato">
+                <h3>Contato</h3>
+                <ul>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Local"> <span>Avenida Enir Santos, Horizonte - CE</span></li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/phone.png" alt="Telefone"> <span>(85) 99688-3588</span></li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png" alt="Email"> <span>nicolasgomeshar@gmail.com</span></li>
+                </ul>
+                <div class="cnpj-text"><strong>CNPJ:</strong> 00.000.000/0001-00<br><strong>Horário:</strong> Seg a Sex - 08h às 17h</div>
+            </div>
+            <div class="footer-column col-menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="About.html">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-column col-mapa">
+                <h3>Localização</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps?q=Horizonte%20CE&output=embed" width="320" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
+    </footer>
+</body>
+</html>

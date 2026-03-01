@@ -1,154 +1,91 @@
-/*Scroll lateral lock*/
-body, html {
-    overflow-x: hidden;
-  }
-  
-  /* Estilos gerais */
-  /* Estilo padrão para os itens de navegação */
-.menu-item a {
-    color: #000; /* Cor padrão (preto) */
-    text-decoration: none;
-    padding: 10px;
+/* Style Contact.css - Apenas estilos específicos do corpo da página de contato */
+
+.contact-page {
+    padding: 60px 0;
+    background-color: #f9f9f9;
 }
 
-/* Quando a página estiver ativa, o texto será amarelo */
-.menu-item a.active {
-    color: #FFCC00; /* Cor amarela para o item ativo */
-    font-weight: bold; /* Opção para adicionar negrito */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Divide a tela em duas colunas */
+    gap: 50px;
+    align-items: flex-start;
 }
 
-/* Efeito de hover (quando passar o mouse sobre os links) */
-.menu-item a:hover {
-    color: #FF6600; /* Cor ao passar o mouse */
-}
-
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px 0;
-  }
-  
-  /* Linha amarela */
-  .informacao-topo {
-    background-color: #ffcc00;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    position: relative;
-    z-index: 10;
-  }
-  
-  /* Estilo para o texto da mensagem */
-  .informacao-topo .mensagem {
-    margin-left: 20px;
-    font-size: 18px;
-  }
-  
-  /* Estilos para os links interativos no topo */
-  .informacao-topo a {
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
-  
-  .informacao-topo a:hover {
-    color: #000;
-  }
-  
-  /* Contêiner de ícones, garantindo que o tamanho não ultrapasse os limites */
-  .informacao-topo .contatos {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    max-width: 100%;  /* Garante que o contêiner não ultrapasse o tamanho da tela */
-    flex-wrap: wrap;  /* Permite que os ícones se ajustem à largura disponível */
-    overflow: hidden; /* Evita que o conteúdo ultrapasse o contêiner */
-  }
-  
-  /* Ajustes finais para os ícones */
-  .informacao-topo .contatos img {
-    width: 20px;  /* Tamanho adequado para os ícones */
-    height: 20px; /* Mantendo proporção para o tamanho */
-    margin-right: 10px; /* Espaço entre os ícones */
-    transition: transform 0.3s ease-in-out;
-    object-fit: contain; /* Assegura que o ícone não distorça */
-  }
-  
-  /* Efeito de hover */
-  .informacao-topo .contatos img:hover {
-    transform: scale(1.1); /* Efeito de aumento ao passar o mouse */
-  }
-  
-  /* Efeito de hover */
-  .informacao-topo .contatos img:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Ajuste para a área de ícones sociais */
-  .contatos {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  /* Ajustes finais para a área de ícones sociais */
-  .social-icons {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-  }
-  
-  /* Cabeçalho */
-  header {
+/* --- LADO ESQUERDO: INFORMAÇÕES --- */
+.contact-info {
     background-color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.contact-info h2 {
+    font-size: 32px;
+    color: #111;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.linha-destaque {
+    width: 60px;
+    height: 4px;
+    background-color: #ffcc00;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.info-list {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  header .logo {
-    height: 80px;
-    margin-left: 130px;
-  }
-  
-  nav ul {
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info-item {
     display: flex;
-    justify-content: flex-end;
-    list-style-type: none;
-    margin-right: 30px;
-  }
-  
-  nav ul li {
-    margin-left: 20px;
-  }
-  
-  nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 18px;
-    transition: color 0.5s, transform 0.3s;
-  }
-  
-  nav ul li a:hover {
-    color: #ffcc00;
-    transform: translateY(-2px);
-  }
-  
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.info-item img {
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
+}
+
+.info-item h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    color: #111;
+}
+
+.info-item span {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* --- LADO DIREITO: FORMULÁRIO --- */
+.contact-form-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.contact-form-box h3 {
+    font-size: 24px;
+    color: #111;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
 
 #form-contato {
     display: flex;
@@ -157,38 +94,70 @@ body, html {
 }
 
 .form-group {
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .form-group label {
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 600;
+    color: #333;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fafafa;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ffcc00;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
 }
 
 .form-group textarea {
-    height: 150px;
+    height: 140px;
     resize: vertical;
 }
 
-button {
-    padding: 12px 20px;
-    background-color: #004d00;
-    color: white;
+/* Botão de Envio */
+.btn-submit {
+    padding: 16px;
+    background-color: #ffcc00;
+    color: #111;
     border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
 }
 
-button:hover {
-    background-color: #006600;
+.btn-submit:hover {
+    background-color: #e6b800;
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVIDADE PÁGINA CONTATO --- */
+@media (max-width: 900px) {
+    .contact-container {
+        grid-template-columns: 1fr; /* Coloca uma coluna embaixo da outra no celular */
+        gap: 30px;
+    }
+
+    .contact-info, .contact-form-box {
+        padding: 30px 20px;
+    }
 }

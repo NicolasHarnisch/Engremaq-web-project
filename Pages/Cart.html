@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos - Engremaq</title>
+    <title>Carrinho - Engremaq</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Css/Global.css">
-    <link rel="stylesheet" href="../Assets/Css/Style Products.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Cart.css">
 </head>
 <body>
     <div class="informacao-topo">
@@ -35,7 +35,7 @@
                 <ul>
                     <li><a href="Index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
-                    <li><a href="Products.html" class="active">Produtos</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
                     <li><a href="Contact.html">Contato</a></li>
                 </ul>
             </nav>
@@ -45,95 +45,72 @@
                     <span>Entrar</span>
                 </a>
                 <a href="Cart.html" class="action-link">
-                    <span class="cart-price">R$ 0,00</span>
+                    <span class="cart-price" style="color: #ffcc00;">R$ 820,00</span>
                     <div class="cart-icon-wrapper">
-                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
-                        <span class="cart-badge">0</span>
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png" alt="Carrinho">
+                        <span class="cart-badge">1</span>
                     </div>
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="products-layout container">
-        
-        <aside class="sidebar">
-            <h3>Categorias de Produtos</h3>
-            <ul>
-                <li><a href="#">Acessórios em Geral <span>(268)</span></a></li>
-                <li><a href="#">Anéis <span>(278)</span></a></li>
-                <li><a href="#">Arruelas <span>(86)</span></a></li>
-                <li><a href="#">Bombas e Sistema Hidráulico <span>(249)</span></a></li>
-                <li><a href="#">Borrachas <span>(2)</span></a></li>
-                <li><a href="#">Cabos <span>(3)</span></a></li>
-                <li><a href="#">Cardans e Cruzetas <span>(36)</span></a></li>
-                <li><a href="#">Compressores <span>(18)</span></a></li>
-                <li><a href="#">Correias <span>(53)</span></a></li>
-            </ul>
-        </aside>
+    <main class="cart-container container">
+        <div class="cart-header">
+            <h2>Meu Carrinho</h2>
+            <a href="Products.html" class="continue-shopping">Continuar comprando</a>
+        </div>
 
-        <section class="catalogo-content">
-            <h2>Catálogo de Peças</h2>
-            <div class="catalogo-grid">
+        <div class="cart-layout">
+            <div class="cart-items-section">
                 
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/download.jpeg" alt="Filtro">
+                <div class="cart-item">
+                    <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" alt="Produto">
+                    <div class="item-info">
+                        <h3>Engrenagem de Tração Trator MF</h3>
+                        <p class="item-code">COD: 100003</p>
                     </div>
-                    <div class="card-info">
-                        <h3>Filtro de Óleo</h3>
-                        <p class="preco">R$ 150,00</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
+                    <div class="item-controls">
+                        <div class="quantity-box">
+                            <button>-</button>
+                            <input type="number" value="1" readonly>
+                            <button>+</button>
                         </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" alt="Engrenagem">
-                    </div>
-                    <div class="card-info">
-                        <h3>Engrenagem de Tração</h3>
-                        <p class="preco">R$ 820,00</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/8PK1930GOOD_02.webp" alt="Correia">
-                    </div>
-                    <div class="card-info">
-                        <h3>Correia de Reposição</h3>
-                        <p class="preco">R$ 250,00</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/bomba-injetora-trator-new-holland-7610-dps-ano-inicial-1992-ano-final-motor-fnh-268-cu-in-codigo-montadora-esnn9a543va-0d8e4a0a.webp" alt="Bomba">
-                    </div>
-                    <div class="card-info">
-                        <h3>Bomba Injetora New Holland</h3>
-                        <p class="preco">Consulte Orçamento</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
+                        <span class="item-total">R$ 820,00</span>
+                        <button class="btn-remove-item"><img src="https://img.icons8.com/ios-filled/50/ef4444/trash.png" alt="Remover"></button>
                     </div>
                 </div>
 
             </div>
-        </section>
+
+            <div class="cart-summary">
+                <h3>Resumo do Pedido</h3>
+                
+                <div class="summary-row">
+                    <span>Subtotal (1 item)</span>
+                    <span>R$ 820,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span class="freight-calc">A calcular</span>
+                </div>
+                
+                <div class="freight-input">
+                    <input type="text" placeholder="Digite seu CEP">
+                    <button>OK</button>
+                </div>
+
+                <div class="summary-total">
+                    <strong>Total</strong>
+                    <strong>R$ 820,00</strong>
+                </div>
+
+                <button class="btn-checkout">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp">
+                    Finalizar via WhatsApp
+                </button>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">

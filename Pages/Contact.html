@@ -1,74 +1,249 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato - Loja dos Tratores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../Assets/Css/Styles Contact.css">
+    <title>Contato - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Contact.css">
 </head>
-<!-- Linha amarela superior -->
-<div class="informacao-topo">
-    <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
-    <div class="contatos">
-        <a href="tel:+55-85-996883588"><img src="file:///C:/Users/nicol/Downloads/depositphotos_115535044-stock-illustration-phone-icon-black-icon-on-removebg-preview.png" alt="Celular"> (85) 96883588</a>
-        <a href="https://wa.me/5585996883588"><img src="file:///C:/Users/nicol/Downloads/whatsapp-removebg-preview.png" alt="WhatsApp"> (85) 96883588</a>
-        <a href="nicolasgomeshar@gmail.com"><img src="file:///C:/Users/nicol/Downloads/905509e37d5fb75b1aaf4866a93c9d46-removebg-preview.png" alt="Email"> nicolasgomeshar@gmail.com</a>
-    </div>
-    <div class="social-icons">
-        <a href="https://www.instagram.com">Instagram</a></li>
-        <a href="https://www.facebook.com">Facebook</a></li>
-    </div>
-</div>
-
-<!-- Cabeçalho -->
-<header>
-    <img src="file:///c%3A/Users/nicol/Documents/Trabalho%20Include%20Jr/Imagens/image-removebg-preview.png" alt="Logo da Empresa" class="logo">
-    <nav>
-        <ul>
-            <li class="menu-item"><a href="home1.html">Home</a></li>
-            <li class="menu-item"><a href="sobre2.html">Sobre</a></li>
-            <li class="menu-item"><a href="produtos3.html">Produtos</a></li>
-            <li class="menu-item"><a href="contato5.html">Contato</a></li>
-            <li class="menu-item"><a href="pesquisar6.html">Pesquisar</a></li>
-        </ul>
-    </nav>        
-</header>
-
-    <!-- Formulário de Contato -->
-    <section id="contato">
-        <div class="container">
-            <h2>Entre em Contato</h2>
-            <form id="form-contato" method="POST" action="enviar_mensagem.php">
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" required placeholder="Seu nome">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required placeholder="Seu e-mail">
-                </div>
-
-                <div class="form-group">
-                    <label for="mensagem">Mensagem:</label>
-                    <textarea id="mensagem" name="mensagem" rows="4" required placeholder="Sua mensagem"></textarea>
-                </div>
-
-                <button type="submit">Enviar</button>
-            </form>
+<body>
+    <div class="informacao-topo">
+        <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
+        <div class="contatos-sociais">
+            <div class="contatos">
+                <a href="tel:+5585996883588"><img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588</a>
+                <a href="https://wa.me/5585996883588" target="_blank"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588</a>
+                <a href="mailto:nicolasgomeshar@gmail.com"><img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Rodapé -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Engremaq - Todos os direitos reservados.</p>
+    <header>
+        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar peças...">
+            <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
         </div>
+        <div class="right-section">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="About.html">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html" class="active">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="Login.html" class="action-link">
+                    <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
+                    <span>Entrar</span>
+                </a>
+                <a href="Carrinho.html" class="action-link">
+                    <span class="cart-price">R$ 0,00</span>
+                    <div class="cart-icon-wrapper">
+                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <span class="cart-badge">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        <div class="container contact-container">
+            
+            <div class="contact-info">
+                <h2>Fale Conosco</h2>
+                <div class="linha-destaque"></div>
+                <p>Nossa equipe está pronta para tirar suas dúvidas, realizar orçamentos e te ajudar a encontrar a peça certa para a sua máquina.</p>
+                
+                <div class="info-list">
+                    <div class="info-item">
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Localização">
+                        <div>
+                            <h4>Endereço</h4>
+                            <span>Avenida Enir Santos, Lagoinha<br>Horizonte - CE</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/whatsapp--v1.png" alt="WhatsApp">
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <span>(85) 99688-3588</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png" alt="Email">
+                        <div>
+                            <h4>E-mail</h4>
+                            <span>nicolasgomeshar@gmail.com</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/clock--v1.png" alt="Horário">
+                        <div>
+                            <h4>Horário de Atendimento</h4>
+                            <span>Segunda a Sexta - 08h às 17h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-box">
+                <h3>Envie uma mensagem</h3>
+                
+                <form id="form-contato">
+                    
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assunto">Assunto / Peça Procurada</label>
+                        <input type="text" id="assunto" name="assunto" required placeholder="Ex: Orçamento Filtro de Óleo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" required placeholder="Escreva os detalhes da sua solicitação..."></textarea>
+                    </div>
+
+                    <div id="msg-sucesso" style="display: none; color: #22c55e; font-weight: bold; margin-bottom: 15px; font-size: 15px;">
+                        ✅ Mensagem enviada com sucesso! Retornaremos em breve.
+                    </div>
+                    
+                    <div id="msg-erro" style="display: none; color: #ef4444; font-weight: bold; margin-bottom: 15px; font-size: 15px;">
+                        ❌ Limite atingido: Este e-mail já enviou o máximo de mensagens (10).
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-enviar">Enviar Mensagem</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-main container">
+            <div class="footer-column col-logo">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Logo Branca" class="footer-logo">
+                <span class="redes-text">Nos siga nas Redes Sociais</span>
+                <div class="social-links-footer">
+                    <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp"></a>
+                    <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+                    <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+                </div>
+            </div>
+            <div class="footer-column col-contato">
+                <h3>Contato</h3>
+                <ul>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Local"> <span>Avenida Enir Santos, Horizonte - CE</span></li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/phone.png" alt="Telefone"> <span>(85) 99688-3588</span></li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png" alt="Email"> <span>nicolasgomeshar@gmail.com</span></li>
+                </ul>
+                <div class="cnpj-text"><strong>CNPJ:</strong> 00.000.000/0001-00<br><strong>Horário:</strong> Seg a Sex - 08h às 17h</div>
+            </div>
+            <div class="footer-column col-menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="About.html">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-column col-mapa">
+                <h3>Localização</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps?q=Horizonte%20CE&output=embed" width="320" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script>
+        document.getElementById("form-contato").addEventListener("submit", function(e) {
+            e.preventDefault(); // Impede a página de recarregar e ir para o site branco
 
+            const emailInput = document.getElementById("email").value.trim().toLowerCase();
+            const msgSucesso = document.getElementById("msg-sucesso");
+            const msgErro = document.getElementById("msg-erro");
+            const btnEnviar = document.getElementById("btn-enviar");
+
+            // Esconde mensagens antigas
+            msgSucesso.style.display = "none";
+            msgErro.style.display = "none";
+
+            // Puxa o histórico de envios do navegador (localStorage)
+            let envios = JSON.parse(localStorage.getItem("historicoEnvios")) || {};
+
+            // VERIFICAÇÃO DO LIMITE DE 10 MENSAGENS POR E-MAIL
+            if (envios[emailInput] >= 10) {
+                msgErro.style.display = "block"; // Mostra o erro vermelho
+                return; // Para a execução do código aqui e não envia
+            }
+
+            // Muda o botão para "Enviando..."
+            btnEnviar.textContent = "Enviando...";
+            btnEnviar.disabled = true;
+            btnEnviar.style.opacity = "0.7";
+
+            // Prepara os dados do formulário
+            const formData = new FormData(this);
+            
+            // Configurações extras do FormSubmit
+            formData.append("_captcha", "false");
+            formData.append("_subject", "Novo contato pelo site Engremaq!");
+
+            // Usa a versão /ajax/ do FormSubmit
+            fetch("https://formsubmit.co/ajax/nicolasgomeshar@gmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Mostra mensagem verde de sucesso
+                    msgSucesso.style.display = "block";
+                    
+                    // Limpa os campos do formulário
+                    document.getElementById("form-contato").reset();
+
+                    // Adiciona +1 no contador de envios desse e-mail
+                    envios[emailInput] = (envios[emailInput] || 0) + 1;
+                    localStorage.setItem("historicoEnvios", JSON.stringify(envios));
+                } else {
+                    alert("Ocorreu um erro no servidor do formulário.");
+                }
+            })
+            .catch(error => {
+                alert("Erro ao enviar. Verifique sua conexão com a internet.");
+            })
+            .finally(() => {
+                // Restaura o botão ao normal
+                btnEnviar.textContent = "Enviar Mensagem";
+                btnEnviar.disabled = false;
+                btnEnviar.style.opacity = "1";
+            });
+        });
+    </script>
+</body>
 </html>

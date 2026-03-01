@@ -17,10 +17,10 @@
     <div class="contatos-sociais">
       <div class="contatos">
         <a href="tel:+55-85-85-996883588">
-          <img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 96883588
+          <img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588
         </a>
         <a href="https://wa.me/5585996883588" target="_blank" rel="noopener">
-          <img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 96883588
+          <img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588
         </a>
         <a href="mailto:nicolasgomeshar@gmail.com">
           <img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com
@@ -49,19 +49,19 @@
       <nav class="main-nav">
         <ul>
           <li><a href="Index.html" class="active">Home</a></li>
-          <li><a href="Pages/About.html">Sobre</a></li>
-          <li><a href="Pages/Products.html">Produtos</a></li>
-          <li><a href="Pages/Contact.html">Contato</a></li>
+          <li><a href="About.html">Sobre</a></li>
+          <li><a href="Products.html">Produtos</a></li>
+          <li><a href="Contact.html">Contato</a></li>
         </ul>
       </nav>
 
       <div class="user-actions">
-        <a href="Pages/Login.html" class="action-link">
+        <a href="Login.html" class="action-link">
           <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
           <span>Entrar</span>
         </a>
 
-        <a href="Pages/Carrinho.html" class="action-link">
+        <a href="Cart.html" class="action-link">
           <span class="cart-price">R$ 0,00</span>
           <div class="cart-icon-wrapper">
             <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
@@ -74,17 +74,47 @@
 
   <section class="hero-old" aria-label="Banner principal">
     <div class="hero-slides" id="heroSlides" aria-hidden="true">
-      <img class="hero-slide is-active" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/izzuddin-azzam-HKBtu2w52DA-unsplash.jpg" alt="Trator amarelo">
-      <img class="hero-slide" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/fornecedor-de-peca-para-motor-shibaura.jpg" alt="Motor trator">
-      <img class="hero-slide" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Captura%20de%20tela%202024-11-17%20161111.png" alt="Peças">
-    </div>
+      
+      <div class="hero-slide is-active">
+        <img class="bg-img" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/izzuddin-azzam-HKBtu2w52DA-unsplash.jpg" alt="Trator amarelo">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>Revendedor Autorizado Engremaq</h1>
+          <p>Potência e desempenho reconhecidos mundialmente</p>
+          <a class="hero-btn" href="Products.html">CLIQUE AQUI</a>
+        </div>
+      </div>
 
-    <div class="hero-overlay"></div>
+      <div class="hero-slide">
+        <img class="bg-img" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/fornecedor-de-peca-para-motor-shibaura.jpg" alt="Motor Perkins">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>Revendedor Autorizado Perkins</h1>
+          <p>Potência e desempenho reconhecidos mundialmente</p>
+          <a class="hero-btn" href="Products.html">CLIQUE AQUI</a>
+        </div>
+      </div>
 
-    <div class="hero-content">
-      <h1>Revendedor Autorizado Engremaq</h1>
-      <p>Potência e desempenho reconhecidos mundialmente</p>
-      <a class="hero-btn" href="#promocao">CLIQUE AQUI</a>
+      <div class="hero-slide">
+        <img class="bg-img" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Captura%20de%20tela%202024-11-17%20161111.png" alt="Hyundai Tratores">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>Revendedor Autorizado Hyundai</h1>
+          <p>Força e inovação que impulsionam grandes obras.</p>
+          <a class="hero-btn" href="Products.html">CLIQUE AQUI</a>
+        </div>
+      </div>
+
+      <div class="hero-slide">
+        <img class="bg-img" src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/images.jpeg" alt="Mahle Peças">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>Revendedor Autorizado MAHLE</h1>
+          <p>Os componentes que garantem potência, durabilidade e economia</p>
+          <a class="hero-btn" href="Products.html">CLIQUE AQUI</a>
+        </div>
+      </div>
+
     </div>
 
     <button class="hero-arrow hero-prev" type="button" aria-label="Slide anterior" id="heroPrev">‹</button>
@@ -106,7 +136,10 @@
           <div class="product-body">
             <h3>Correia — reposição rápida</h3>
             <span class="product-code">COD: 000001</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
 
@@ -117,7 +150,10 @@
           <div class="product-body">
             <h3>Peça metálica — linha pesada</h3>
             <span class="product-code">COD: 000002</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
 
@@ -128,7 +164,10 @@
           <div class="product-body">
             <h3>Filtro de ar Massey — alta eficiência</h3>
             <span class="product-code">COD: 000003</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
       </div>
@@ -150,7 +189,10 @@
           <div class="product-body">
             <h3>Filtro de óleo</h3>
             <span class="product-code">COD: 100001</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
 
@@ -161,7 +203,10 @@
           <div class="product-body">
             <h3>Kit manutenção de motor 229</h3>
             <span class="product-code">COD: 100002</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
 
@@ -172,7 +217,10 @@
           <div class="product-body">
             <h3>Engrenagem de Tração</h3>
             <span class="product-code">COD: 100003</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
 
@@ -183,7 +231,10 @@
           <div class="product-body">
             <h3>Bomba Injetora New Holland</h3>
             <span class="product-code">COD: 100004</span>
-            <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            <div class="card-buttons">
+                <button class="btn btn-cart">Adicionar ao Carrinho</button>
+                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+            </div>
           </div>
         </article>
       </div>
@@ -207,8 +258,8 @@
         </p>
 
         <div class="feature-actions">
-          <a class="btn btn-primary" href="Pages/Products.html">Ver produtos</a>
-          <a class="btn btn-outline" href="Pages/Contact.html">Falar com a loja</a>
+          <a class="btn btn-primary" href="Products.html">Ver produtos</a>
+          <a class="btn btn-outline" href="Contact.html">Falar com a loja</a>
         </div>
       </div>
 
@@ -236,7 +287,7 @@
 
         <div class="delivery-items">
           <div class="delivery-item">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/shipped.png" alt="">
+            <img src="https://img.icons8.com/ios-filled/50/ffcc00/shipped.png" alt="Caminhão">
             <div>
               <strong>Envio via transportadora</strong>
               <p>Entregamos em Fortaleza, Região Metropolitana e para todo o país.</p>
@@ -244,7 +295,7 @@
           </div>
 
           <div class="delivery-item">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/shop.png" alt="">
+            <img src="https://img.icons8.com/ios-filled/50/ffcc00/shop.png" alt="Loja">
             <div>
               <strong>Retirada na loja</strong>
               <p>Seu pedido pode ficar disponível para retirada em nossa central por até 30 dias.</p>
@@ -261,8 +312,6 @@
       </div>
     </div>
   </section>
-
-  <div class="page-spacer" aria-hidden="true"></div>
 
   <footer class="footer">
     <div class="footer-overlay"></div>
@@ -288,7 +337,7 @@
           </li>
           <li>
             <img src="https://img.icons8.com/ios-filled/50/ffcc00/phone.png" alt="Telefone">
-            <span>(85) 96883588</span>
+            <span>(85) 99688-3588</span>
           </li>
           <li>
             <img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png" alt="Email">
@@ -305,9 +354,9 @@
         <h3>Menu</h3>
         <ul>
           <li><a href="Index.html">Home</a></li>
-          <li><a href="Pages/About.html">Sobre</a></li>
-          <li><a href="Pages/Products.html">Produtos</a></li>
-          <li><a href="Pages/Contact.html">Contato</a></li>
+          <li><a href="About.html">Sobre</a></li>
+          <li><a href="Products.html">Produtos</a></li>
+          <li><a href="Contact.html">Contato</a></li>
         </ul>
       </div>
 
