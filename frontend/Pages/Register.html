@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Register.css">
+</head>
+<body class="register-bg">
+
+    <header class="header-isolado">
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
+    </header>
+
+    <main class="register-main">
+        <div class="register-box">
+            
+            <div class="register-header">
+                <h2>Vimos que você é novo na Engremaq! Crie sua conta.</h2>
+                <div class="promo-banner">
+                    <img src="https://img.icons8.com/ios-filled/50/d4a000/discount-front-page.png" alt="Cupom">
+                    <span><strong>5% OFF</strong> aplicando o cupom <strong>TONAENGREMAQ</strong> na sua primeira compra</span>
+                </div>
+            </div>
+
+            <div class="register-tabs">
+                <div class="tab active" id="tab-cpf">CADASTRAR CPF</div>
+                <div class="tab" id="tab-cnpj">CADASTRAR CNPJ</div>
+            </div>
+
+            <form id="form-cadastro">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>E-mail*</label>
+                        <input type="email" id="cad-email" placeholder="nicolas@exemplo.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label id="label-doc">CPF*</label>
+                        <input type="text" id="cad-doc" placeholder="000.000.000-00" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Nome completo*</label>
+                        <input type="text" id="cad-nome" placeholder="Digite seu nome completo" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Telefone celular*</label>
+                        <input type="text" id="cad-telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Criar uma senha*</label>
+                        <input type="password" id="cad-senha" placeholder="Digite sua senha" required>
+                        <span class="password-hint">ⓘ A senha deve conter no mínimo 8 caracteres, 1 letra maiúscula e 1 número.</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <label><input type="checkbox" checked> Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp!</label>
+                    <label><input type="checkbox" required> Sou maior de 18 anos</label>
+                    <label><input type="checkbox" required> Li e estou de acordo com as <a href="#">políticas da empresa e políticas de privacidade.</a>*</label>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="Login.html" class="btn-voltar">VOLTAR</a>
+                    <button type="submit" class="btn-continuar">CONTINUAR</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="../Assets/Js/register.js"></script>
+</body>
+</html>
+</body>
+</html>

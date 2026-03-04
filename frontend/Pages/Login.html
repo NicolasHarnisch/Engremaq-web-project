@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos - Engremaq</title>
+    <title>Login - Engremaq</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Css/Global.css">
-    <link rel="stylesheet" href="../Assets/Css/Style Products.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Login.css">
 </head>
 <body>
     <div class="informacao-topo">
@@ -25,7 +25,9 @@
     </div>
 
     <header>
-        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+        <a href="../index.html">
+            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+        </a>
         <div class="search-bar">
             <input type="text" placeholder="Buscar peças...">
             <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
@@ -33,16 +35,16 @@
         <div class="right-section">
             <nav class="main-nav">
                 <ul>
-                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
-                    <li><a href="Products.html" class="active">Produtos</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
                     <li><a href="Contact.html">Contato</a></li>
                 </ul>
             </nav>
             <div class="user-actions">
                 <a href="Login.html" class="action-link">
-                    <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
-                    <span>Entrar</span>
+                    <img src="https://img.icons8.com/ios-filled/50/ffcc00/user.png" alt="Conta">
+                    <span style="color: #ffcc00;">Entrar</span>
                 </a>
                 <a href="Cart.html" class="action-link">
                     <span class="cart-price">R$ 0,00</span>
@@ -55,85 +57,35 @@
         </div>
     </header>
 
-    <main class="products-layout container">
-        
-        <aside class="sidebar">
-            <h3>Categorias de Produtos</h3>
-            <ul>
-                <li><a href="#">Acessórios em Geral <span>(268)</span></a></li>
-                <li><a href="#">Anéis <span>(278)</span></a></li>
-                <li><a href="#">Arruelas <span>(86)</span></a></li>
-                <li><a href="#">Bombas e Sistema Hidráulico <span>(249)</span></a></li>
-                <li><a href="#">Borrachas <span>(2)</span></a></li>
-                <li><a href="#">Cabos <span>(3)</span></a></li>
-                <li><a href="#">Cardans e Cruzetas <span>(36)</span></a></li>
-                <li><a href="#">Compressores <span>(18)</span></a></li>
-                <li><a href="#">Correias <span>(53)</span></a></li>
-            </ul>
-        </aside>
-
-        <section class="catalogo-content">
-            <h2>Catálogo de Peças</h2>
-            <div class="catalogo-grid">
-                
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/download.jpeg" alt="Filtro">
-                    </div>
-                    <div class="card-info">
-                        <h3>Filtro de Óleo</h3>
-                        <p class="preco">R$ 150,00</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" alt="Engrenagem">
-                    </div>
-                    <div class="card-info">
-                        <h3>Engrenagem de Tração</h3>
-                        <p class="preco">R$ 820,00</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/8PK1930GOOD_02.webp" alt="Correia">
-                    </div>
-                    <div class="card-info">
-                        <h3>Correia de Reposição</h3>
-                        <p class="preco">R$ 250,00</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-img">
-                        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/bomba-injetora-trator-new-holland-7610-dps-ano-inicial-1992-ano-final-motor-fnh-268-cu-in-codigo-montadora-esnn9a543va-0d8e4a0a.webp" alt="Bomba">
-                    </div>
-                    <div class="card-info">
-                        <h3>Bomba Injetora New Holland</h3>
-                        <p class="preco">Consulte Orçamento</p>
-                        <div class="card-buttons">
-                            <button class="btn-action btn-cart">Adicionar ao Carrinho</button>
-                            <a class="btn-action btn-whats" href="https://wa.me/5585996883588" target="_blank">Comprar pelo WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-
+    <main class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Acesse sua conta</h2>
+                <p>Bem-vindo de volta à Engremaq!</p>
             </div>
-        </section>
+            
+            <form action="#" method="POST" id="form-login">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Lembrar de mim
+                    </label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Não tem uma conta? <a href="Register.html">Cadastre-se</a></p>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -160,7 +112,7 @@
             <div class="footer-column col-menu">
                 <h3>Menu</h3>
                 <ul>
-                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
                     <li><a href="Products.html">Produtos</a></li>
                     <li><a href="Contact.html">Contato</a></li>
@@ -175,5 +127,7 @@
         </div>
         <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
     </footer>
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/login.js"></script>
 </body>
 </html>

@@ -1,0 +1,121 @@
+/* Estilo Dashboard - Engremaq */
+
+.dashboard-container { background-color: #f4f4f4; padding: 50px 0; min-height: 85vh; font-family: 'Poppins', sans-serif; }
+.dashboard-grid { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+
+/* Sidebar */
+.dashboard-sidebar { background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px 0; height: fit-content; }
+.user-info-side { text-align: center; padding: 0 20px 25px 20px; border-bottom: 1px solid #eee; }
+.avatar-circle { width: 70px; height: 70px; background: #f9f9f9; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; }
+.user-info-side h3 { font-size: 16px; margin: 0; color: #111; }
+.user-info-side p { font-size: 12px; color: #888; margin: 5px 0 0; }
+
+.dashboard-nav ul { list-style: none; padding: 20px 0; margin: 0; }
+.nav-item { padding: 15px 25px; display: flex; align-items: center; gap: 15px; font-size: 14px; font-weight: 600; color: #666; cursor: pointer; transition: 0.3s; border-left: 4px solid transparent; }
+.nav-item img { width: 20px; opacity: 0.6; }
+.nav-item:hover { background: #f9f9f9; color: #111; }
+.nav-item.active { background: #fff9e6; color: #111; border-left-color: #ffcc00; }
+.nav-item.active img { opacity: 1; filter: grayscale(0); }
+
+/* Conteúdo Principal */
+.dashboard-content { background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 40px; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.section-header { margin-bottom: 35px; border-bottom: 2px solid #f4f4f4; padding-bottom: 15px; }
+.section-header h2 { font-size: 24px; color: #111; margin: 0; }
+.section-header p { font-size: 14px; color: #777; margin: 5px 0 0; }
+
+/* Cards de Overview */
+.overview-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ov-card { background: #fff; border: 1px solid #eee; padding: 25px; border-radius: 10px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; }
+.ov-card:hover { border-color: #ffcc00; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.ov-icon { background: #fff9e6; padding: 12px; border-radius: 8px; }
+.ov-icon img { width: 30px; }
+.ov-info strong { display: block; font-size: 15px; color: #111; }
+.ov-info span { font-size: 12px; color: #888; }
+
+/* Pedidos */
+.order-item { border: 1px solid #eee; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+.order-top { background: #fbfbfb; padding: 15px 25px; display: flex; justify-content: space-between; border-bottom: 1px solid #eee; font-size: 13px; }
+.order-top strong { color: #111; }
+.order-main { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; }
+.order-prod-info { display: flex; align-items: center; gap: 20px; }
+.order-prod-info img { width: 60px; height: 60px; object-fit: contain; }
+.order-prod-info h4 { margin: 0; font-size: 15px; color: #111; }
+.order-prod-info p { margin: 3px 0 0; font-size: 12px; color: #888; }
+.status-badge { padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.status-transporte { background: #fff3cd; color: #856404; }
+.status-entregue { background: #d1e7dd; color: #0f5132; }
+
+/* ==========================================================================
+   MEUS ENDEREÇOS (Grelha KaBuM)
+   ========================================================================== */
+.address-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.address-card { border: 2px solid #eee; padding: 25px; border-radius: 10px; position: relative; cursor: pointer; transition: 0.3s; }
+.address-card:hover { border-color: #ffcc00; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+/* O card selecionado fica amarelo */
+.address-card.default { border-color: #ffcc00; background: #fffcf0; }
+.address-card h4 { margin: 0 0 10px 0; font-size: 16px; color: #111; display: flex; align-items: center; gap: 10px; }
+.address-card p { font-size: 13px; color: #666; margin: 3px 0; line-height: 1.5; }
+.address-actions { margin-top: 15px; display: flex; gap: 15px; }
+.address-actions button { background: none; border: none; font-size: 13px; font-weight: 700; color: #d4a000; cursor: pointer; }
+.address-actions button:hover { text-decoration: underline; }
+
+.btn-add-address { margin-top: 30px; width: 100%; padding: 15px; border: 2px dashed #ccc; background: none; border-radius: 10px; font-weight: 700; color: #888; cursor: pointer; transition: 0.3s; }
+.btn-add-address:hover { border-color: #ffcc00; color: #d4a000; background: #fffcf0; }
+
+
+/* ==========================================================================
+   MEUS DADOS
+   ========================================================================== */
+.dados-card { border: 1px solid #eee; border-radius: 8px; padding: 30px; margin-bottom: 20px; }
+.dados-card-header { text-align: right; margin-bottom: 25px; }
+.link-alterar-email { color: #333; font-size: 12px; font-weight: 800; text-decoration: underline; transition: color 0.2s; }
+.link-alterar-email:hover { color: #ffcc00; }
+
+.dados-form { display: flex; flex-direction: column; gap: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.form-group { position: relative; margin-top: 8px; }
+.form-group label { position: absolute; top: -10px; left: 12px; background-color: #fff; padding: 0 5px; font-size: 11px; color: #888; font-weight: 600; z-index: 5; }
+.form-group input { width: 100%; padding: 16px 15px; border: 1px solid #ccc; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 14px; color: #333; outline: none; transition: border-color 0.3s; background-color: transparent; }
+.form-group input:focus { border-color: #ffcc00; }
+.form-group.disabled-group input { background-color: #fbfbfb; color: #999; border-color: #e5e5e5; cursor: not-allowed; }
+
+.input-with-icon { position: relative; width: 100%; }
+.input-with-icon input { padding-right: 40px; }
+.input-with-icon img { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); width: 16px; opacity: 0.4; pointer-events: none; }
+
+.form-note { font-size: 12px; color: #888; margin: -5px 0 0 0; }
+.checkbox-group-dados { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-top: 5px; }
+.checkbox-group-dados input { accent-color: #ffcc00; transform: scale(1.2); margin-top: 3px; }
+.checkbox-group-dados span { font-size: 13px; color: #555; line-height: 1.5; }
+
+.dados-actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; margin-top: 20px; align-items: center; }
+.btn-outline-action { background: none; border: none; color: #d4a000; font-weight: 800; font-size: 14px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: 0.2s; }
+.btn-outline-action:hover { color: #ffcc00; text-decoration: underline; }
+.btn-solid-action { background: #ffcc00; border: none; padding: 16px; border-radius: 6px; color: #111; font-weight: 800; font-size: 14px; cursor: pointer; transition: 0.3s; font-family: 'Poppins', sans-serif; }
+.btn-solid-action:hover { background: #e6b800; }
+
+.btn-excluir-conta { background: none; border: none; color: #111; font-weight: 800; font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: underline; margin-top: 15px; font-family: 'Poppins', sans-serif; }
+.btn-excluir-conta img { width: 16px; }
+
+/* ==========================================================================
+   MODAIS E POPUPS (Segurança e Endereços)
+   ========================================================================== */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
+.modal-content { background: #fff; width: 90%; max-width: 450px; border-radius: 8px; padding: 30px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+.modal-header h3 { margin: 0; font-size: 18px; color: #333; }
+.btn-close-modal { background: none; border: none; font-size: 28px; cursor: pointer; color: #999; font-weight: bold; transition: 0.2s; }
+.btn-close-modal:hover { color: #ef4444; }
+
+@media (max-width: 950px) {
+    .dashboard-grid { grid-template-columns: 1fr; } .dashboard-sidebar { padding: 20px 0; }
+    .overview-cards, .address-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; }
+    .dados-actions { grid-template-columns: 1fr; gap: 30px; }
+}

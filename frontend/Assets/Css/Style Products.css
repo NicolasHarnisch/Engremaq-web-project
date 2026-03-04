@@ -1,0 +1,384 @@
+/* Layout Principal */
+.products-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 50px 20px;
+    max-width: 1300px;
+}
+
+/* ==========================================================================
+   BARRA LATERAL DE FILTROS (KABUM STYLE)
+   ========================================================================== */
+.filter-sidebar {
+    width: 280px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    flex-shrink: 0;
+    /* Fica fixo na rolagem */
+    position: sticky;
+    top: 100px; 
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-header h3 {
+    font-size: 18px;
+    color: #111;
+    margin: 0;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.clear-filters {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'Poppins', sans-serif;
+}
+
+.clear-filters:hover {
+    color: #ff6600;
+}
+
+/* Seções Internas do Filtro */
+.filter-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-section h4 {
+    font-size: 15px;
+    color: #333;
+    margin: 0 0 15px 0;
+    font-weight: 700;
+}
+
+/* --- Checkboxes Customizados --- */
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+    /* max-height e overflow removidos para a lista descer até o final! */
+}
+
+/* Estiliza a barra de rolagem da categoria */
+.filter-options::-webkit-scrollbar { width: 5px; }
+.filter-options::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+.filter-options::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+.filter-options::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.custom-checkbox:hover {
+    color: #111;
+}
+
+.custom-checkbox .count {
+    color: #999;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Oculta o checkbox original do HTML */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Cria o novo quadradinho do checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+    border-color: #ffcc00;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+}
+
+/* Ícone de "V" dentro do checkbox */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 4px;
+    height: 9px;
+    border: solid #111;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* --- Filtro de Preço --- */
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price-field {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0 10px;
+    background-color: #fafafa;
+    flex: 1;
+}
+
+.price-field span {
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+}
+
+.price-field input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 10px 5px;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.price-separator {
+    color: #888;
+    font-weight: bold;
+}
+
+/* Botão Aplicar */
+.btn-apply-filters {
+    width: 100%;
+    background-color: #111;
+    color: #ffcc00;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.btn-apply-filters:hover {
+    background-color: #333;
+}
+
+
+/* ==========================================================================
+   ÁREA DO CATÁLOGO DE PRODUTOS
+   ========================================================================== */
+.catalogo-content {
+    flex: 1;
+}
+
+.catalogo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #fff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.catalogo-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #111;
+    font-weight: 800;
+}
+
+.catalogo-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.catalogo-sort select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+/* --- CARDS DE PRODUTO --- */
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-img {
+    height: 200px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+}
+
+.card-info {
+    padding: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-info h3 {
+    font-size: 15px;
+    color: #333;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    height: 42px; 
+}
+
+.card-info .preco {
+    font-size: 20px;
+    color: #FF6600; 
+    font-weight: 800;
+    margin: 0 0 15px 0;
+}
+
+/* --- BOTÕES DO CARD --- */
+.card-buttons {
+    margin-top: auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-action {
+    display: inline-block;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.btn-cart {
+    background-color: #ffcc00;
+    color: #111;
+}
+
+.btn-cart:hover {
+    background-color: #e6b800;
+}
+
+.btn-whats {
+    background-color: #22c55e;
+    color: #fff;
+}
+
+.btn-whats:hover {
+    filter: brightness(0.95);
+}
+
+/* --- RESPONSIVIDADE PÁGINA DE PRODUTOS --- */
+@media (max-width: 950px) {
+    .products-layout {
+        flex-direction: column; 
+    }
+    
+    .filter-sidebar {
+        width: 100%;
+        position: static; 
+    }
+    
+    .catalogo-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .catalogo-grid {
+        grid-template-columns: 1fr; 
+    }
+}

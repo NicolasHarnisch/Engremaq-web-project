@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endereço - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Address.css">
+</head>
+<body>
+    
+    <header class="header-isolado">
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
+    </header>
+
+    <main class="address-page-bg">
+        <div class="container">
+            <div class="checkout-steps">
+                <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png" alt="Carrinho"><span style="color: #d4a000;">Carrinho</span></div>
+                <div class="step-line finished-line" style="background: #ffcc00;"></div>
+                <div class="step active"><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Endereço"><span style="color: #d4a000;">Endereço</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/bank-cards.png" alt="Pagamento"><span>Pagamento</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/checked--v1.png" alt="Revisão"><span>Revisão</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/ok--v1.png" alt="Concluir"><span style="color: #ccc;">Concluir</span></div>
+            </div>
+
+            <div class="address-layout">
+                <div class="address-left-col">
+                    <div class="box-header"><h2>Selecione seu endereço:</h2></div>
+                    <div id="lista-enderecos"></div>
+                    <button class="btn-novo-endereco" id="btn-abrir-modal">CADASTRAR NOVO ENDEREÇO</button>
+                </div>
+
+                <div class="address-right-col">
+                    <div class="summary-box">
+                        <h3><img src="https://img.icons8.com/ios-filled/50/ffcc00/receipt.png" alt="Nota"> Resumo do pedido</h3>
+                        <div class="summary-line"><span>Valor dos produtos:</span><span id="resumo-subtotal">R$ 0,00</span></div>
+                        <div class="summary-line" style="margin-top: 10px;"><span>Frete:</span><span id="resumo-frete">R$ 0,00</span></div>
+                        <div class="summary-total-line">
+                            <span>Total:</span>
+                            <div class="total-price-box">
+                                <strong>À vista no Pix ou Boleto</strong>
+                                <span class="total-big" id="resumo-total" style="color: #22c55e;">R$ 0,00</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-primary-action" id="btn-ir-pagamento">IR PARA O PAGAMENTO</button>
+                            <a href="Cart.html" class="btn-back-action">VOLTAR PARA O CARRINHO</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="modal-endereco">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Local"> NOVO ENDEREÇO</h3>
+                <button class="btn-close-modal" id="btn-fechar-modal">×</button>
+            </div>
+            <form id="form-endereco" class="form-grid">
+                <div class="form-group full-width"><input type="text" id="cep" placeholder="CEP*" maxlength="9" required><span id="cep-loading" style="display:none; font-size:12px; color:#d4a000;">Buscando...</span></div>
+                <div class="form-group full-width"><input type="text" id="identificacao" placeholder="Identificação* (Ex: Casa, Trabalho)" required></div>
+                <div class="form-group full-width"><input type="text" id="logradouro" placeholder="Logradouro*" required></div>
+                <div class="form-group"><input type="text" id="numero" placeholder="Número*" required></div>
+                <div class="form-group"><input type="text" id="complemento" placeholder="Complemento"></div>
+                <div class="form-group full-width"><input type="text" id="bairro" placeholder="Bairro*" required></div>
+                <div class="form-group" style="grid-column: span 2;"><input type="text" id="cidade" placeholder="Cidade*" readonly style="background:#f4f4f4;"></div>
+                <div class="form-group"><input type="text" id="uf" placeholder="UF*" readonly style="background:#f4f4f4;"></div>
+                <div class="form-actions full-width"><button type="submit" class="btn-salvar-endereco">CADASTRAR ENDEREÇO</button></div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-isolado">
+        <div class="footer-iso-dark">
+            <div class="container text-center">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Engremaq Logo" class="iso-logo">
+                <p class="iso-grupo">Uma loja oficial do grupo <strong style="color: #ffcc00;">ENGREMAQ</strong></p>
+                <p class="iso-legal-text">Engremaq® é uma marca registrada de ENGREMAQ S.A | CNPJ: 00.000.000/0001-00 | Todos os direitos reservados. Ambiente 100% Seguro.</p>
+                <div class="iso-links">
+                    <a href="#">Políticas do Site</a>
+                    <a href="#">Políticas de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/address.js"></script>
+</body>
+</html>

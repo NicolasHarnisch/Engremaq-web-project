@@ -1,0 +1,75 @@
+/* Style Payment.css */
+.payment-page-bg { background-color: #f9f9f9; padding: 30px 0 60px 0; min-height: 70vh; font-family: 'Poppins', sans-serif;}
+.checkout-steps { display: flex; align-items: center; justify-content: center; margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+.step { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #ccc; }
+.step img { width: 24px; }
+.step-line { width: 40px; height: 2px; background: #eee; margin: 0 15px; }
+
+.payment-layout { display: grid; grid-template-columns: 1fr 380px; gap: 30px; }
+.payment-left-col, .payment-right-col .summary-box { background: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+.box-header h2 { font-size: 16px; color: #111; margin-bottom: 20px; text-transform: uppercase; font-weight: 800;}
+
+.payment-methods-container { display: flex; flex-direction: column; gap: 15px; }
+.payment-card { border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; transition: 0.2s ease; display: block; }
+.payment-card.active { border: 2px solid #ffcc00; }
+
+.card-header { display: flex; align-items: center; padding: 20px; gap: 15px; }
+.card-header input[type="radio"] { accent-color: #ffcc00; transform: scale(1.3); cursor: pointer; }
+.card-header strong { font-size: 15px; color: #333; }
+
+.method-icon { margin-left: auto; opacity: 0.5; transition: 0.3s; }
+.payment-card.active .method-icon { opacity: 1; }
+
+.card-body { padding: 0 20px 20px 50px; border-top: 1px solid #eee; margin-top: -5px; padding-top: 15px; }
+.card-body p { font-size: 13px; color: #555; margin: 0 0 10px 0; }
+.pix-info { background: #fffcf0; color: #d4a000; border: 1px solid #ffcc00; padding: 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+
+/* =========================================================
+   NOVO: LAYOUT CARTÃO DE CRÉDITO (Estilo KaBuM)
+   ========================================================= */
+.cc-layout { display: grid; grid-template-columns: 260px 1fr; gap: 30px; align-items: start; margin-top: 10px; }
+
+/* Cartão Visual */
+.cc-visual-col { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+.cc-visual { width: 100%; height: 160px; background: linear-gradient(135deg, #a0a0a0, #7a7a7a); border-radius: 12px; padding: 20px; color: #fff; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: space-between; }
+.cc-chip svg { width: 35px; height: 35px; }
+.cc-number-display { font-size: 18px; letter-spacing: 2px; font-family: monospace; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.cc-bottom-info { display: flex; justify-content: space-between; align-items: flex-end; }
+.cc-name-display { font-size: 12px; text-transform: uppercase; font-weight: 600; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc-valid-display { font-size: 9px; text-align: right; line-height: 1.2; }
+.cc-valid-display span { font-size: 12px; font-weight: 600; }
+
+.cc-save-check { font-size: 12px; color: #555; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.cc-save-check input { accent-color: #ffcc00; }
+
+/* Formulário do Cartão */
+.cc-form-col { display: flex; flex-direction: column; gap: 15px; }
+.cc-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.cc-form-group input { width: 100%; padding: 12px 15px; border: 1px solid #ccc; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none; transition: 0.3s; }
+.cc-form-group input:focus { border-color: #ffcc00; box-shadow: 0 0 5px rgba(255,204,0,0.2); }
+.cc-form-group input.error { border-color: #ef4444; background: #fef2f2; }
+
+.cc-installments { border: 1px solid #ccc; border-radius: 6px; padding: 5px 15px; display: flex; flex-direction: column; }
+.cc-installments select { border: none; outline: none; padding: 5px 0; font-family: 'Poppins', sans-serif; font-size: 14px; color: #333; background: transparent; cursor: pointer; }
+
+/* ========================================================= */
+
+.summary-box h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;}
+.summary-box h3 img { width: 20px; }
+.summary-line { display: flex; justify-content: space-between; font-size: 14px; color: #555; margin-bottom: 10px; }
+.summary-total-line { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+.total-price-box { text-align: right; }
+.total-price-box strong { display: block; font-size: 11px; color: #22c55e; }
+.total-big { font-size: 24px; font-weight: 900; color: #22c55e; }
+
+.action-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+.btn-primary-action { background-color: #ffcc00; color: #111; border: none; padding: 15px; border-radius: 6px; font-weight: 800; font-size: 15px; cursor: pointer; transition: background 0.3s; font-family: 'Poppins', sans-serif; }
+.btn-primary-action:hover { background-color: #e6b800; }
+.btn-back-action { text-align: center; color: #d4a000; font-weight: 700; font-size: 13px; text-decoration: none; padding: 14px; border: 2px solid #ffcc00; border-radius: 6px; transition: background 0.3s; font-family: 'Poppins', sans-serif; }
+.btn-back-action:hover { background-color: #fffcf0; }
+
+@media (max-width: 950px) { 
+    .payment-layout { grid-template-columns: 1fr; } 
+    .cc-layout { grid-template-columns: 1fr; }
+    .cc-visual { max-width: 320px; margin: 0 auto; }
+}

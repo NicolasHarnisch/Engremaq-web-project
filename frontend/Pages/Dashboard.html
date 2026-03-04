@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Dashboard.css">
+</head>
+<body>
+
+    <div class="informacao-topo">
+        <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
+        <div class="contatos-sociais">
+            <div class="contatos">
+                <a href="tel:+5585996883588"><img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588</a>
+                <a href="https://wa.me/5585996883588" target="_blank"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588</a>
+                <a href="mailto:nicolasgomeshar@gmail.com"><img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar peças...">
+            <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
+        </div>
+        <div class="right-section">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="About.html">Sobre</a></li>
+                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Contact.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="Login.html" class="action-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span style="color: #ffcc00;">Minha Conta</span>
+                </a>
+                <a href="Cart.html" class="action-link">
+                    <span class="cart-price">R$ 0,00</span>
+                    <div class="cart-icon-wrapper">
+                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <span class="cart-badge">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="container dashboard-grid">
+            
+            <aside class="dashboard-sidebar">
+                <div class="user-info-side">
+                    <div class="avatar-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 40px; height: 40px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <h3 id="display-user-name">Carregando...</h3>
+                    <p id="display-user-email">email@exemplo.com</p>
+                </div>
+
+                <nav class="dashboard-nav">
+                    <ul>
+                        <li class="nav-item active" data-tab="central"><img src="https://img.icons8.com/ios-filled/50/666666/dashboard.png"> Central Minha Conta</li>
+                        <li class="nav-item" data-tab="pedidos"><img src="https://img.icons8.com/ios-filled/50/666666/open-box.png"> Meus Pedidos</li>
+                        <li class="nav-item" data-tab="enderecos"><img src="https://img.icons8.com/ios-filled/50/666666/marker.png"> Endereços</li>
+                        <li class="nav-item" data-tab="dados">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; margin-right: -2px; transition: 0.3s;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Meus Dados
+                        </li>
+                        <li class="nav-item" id="logout-btn"><img src="https://img.icons8.com/ios-filled/50/ef4444/exit.png"> Sair</li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <section class="dashboard-content">
+                
+                <div class="tab-pane active" id="tab-central">
+                    <div class="section-header">
+                        <h2>Minha Conta</h2>
+                        <p>Olá, <span class="user-first-name">Cliente</span>! Aqui você tem uma visão geral da sua conta.</p>
+                    </div>
+
+                    <div class="overview-cards">
+                        <div class="ov-card" data-action="pedidos">
+                            <div class="ov-icon"><img src="https://img.icons8.com/ios-filled/50/ffcc00/box.png"></div>
+                            <div class="ov-info"><strong>Meus Pedidos</strong><span>Acompanhe suas compras</span></div>
+                        </div>
+                        <div class="ov-card" data-action="enderecos">
+                            <div class="ov-icon"><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png"></div>
+                            <div class="ov-info"><strong>Endereços</strong><span>Gerencie locais de entrega</span></div>
+                        </div>
+                        <div class="ov-card" data-action="dados">
+                            <div class="ov-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 30px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                            <div class="ov-info"><strong>Meus Dados</strong><span>Altere senha e e-mail</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab-pedidos">
+                    <div class="section-header"><h2>Meus Pedidos</h2><p>Histórico de compras e status de entrega.</p></div>
+                    <div id="orders-list" class="orders-container"></div>
+                </div>
+
+                <div class="tab-pane" id="tab-enderecos">
+                    <div class="section-header"><h2>Meus Endereços</h2><p>Gerencie seus endereços para uma entrega mais rápida.</p></div>
+                    <div class="address-grid" id="address-list">
+                        </div>
+                    <button class="btn-add-address" id="btn-add-address">+ Adicionar Novo Endereço</button>
+                </div>
+
+                <div class="tab-pane" id="tab-dados">
+                    <div class="section-header">
+                        <h2>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 28px; vertical-align: bottom; margin-right: 5px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            MEUS DADOS
+                        </h2>
+                    </div>
+
+                    <div class="dados-card">
+                        <div class="dados-card-header"><a href="#" class="link-alterar-email" id="btn-alterar-email">ALTERAR E-MAIL</a></div>
+                        <form class="dados-form" id="form-meus-dados">
+                            <div class="form-group disabled-group full-width">
+                                <label>E-mail</label>
+                                <div class="input-with-icon"><input type="text" id="dados-email" disabled><img src="https://img.icons8.com/ios-filled/50/cccccc/lock.png"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group disabled-group">
+                                    <label>CPF</label>
+                                    <div class="input-with-icon"><input type="text" value="625.109.533-46" disabled><img src="https://img.icons8.com/ios-filled/50/cccccc/lock.png"></div>
+                                </div>
+                                <div class="form-group disabled-group">
+                                    <label>Data de nascimento</label>
+                                    <div class="input-with-icon"><input type="text" value="18/05/2006" disabled><img src="https://img.icons8.com/ios-filled/50/cccccc/lock.png"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group"><label>Nome completo*</label><input type="text" id="dados-nome" required></div>
+                                <div class="form-group"><label>Telefone celular*</label><input type="text" id="dados-telefone" value="(85) 9 9688-3588" required></div>
+                            </div>
+                            <p class="form-note">(*) Campos obrigatórios</p>
+                            <label class="checkbox-group-dados"><input type="checkbox" checked><span>Quero receber ofertas e novidades.</span></label>
+                            <div class="dados-actions">
+                                <button type="button" class="btn-outline-action" id="btn-alterar-senha">ALTERAR SENHA</button>
+                                <button type="submit" class="btn-solid-action">SALVAR ALTERAÇÕES</button>
+                            </div>
+                        </form>
+                    </div>
+                    <button class="btn-excluir-conta" id="btn-excluir-conta"><img src="https://img.icons8.com/ios-filled/50/111111/trash.png"> EXCLUIR MINHA CONTA</button>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="modal-seguranca">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-seguranca-title">Confirmação de Segurança</h3>
+                <button class="btn-close-modal" onclick="fecharModalSeguranca()">×</button>
+            </div>
+            <div id="step-otp">
+                <p style="font-size:14px; color:#555; line-height: 1.5;">Por motivos de segurança, enviamos um código para o e-mail: <br><strong id="otp-email-display" style="color:#111;"></strong>.</p>
+                <p style="font-size:12px; color:#888; margin-top: 15px;">(Código: <strong>123456</strong>)</p>
+                <input type="text" id="otp-input" placeholder="000000" maxlength="6" style="width:100%; padding:15px; margin: 5px 0 20px 0; border:2px solid #ccc; border-radius:6px; text-align:center; font-size:24px; letter-spacing: 8px; font-weight: bold; outline: none;">
+                <button class="btn-solid-action" style="width:100%;" onclick="validarOTP()">VERIFICAR CÓDIGO</button>
+            </div>
+            <div id="step-novo-email" style="display:none;">
+                <p style="font-size:14px; color:#555; margin-bottom: 15px;">Digite o novo endereço de e-mail.</p>
+                <input type="email" id="novo-email-input" placeholder="exemplo@novoemail.com" style="width:100%; padding:15px; margin-bottom: 20px; border:1px solid #ccc; border-radius:6px; font-family: 'Poppins', sans-serif; outline: none;">
+                <button class="btn-solid-action" style="width:100%;" onclick="salvarNovoEmail()">SALVAR NOVO E-MAIL</button>
+            </div>
+            <div id="step-nova-senha" style="display:none;">
+                <p style="font-size:14px; color:#555; margin-bottom: 15px;">Crie uma nova senha forte.</p>
+                <input type="password" id="nova-senha-input" placeholder="Nova senha" style="width:100%; padding:15px; margin-bottom: 10px; border:1px solid #ccc; border-radius:6px; font-family: 'Poppins', sans-serif; outline: none;">
+                <input type="password" id="nova-senha-confirm" placeholder="Confirme a nova senha" style="width:100%; padding:15px; margin-bottom: 20px; border:1px solid #ccc; border-radius:6px; font-family: 'Poppins', sans-serif; outline: none;">
+                <button class="btn-solid-action" style="width:100%;" onclick="salvarNovaSenha()">ATUALIZAR SENHA</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-endereco-dash">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Novo Endereço</h3>
+                <button class="btn-close-modal" onclick="fecharModalEndereco()">×</button>
+            </div>
+            <form class="dados-form" id="form-novo-endereco">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>CEP*</label>
+                        <input type="text" id="dash-cep" maxlength="9" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Identificação*</label>
+                        <input type="text" id="dash-identificacao" placeholder="Ex: Casa, Trabalho" required>
+                    </div>
+                </div>
+                <div class="form-group full-width" style="margin-top: 15px;">
+                    <label>Logradouro*</label>
+                    <input type="text" id="dash-rua" required>
+                </div>
+                <div class="form-row" style="margin-top: 15px;">
+                    <div class="form-group"><label>Número*</label><input type="text" id="dash-numero" required></div>
+                    <div class="form-group"><label>Complemento</label><input type="text" id="dash-complemento"></div>
+                </div>
+                <div class="form-group full-width" style="margin-top: 15px;">
+                    <label>Bairro*</label>
+                    <input type="text" id="dash-bairro" required>
+                </div>
+                <div class="form-row" style="margin-top: 15px;">
+                    <div class="form-group disabled-group"><label>Cidade*</label><input type="text" id="dash-cidade" disabled required></div>
+                    <div class="form-group disabled-group"><label>UF*</label><input type="text" id="dash-uf" disabled required></div>
+                </div>
+                <button type="submit" class="btn-solid-action" style="width: 100%; margin-top: 25px;">SALVAR ENDEREÇO</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-main container">
+            <div class="footer-column col-logo">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Logo Branca" class="footer-logo">
+                <span class="redes-text">Nos siga nas Redes Sociais</span>
+            </div>
+            <div class="footer-column col-contato">
+                <h3>Contato</h3>
+                <ul>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png"> <span>Avenida Enir Santos, Horizonte - CE</span></li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/phone.png"> <span>(85) 99688-3588</span></li>
+                    <li><img src="https://img.icons8.com/ios-filled/50/ffcc00/new-post.png"> <span>nicolasgomeshar@gmail.com</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
+    </footer>
+
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/dashboard.js"></script>
+</body>
+</html>

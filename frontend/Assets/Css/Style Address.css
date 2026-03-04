@@ -1,0 +1,46 @@
+/* Style Address.css */
+.address-page-bg { background-color: #f9f9f9; padding: 30px 0 60px 0; min-height: 70vh; }
+.checkout-steps { display: flex; align-items: center; justify-content: center; margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.step { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #ccc; }
+.step img { width: 24px; }
+.step-line { width: 40px; height: 2px; background: #eee; margin: 0 15px; }
+.address-layout { display: grid; grid-template-columns: 1fr 380px; gap: 30px; }
+.address-left-col, .address-right-col .summary-box { background: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.box-header h2 { font-size: 18px; color: #333; margin-bottom: 20px; }
+
+/* CARTÕES DE ENDEREÇO CORRIGIDOS PARA AMARELO */
+.address-card { border: 2px solid #eee; border-radius: 8px; padding: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: border-color 0.2s; }
+.address-card.selected { border-color: #ffcc00; background-color: #fff9e6; }
+.address-card input[type="radio"] { accent-color: #ffcc00; transform: scale(1.3); cursor: pointer;}
+.address-details strong { display: block; color: #111; font-size: 15px; }
+.address-details p { margin: 5px 0 0 0; color: #666; font-size: 14px; }
+
+.btn-novo-endereco { color: #d4a000; background: none; border: none; font-weight: 800; font-size: 14px; cursor: pointer; padding: 10px 0; margin-top: 10px; text-decoration: underline; }
+.summary-box h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
+.summary-box h3 img { width: 24px; }
+.summary-line { display: flex; justify-content: space-between; color: #555; font-size: 14px; font-weight: 600; }
+.summary-total-line { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
+.total-price-box { text-align: right; }
+.total-price-box strong { display: block; font-size: 12px; color: #22c55e; }
+.total-big { font-size: 26px; font-weight: 900; color: #22c55e; }
+
+.btn-primary-action { width: 100%; padding: 16px; background: #ffcc00; color: #111; border: none; border-radius: 4px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 25px; transition: 0.3s; font-family: 'Poppins', sans-serif;}
+.btn-primary-action:hover { background: #e6b800; }
+.btn-back-action { display: block; text-align: center; width: 100%; padding: 14px; background: transparent; border: 2px solid #ccc; color: #555; font-weight: 700; border-radius: 4px; margin-top: 10px; text-decoration: none; transition: 0.3s;}
+
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.modal-overlay.active { display: flex; }
+.modal-content { background: #fff; width: 90%; max-width: 600px; border-radius: 8px; padding: 30px; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-header h3 { display: flex; align-items: center; gap: 8px; margin: 0; }
+.btn-close-modal { background: none; border: none; font-size: 28px; cursor: pointer; font-weight: bold; color: #d4a000; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+.full-width { grid-column: span 3; }
+.form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Poppins', sans-serif; outline: none; }
+.form-group input:focus { border-color: #ffcc00; }
+.btn-salvar-endereco { width: 100%; padding: 14px; background: #ccc; color: #fff; border: none; border-radius: 4px; font-weight: 800; cursor: not-allowed; transition: 0.3s; }
+
+/* Botão de Salvar Modal no Amarelo */
+.btn-salvar-endereco.active { background: #ffcc00; color: #111; cursor: pointer; }
+
+@media (max-width: 900px) { .address-layout { grid-template-columns: 1fr; } .checkout-steps { flex-wrap: wrap; } }

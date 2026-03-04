@@ -34,7 +34,7 @@
         <div class="right-section">
             <nav class="main-nav">
                 <ul>
-                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
                     <li><a href="Products.html">Produtos</a></li>
                     <li><a href="Contact.html" class="active">Contato</a></li>
@@ -45,7 +45,7 @@
                     <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
                     <span>Entrar</span>
                 </a>
-                <a href="Carrinho.html" class="action-link">
+                <a href="Cart.html" class="action-link">
                     <span class="cart-price">R$ 0,00</span>
                     <div class="cart-icon-wrapper">
                         <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
@@ -163,7 +163,7 @@
             <div class="footer-column col-menu">
                 <h3>Menu</h3>
                 <ul>
-                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
                     <li><a href="Products.html">Produtos</a></li>
                     <li><a href="Contact.html">Contato</a></li>
@@ -178,72 +178,8 @@
         </div>
         <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
     </footer>
-
-    <script>
-        document.getElementById("form-contato").addEventListener("submit", function(e) {
-            e.preventDefault(); // Impede a página de recarregar e ir para o site branco
-
-            const emailInput = document.getElementById("email").value.trim().toLowerCase();
-            const msgSucesso = document.getElementById("msg-sucesso");
-            const msgErro = document.getElementById("msg-erro");
-            const btnEnviar = document.getElementById("btn-enviar");
-
-            // Esconde mensagens antigas
-            msgSucesso.style.display = "none";
-            msgErro.style.display = "none";
-
-            // Puxa o histórico de envios do navegador (localStorage)
-            let envios = JSON.parse(localStorage.getItem("historicoEnvios")) || {};
-
-            // VERIFICAÇÃO DO LIMITE DE 10 MENSAGENS POR E-MAIL
-            if (envios[emailInput] >= 10) {
-                msgErro.style.display = "block"; // Mostra o erro vermelho
-                return; // Para a execução do código aqui e não envia
-            }
-
-            // Muda o botão para "Enviando..."
-            btnEnviar.textContent = "Enviando...";
-            btnEnviar.disabled = true;
-            btnEnviar.style.opacity = "0.7";
-
-            // Prepara os dados do formulário
-            const formData = new FormData(this);
-            
-            // Configurações extras do FormSubmit
-            formData.append("_captcha", "false");
-            formData.append("_subject", "Novo contato pelo site Engremaq!");
-
-            // Usa a versão /ajax/ do FormSubmit
-            fetch("https://formsubmit.co/ajax/nicolasgomeshar@gmail.com", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    // Mostra mensagem verde de sucesso
-                    msgSucesso.style.display = "block";
-                    
-                    // Limpa os campos do formulário
-                    document.getElementById("form-contato").reset();
-
-                    // Adiciona +1 no contador de envios desse e-mail
-                    envios[emailInput] = (envios[emailInput] || 0) + 1;
-                    localStorage.setItem("historicoEnvios", JSON.stringify(envios));
-                } else {
-                    alert("Ocorreu um erro no servidor do formulário.");
-                }
-            })
-            .catch(error => {
-                alert("Erro ao enviar. Verifique sua conexão com a internet.");
-            })
-            .finally(() => {
-                // Restaura o botão ao normal
-                btnEnviar.textContent = "Enviar Mensagem";
-                btnEnviar.disabled = false;
-                btnEnviar.style.opacity = "1";
-            });
-        });
-    </script>
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/contact.js"></script>
+   
 </body>
 </html>

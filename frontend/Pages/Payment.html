@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Payment.css">
+</head>
+<body>
+
+    <header class="header-isolado">
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
+    </header>
+
+    <main class="payment-page-bg">
+        <div class="container">
+            
+            <div class="checkout-steps">
+                <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png"><span style="color: #d4a000;">Carrinho</span></div>
+                <div class="step-line finished-line" style="background: #ffcc00;"></div>
+                <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png"><span style="color: #d4a000;">Endereço</span></div>
+                <div class="step-line finished-line" style="background: #ffcc00;"></div>
+                <div class="step active"><img src="https://img.icons8.com/ios-filled/50/ffcc00/bank-cards.png"><span style="color: #d4a000;">Pagamento</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/checked--v1.png"><span>Revisão</span></div>
+            </div>
+
+            <div class="payment-layout">
+                <div class="payment-left-col">
+                    <div class="box-header"><h2>FORMA DE PAGAMENTO</h2></div>
+                    <div class="payment-methods-container">
+                        
+                        <label class="payment-card active" id="label-pix">
+                            <div class="card-header">
+                                <input type="radio" name="metodo_pagamento" value="pix" checked>
+                                <strong>PIX</strong>
+                                <svg class="method-icon" style="fill: #32bcad; width: 24px; height: 24px;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.96 2.053l-8.62 8.62c-.44.44-.44 1.15 0 1.59l8.62 8.62c.44.44 1.15.44 1.59 0l8.62-8.62c.44-.44.44-1.15 0-1.59l-8.62-8.62c-.44-.44-1.15-.44-1.59 0zm.8 4.29l4.3 4.3c.44.44.44 1.15 0 1.59l-4.3 4.3c-.44.44-1.15.44-1.59 0l-4.3-4.3c-.44-.44-.44-1.15 0-1.59l4.3-4.3c.44-.44 1.15-.44 1.59 0z"/></svg>
+                            </div>
+                            <div class="card-body">
+                                <p>Aprovação imediata que torna a <strong>expedição mais rápida</strong> do pedido.</p>
+                                <div class="pix-info">O QR Code e a chave serão gerados após a finalização.</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-card" id="label-cartao">
+                            <div class="card-header">
+                                <input type="radio" name="metodo_pagamento" value="cartao">
+                                <strong>CARTÃO DE CRÉDITO</strong>
+                                <svg class="method-icon" style="fill: #666; width: 24px; height: 24px;" viewBox="0 0 24 24"><path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zM20 18H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                            </div>
+                            
+                            <div class="card-body" style="display: none;">
+                                <div class="cc-layout">
+                                    <div class="cc-visual-col">
+                                        <div class="cc-visual">
+                                            <div class="cc-chip"><svg viewBox="0 0 24 24" fill="#d4af37"><path d="M4 6h16v12H4z"/><path fill="#fff" d="M6 8h3v8H6zM15 8h3v8h-3zM10 8h4v3h-4zM10 13h4v3h-4z"/></svg></div>
+                                            <div class="cc-number-display" id="display-cc-num">•••• •••• •••• ••••</div>
+                                            <div class="cc-bottom-info">
+                                                <div class="cc-name-display" id="display-cc-nome">NOME IMPRESSO</div>
+                                                <div class="cc-valid-display">Valido até<br><span id="display-cc-val">••/••</span></div>
+                                            </div>
+                                        </div>
+                                        <label class="cc-save-check">
+                                            <input type="checkbox" checked> Este é meu cartão padrão
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="cc-form-col">
+                                        <div class="cc-form-group full">
+                                            <input type="text" id="inp-cc-num" placeholder="Número do cartão*" maxlength="19">
+                                        </div>
+                                        <div class="cc-form-group full">
+                                            <input type="text" id="inp-cc-nome" placeholder="Nome impresso no cartão*">
+                                        </div>
+                                        <div class="cc-form-row">
+                                            <div class="cc-form-group"><input type="text" id="inp-cc-val" placeholder="Validade (MM/AA)*" maxlength="5"></div>
+                                            <div class="cc-form-group"><input type="password" id="inp-cc-cvv" placeholder="CVV*" maxlength="4"></div>
+                                        </div>
+                                        <div class="cc-form-group full">
+                                            <input type="text" id="inp-cc-apelido" placeholder="Apelido para este cartão*">
+                                        </div>
+                                        <div class="cc-form-row">
+                                            <div class="cc-form-group"><input type="text" id="inp-cc-cpf" placeholder="CPF/CNPJ do titular*"></div>
+                                            <div class="cc-form-group"><input type="text" id="inp-cc-nasc" placeholder="Data de nascimento*"></div>
+                                        </div>
+                                        
+                                        <div class="cc-installments">
+                                            <label style="font-size:11px; color:#888;">Forma de pagamento*</label>
+                                            <select id="sel-parcelas">
+                                                <option value="1">1x sem juros</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="payment-card" id="label-boleto">
+                            <div class="card-header">
+                                <input type="radio" name="metodo_pagamento" value="boleto">
+                                <strong>BOLETO BANCÁRIO</strong>
+                                <svg class="method-icon" style="fill: #666; width: 24px; height: 24px;" viewBox="0 0 24 24"><path d="M3 5h2v14H3V5zm4 0h1v14H7V5zm3 0h3v14h-3V5zm5 0h1v14h-1V5zm3 0h3v14h-3V5z"/></svg>
+                            </div>
+                            <div class="card-body" style="display: none;">
+                                <p>O boleto será gerado após a finalização. A aprovação pode levar até 2 dias úteis.</p>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="payment-right-col">
+                    <div class="summary-box">
+                        <h3><img src="https://img.icons8.com/ios-filled/50/ffcc00/receipt.png" alt="Nota"> Resumo do pedido</h3>
+                        <div class="summary-line"><span>Valor dos produtos:</span><span id="pay-subtotal">R$ 0,00</span></div>
+                        <div class="summary-line" style="margin-top: 10px;"><span>Frete:</span><span id="pay-frete">R$ 0,00</span></div>
+                        <div class="summary-total-line">
+                            <span>Total:</span>
+                            <div class="total-price-box">
+                                <strong id="pay-text-vista">À vista no Pix ou Boleto</strong>
+                                <span class="total-big" id="pay-total" style="color:#22c55e;">R$ 0,00</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-primary-action" id="btn-ir-revisao">IR PARA REVISÃO</button>
+                            <a href="Address.html" class="btn-back-action">VOLTAR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-isolado">
+        <div class="footer-iso-dark">
+            <div class="container text-center">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Engremaq Logo" class="iso-logo">
+                <p class="iso-grupo">Uma loja oficial do grupo <strong style="color: #ffcc00;">ENGREMAQ</strong></p>
+                <p class="iso-legal-text">Engremaq® é uma marca registrada de ENGREMAQ S.A | Todos os direitos reservados. Ambiente 100% Seguro.</p>
+                <div class="iso-links">
+                    <a href="#">Políticas do Site</a>
+                    <a href="#">Políticas de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/payment.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+/* Style Register.css */
+.register-bg { background-color: #f9f9f9; min-height: 100vh; display: flex; flex-direction: column; font-family: 'Poppins', sans-serif; }
+.register-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+.register-box { background: #fff; width: 100%; max-width: 700px; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+
+.register-header h2 { font-size: 22px; color: #333; margin: 0 0 15px 0; }
+
+.promo-banner { background-color: #fff9e6; border: 1px dashed #ffcc00; padding: 12px 15px; border-radius: 6px; display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
+.promo-banner img { width: 24px; }
+.promo-banner span { font-size: 13px; color: #555; }
+.promo-banner strong { color: #d4a000; }
+
+/* Abas (CPF / CNPJ) */
+.register-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 25px; }
+.tab { flex: 1; text-align: center; padding: 12px; font-weight: 700; font-size: 14px; color: #888; cursor: pointer; transition: 0.3s; }
+.tab.active { color: #d4a000; border-bottom: 3px solid #ffcc00; margin-bottom: -2px; }
+.tab:hover:not(.active) { color: #333; }
+
+/* Formulário (Grid) */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.input-group { display: flex; flex-direction: column; gap: 5px; }
+.input-group.full-width { grid-column: span 2; }
+.input-group label { font-size: 12px; font-weight: 600; color: #555; }
+.input-group input { padding: 12px 15px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 14px; outline: none; transition: 0.3s; }
+.input-group input:focus { border-color: #ffcc00; box-shadow: 0 0 0 3px rgba(255,204,0,0.1); }
+.password-hint { font-size: 11px; color: #888; margin-top: 2px; }
+
+/* Checkboxes */
+.checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+.checkbox-group label { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #555; cursor: pointer; line-height: 1.5; }
+.checkbox-group input[type="checkbox"] { margin-top: 2px; accent-color: #ffcc00; transform: scale(1.2); cursor: pointer; }
+.checkbox-group a { color: #d4a000; text-decoration: underline; font-weight: 600; }
+
+/* Botões */
+.action-buttons { display: flex; gap: 20px; }
+.btn-voltar { flex: 1; text-align: center; padding: 15px; border: 2px solid #ccc; color: #555; font-weight: 700; border-radius: 6px; text-decoration: none; transition: 0.3s; font-size: 14px; }
+.btn-voltar:hover { background: #f4f4f4; }
+.btn-continuar { flex: 1; padding: 15px; background: #ffcc00; color: #111; border: none; font-weight: 800; border-radius: 6px; cursor: pointer; transition: 0.3s; font-family: 'Poppins', sans-serif; font-size: 14px; }
+.btn-continuar:hover { background: #e6b800; }
+
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .input-group.full-width { grid-column: span 1; }
+    .action-buttons { flex-direction: column-reverse; gap: 10px; }
+}

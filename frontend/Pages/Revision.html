@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisão - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Revision.css">
+</head>
+<body>
+
+    <header class="header-isolado">
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Logo" class="logo"></a>
+    </header>
+
+    <main class="revision-page-bg">
+        <div class="container">
+            
+            <div class="checkout-steps">
+                <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png"><span style="color: #d4a000;">Carrinho</span></div>
+                <div class="step-line finished-line" style="background:#ffcc00;"></div>
+                <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png"><span style="color: #d4a000;">Endereço</span></div>
+                <div class="step-line finished-line" style="background:#ffcc00;"></div>
+                <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/bank-cards.png"><span style="color: #d4a000;">Pagamento</span></div>
+                <div class="step-line finished-line" style="background:#ffcc00;"></div>
+                <div class="step active"><img src="https://img.icons8.com/ios-filled/50/ffcc00/checked--v1.png"><span style="color: #d4a000;">Revisão</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/ok--v1.png"><span style="color: #ccc;">Concluir</span></div>
+            </div>
+
+            <div class="revision-layout">
+                <div class="revision-left-col">
+                    <div class="info-row">
+                        <div class="info-box">
+                            <h4>DADOS DO COMPRADOR</h4>
+                            <p><strong>Nome:</strong> Nicolas Gomes Harnisch</p>
+                            <p><strong>E-mail:</strong> nicolasgomeshar@gmail.com</p>
+                            <p><strong>Celular:</strong> (85) 99688-3588</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>ENDEREÇO DE ENTREGA</h4>
+                            <p id="rev-endereco-completo">Carregando...</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box full-box">
+                        <div class="box-header-rev">
+                            <h4>ENVIO POR <span style="color: #d4a000;">ENGREMAQ LOG</span></h4>
+                        </div>
+                        <p style="font-size: 13px; color: #555; margin-top: 10px;">Previsão de entrega: <strong>até 5 dias úteis</strong>.</p>
+                    </div>
+
+                    <div class="info-box full-box">
+                        <div class="box-header-rev">
+                            <h4>FORMA DE PAGAMENTO</h4>
+                            <a href="Payment.html">Alterar</a>
+                        </div>
+                        <p id="rev-metodo-pagamento" style="font-weight: 700; color: #111; margin-top: 10px; text-transform: uppercase;">Carregando...</p>
+                    </div>
+                </div>
+
+                <div class="revision-right-col">
+                    <div class="summary-box">
+                        <h3><img src="https://img.icons8.com/ios-filled/50/ffcc00/receipt.png"> Resumo do pedido</h3>
+                        <div class="summary-line"><span>Produtos:</span><span id="rev-subtotal">R$ 0,00</span></div>
+                        <div class="summary-line"><span>Frete:</span><span id="rev-frete">R$ 0,00</span></div>
+                        <div class="summary-total-line">
+                            <span>TOTAL:</span>
+                            <span class="total-big" id="rev-total">R$ 0,00</span>
+                        </div>
+                        
+                        <div class="terms-box">
+                            <label class="custom-checkbox-terms">
+                                <input type="checkbox" id="termos" required>
+                                <span>Concordo com os <strong>Termos e Condições</strong> e <strong>Políticas de Privacidade</strong>.</span>
+                            </label>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn-primary-action" id="btn-finalizar-tudo">FINALIZAR COMPRA</button>
+                            <a href="Payment.html" class="btn-back-action">VOLTAR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-isolado">
+        <div class="footer-iso-dark">
+            <div class="container text-center">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" class="iso-logo">
+                <p class="iso-grupo">Uma loja oficial do grupo <strong style="color: #ffcc00;">ENGREMAQ</strong></p>
+                <p class="iso-legal-text">Engremaq® é uma marca registrada de ENGREMAQ S.A | CNPJ: 00.000.000/0001-00 | Todos os direitos reservados. Ambiente 100% Seguro.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/revision.js"></script>
+</body>
+</html>

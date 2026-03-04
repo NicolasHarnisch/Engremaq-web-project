@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho - Engremaq</title>
+    <title>Produtos - Engremaq</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Css/Global.css">
-    <link rel="stylesheet" href="../Assets/Css/Style Cart.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Products.css">
 </head>
 <body>
     <div class="informacao-topo">
@@ -27,15 +27,15 @@
     <header>
         <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
         <div class="search-bar">
-            <input type="text" placeholder="Buscar peças...">
+            <input type="text" id="busca-nome" placeholder="Buscar peças por nome ou código...">
             <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
         </div>
         <div class="right-section">
             <nav class="main-nav">
                 <ul>
-                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="../Index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
-                    <li><a href="Products.html">Produtos</a></li>
+                    <li><a href="Products.html" class="active">Produtos</a></li>
                     <li><a href="Contact.html">Contato</a></li>
                 </ul>
             </nav>
@@ -45,72 +45,106 @@
                     <span>Entrar</span>
                 </a>
                 <a href="Cart.html" class="action-link">
-                    <span class="cart-price" style="color: #ffcc00;">R$ 820,00</span>
+                    <span class="cart-price">R$ 0,00</span>
                     <div class="cart-icon-wrapper">
-                        <img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png" alt="Carrinho">
-                        <span class="cart-badge">1</span>
+                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <span class="cart-badge">0</span>
                     </div>
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="cart-container container">
-        <div class="cart-header">
-            <h2>Meu Carrinho</h2>
-            <a href="Products.html" class="continue-shopping">Continuar comprando</a>
-        </div>
-
-        <div class="cart-layout">
-            <div class="cart-items-section">
-                
-                <div class="cart-item">
-                    <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" alt="Produto">
-                    <div class="item-info">
-                        <h3>Engrenagem de Tração Trator MF</h3>
-                        <p class="item-code">COD: 100003</p>
-                    </div>
-                    <div class="item-controls">
-                        <div class="quantity-box">
-                            <button>-</button>
-                            <input type="number" value="1" readonly>
-                            <button>+</button>
-                        </div>
-                        <span class="item-total">R$ 820,00</span>
-                        <button class="btn-remove-item"><img src="https://img.icons8.com/ios-filled/50/ef4444/trash.png" alt="Remover"></button>
-                    </div>
-                </div>
-
+    <main class="products-layout container">
+        
+        <aside class="filter-sidebar">
+            <div class="filter-header">
+                <h3>Filtrar Produtos</h3>
+                <button class="clear-filters" id="btn-limpar">Limpar tudo</button>
             </div>
 
-            <div class="cart-summary">
-                <h3>Resumo do Pedido</h3>
-                
-                <div class="summary-row">
-                    <span>Subtotal (1 item)</span>
-                    <span>R$ 820,00</span>
+            <div class="filter-section">
+                <h4>Categorias</h4>
+                <div class="filter-options" id="filter-categorias">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="acessorios">
+                        <span class="checkmark"></span> Acessórios em Geral <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="filtros">
+                        <span class="checkmark"></span> Filtros <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="engrenagens">
+                        <span class="checkmark"></span> Engrenagens <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="correias">
+                        <span class="checkmark"></span> Correias <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="bombas">
+                        <span class="checkmark"></span> Bombas e Hidráulico <span class="count"></span>
+                    </label>
                 </div>
-                <div class="summary-row">
-                    <span>Frete</span>
-                    <span class="freight-calc">A calcular</span>
-                </div>
-                
-                <div class="freight-input">
-                    <input type="text" placeholder="Digite seu CEP">
-                    <button>OK</button>
-                </div>
-
-                <div class="summary-total">
-                    <strong>Total</strong>
-                    <strong>R$ 820,00</strong>
-                </div>
-
-                <button class="btn-checkout">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp">
-                    Finalizar via WhatsApp
-                </button>
             </div>
-        </div>
+
+            <div class="filter-section">
+                <h4>Marcas</h4>
+                <div class="filter-options" id="filter-marcas">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="massey">
+                        <span class="checkmark"></span> Massey Ferguson <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="newholland">
+                        <span class="checkmark"></span> New Holland <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="mahle">
+                        <span class="checkmark"></span> Mahle <span class="count"></span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" value="multimarca">
+                        <span class="checkmark"></span> Multimarca <span class="count"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section" style="border-bottom: none;">
+                <h4>Faixa de Preço</h4>
+                <div class="price-inputs">
+                    <div class="price-field">
+                        <span>R$</span>
+                        <input type="number" id="preco-min" placeholder="Mín">
+                    </div>
+                    <span class="price-separator">-</span>
+                    <div class="price-field">
+                        <span>R$</span>
+                        <input type="number" id="preco-max" placeholder="Máx">
+                    </div>
+                </div>
+            </div>
+            
+            </aside>
+
+        <section class="catalogo-content">
+            <div class="catalogo-header">
+                <h2>Catálogo de Peças</h2>
+                <div class="catalogo-sort">
+                    <label for="ordenar">Ordenar por:</label>
+                    <select id="ordenar">
+                        <option value="relevancia">Relevância</option>
+                        <option value="menor-preco">Menor Preço</option>
+                        <option value="maior-preco">Maior Preço</option>
+                        <option value="nome-az">Nome A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="catalogo-grid" id="grid-produtos">
+                </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -137,7 +171,7 @@
             <div class="footer-column col-menu">
                 <h3>Menu</h3>
                 <ul>
-                    <li><a href="Index.html">Home</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="About.html">Sobre</a></li>
                     <li><a href="Products.html">Produtos</a></li>
                     <li><a href="Contact.html">Contato</a></li>
@@ -152,5 +186,8 @@
         </div>
         <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
     </footer>
+
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/products.js"></script>
 </body>
 </html>

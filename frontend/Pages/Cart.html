@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Engremaq</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/Css/Global.css">
+    <link rel="stylesheet" href="../Assets/Css/Style Cart.css">
+</head>
+<body>
+
+    <header class="header-isolado">
+        <a href="../index.html">
+            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+        </a>
+    </header>
+
+    <main class="cart-page-bg">
+        <div class="container">
+            
+            <div class="checkout-steps">
+                <div class="step active"><img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png" alt="Carrinho"><span style="color: #d4a000;">Carrinho</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/marker.png" alt="Endereço"><span>Endereço</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/bank-cards.png" alt="Pagamento"><span>Pagamento</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/checked--v1.png" alt="Revisão"><span>Revisão</span></div>
+                <div class="step-line"></div>
+                <div class="step"><img src="https://img.icons8.com/ios-filled/50/cccccc/ok--v1.png" alt="Concluir"><span style="color: #ccc;">Concluir</span></div>
+            </div>
+
+            <div class="scarcity-alert">
+                <img src="https://img.icons8.com/ios-filled/50/111111/time.png" alt="Tempo">
+                <div>
+                    <strong>Não deixe seus itens escaparem!</strong>
+                    <p>Itens do carrinho não estão reservados. Finalize a compra e garanta as suas peças.</p>
+                </div>
+            </div>
+
+            <div class="cart-layout">
+                <div class="cart-left-col">
+                    <div class="cart-box-header">
+                        <h2><img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-basket.png" alt="Cesta"> PRODUTO E SERVIÇO</h2>
+                        <button class="btn-clear-cart" id="btn-limpar-carrinho"><img src="https://img.icons8.com/ios-filled/50/ef4444/trash.png" alt="Lixeira"> REMOVER TODOS OS PRODUTOS</button>
+                    </div>
+                    
+                    <div class="seller-info">Vendido e entregue por: <strong>Engremaq Peças</strong></div>
+                    <div id="cart-items-container"></div>
+                </div>
+
+                <div class="cart-right-col">
+                    <div class="summary-box">
+                        <h3><img src="https://img.icons8.com/ios-filled/50/ffcc00/receipt.png" alt="Nota"> Resumo do pedido</h3>
+                        <div class="summary-line"><span>Valor dos produtos:</span><span id="subtotal-carrinho">R$ 0,00</span></div>
+                        
+                        <div class="freight-section">
+                            <label>Calcular frete e prazo:</label>
+                            <div class="freight-input-group">
+                                <input type="text" id="cep-input" placeholder="Digite seu CEP" maxlength="9">
+                                <button id="btn-calcular-frete">OK</button>
+                            </div>
+                            <div class="freight-result" id="frete-display"></div>
+                        </div>
+
+                        <div class="summary-line" style="margin-top: 10px;"><span>Frete:</span><span id="valor-frete-resumo">R$ 0,00</span></div>
+                        <div class="summary-total-line">
+                            <span>Total:</span>
+                            <div class="total-price-box">
+                                <strong>À vista no Pix ou Boleto</strong>
+                                <span class="total-big" id="total-carrinho">R$ 0,00</span>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn-primary-action" id="btn-pagar-mp">CONTINUAR PARA ENDEREÇO</button>
+                            <button class="btn-secondary-action" id="btn-finalizar-whats"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="Whats"> NEGOCIAR VIA WHATSAPP</button>
+                            <a href="Products.html" class="btn-back-action">ESCOLHER MAIS PEÇAS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-isolado">
+        <div class="footer-iso-dark">
+            <div class="container text-center">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Engremaq Logo" class="iso-logo">
+                <p class="iso-grupo">Uma loja oficial do grupo <strong style="color: #ffcc00;">ENGREMAQ</strong></p>
+                <p class="iso-legal-text">Engremaq® é uma marca registrada de ENGREMAQ S.A | CNPJ: 00.000.000/0001-00 | Todos os direitos reservados. Ambiente 100% Seguro.</p>
+                <div class="iso-links">
+                    <a href="#">Políticas do Site</a>
+                    <a href="#">Políticas de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../Assets/Js/global.js"></script>
+    <script src="../Assets/Js/cart.js"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
-/* Global.css */
+/* ==========================================================================
+   GLOBAL.CSS - ESTILOS GERAIS DO SITE ENGREMAQ
+   ========================================================================== */
 body, html {
-    overflow-x: hidden;
+    overflow-x: clip; 
     font-family: 'Poppins', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -194,8 +196,22 @@ header .logo {
     transition: filter 0.3s ease; 
 }
 
-.action-link:hover img {
-    filter: invert(75%) sepia(74%) saturate(543%) hue-rotate(356deg) brightness(101%) contrast(105%);
+/* --- CORREÇÃO DEFINITIVA DO ÍCONE (SEM ARCO-ÍRIS) --- */
+.action-link img, 
+.cart-icon-wrapper img {
+    width: 22px;
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.action-link:hover img,
+.cart-icon-wrapper:hover img {
+    transform: scale(1.1);
+    filter: brightness(0) saturate(100%) invert(84%) sepia(59%) saturate(3474%) hue-rotate(352deg) brightness(101%) contrast(105%) !important;
+}
+
+.action-link:hover span, 
+.action-link:hover .cart-price {
+    color: #ffcc00 !important;
 }
 
 .cart-price {
@@ -232,12 +248,10 @@ header .logo {
     padding: 0;
 }
 
-
 /* ==========================================================================
    RODAPÉ (COM IMAGEM DO REPOSITÓRIO E LOGO À ESQUERDA)
    ========================================================================== */
 .footer {
-    /* Link direto da imagem no seu repositório GitHub */
     background-image: url('https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/izzuddin-azzam-HKBtu2w52DA-unsplash.jpg');
     background-size: cover;
     background-position: center;
@@ -246,6 +260,7 @@ header .logo {
     text-align: left; 
     margin-top: 0; 
     position: relative; 
+    border-top: 6px solid #ffcc00;
 }
 
 .footer-overlay {
@@ -273,7 +288,6 @@ header .logo {
     align-items: flex-start; 
 }
 
-/* --- Coluna 1: Logo e Redes Sociais --- */
 .footer-logo {
     max-width: 180px; 
     margin-bottom: -30px;
@@ -290,17 +304,17 @@ header .logo {
 }
 
 .social-links-footer {
-    display: flex; /* Força a ficarem lado a lado */
-    flex-direction: row;      /* Garante a direção horizontal */
-    gap: 15px;                /* Espaço entre um ícone e outro */
-    width: 100%;              /* Garante que o container não esprema os ícones */
+    display: flex;
+    flex-direction: row;      
+    gap: 15px;                
+    width: 100%;              
     justify-content: flex-start; 
     margin-left: -15px;       
-    margin-top: 10px;         /* Espaço entre o texto e os ícones */
+    margin-top: 10px;         
 }
 
 .social-links-footer img {
-    width: 22px;              /* Tamanho fixo para não dar erro */
+    width: 22px;              
     height: auto;
     display: block;
 }
@@ -309,7 +323,6 @@ header .logo {
     opacity: 1;
 }
 
-/* Mantendo os títulos e contatos conforme os ajustes anteriores */
 .footer-column h3 {
     font-size: 18px; 
     color: #fff; 
@@ -318,7 +331,6 @@ header .logo {
     font-weight: 700;
 }
 
-/* --- Coluna 2: Contatos (Alinhamento Corrigido) --- */
 .col-contato ul {
     list-style: none;
     padding: 0;
@@ -327,20 +339,20 @@ header .logo {
 
 .col-contato li {
     display: flex;
-    align-items: flex-start; /* Alinha o ícone ao topo da primeira linha de texto */
-    gap: 12px;               /* Espaçamento uniforme entre ícone e texto */
+    align-items: flex-start;
+    gap: 12px;               
     margin-bottom: 15px;
     font-size: 14px;
     color: #ddd;
-    line-height: 1.4;        /* Ajuste para o texto não ficar espalhado */
+    line-height: 1.4;        
 }
 
 .col-contato li img {
-    width: 20px;             /* Tamanho fixo para todos os ícones amarelos */
+    width: 20px;             
     height: 20px;
     object-fit: contain;
-    flex-shrink: 0;          /* Impede que o ícone esmague se o texto crescer */
-    margin-top: 2px;         /* Ajuste fino para alinhar com o centro da primeira linha */
+    flex-shrink: 0;          
+    margin-top: 2px;         
 }
 
 .cnpj-text {
@@ -352,7 +364,6 @@ header .logo {
     letter-spacing: 0.5px;
 }
 
-/* --- Coluna 3: Menu --- */
 .col-menu ul {
     list-style: none;
     padding: 0;
@@ -375,7 +386,6 @@ header .logo {
     color: #FFCC00;
 }
 
-/* --- Coluna 4: Mapa Google --- */
 .map-container {
     width: 100%;
     background-color: #fff; 
@@ -388,7 +398,6 @@ header .logo {
     border-radius: 2px;
 }
 
-/* --- FAIXA AMARELA FINAL --- */
 .footer-bottom {
     position: relative;
     z-index: 2;
@@ -403,6 +412,85 @@ header .logo {
 
 .footer-bottom p {
     margin: 0;
+}
+
+/* ==========================================================================
+   NOVA FUNÇÃO DE PAGAMENTOS: CABEÇALHO FIXO E RODAPÉ ISOLADO (CHECKOUT)
+   ========================================================================== */
+
+/* NOVO: Cabeçalho Isolado e Fixo para as páginas de pagamento */
+.header-isolado {
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.header-isolado .logo {
+    height: 55px;
+}
+
+.footer-isolado {
+    width: 100%;
+    margin-top: 40px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer-iso-dark {
+    background-color: #000; 
+    border-top: 4px solid #ffcc00; 
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-iso-dark .iso-logo {
+    height: 90px; 
+    margin-bottom: 10px;
+    object-fit: contain;
+}
+
+.footer-iso-dark .iso-grupo {
+    color: #fff;
+    font-size: 14px;
+    margin: 0 0 25px 0;
+}
+
+.footer-iso-dark .iso-legal-text {
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.6;
+    max-width: 1000px;
+    margin: 0 auto 20px auto;
+}
+
+.footer-iso-dark .iso-legal-text a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.footer-iso-dark .iso-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-iso-dark .iso-links a {
+    color: #fff;
+    font-size: 12px;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.footer-iso-dark .iso-links a:hover {
+    color: #ffcc00;
 }
 
 /* ==========================================================================
@@ -431,10 +519,13 @@ header .logo {
     .col-contato li { flex-direction: column; align-items: center; text-align: center; gap: 5px; }
     .map-container { max-width: 400px; } 
     
-    /* Reseta os alinhamentos de margem negativa no mobile */
     .footer-logo, .redes-text, .social-links-footer {
         margin-left: 0;
     }
+}
+
+@media (max-width: 768px) {
+    .footer-iso-dark .iso-links { gap: 15px; flex-direction: column; }
 }
 
 @media (max-width: 600px) {

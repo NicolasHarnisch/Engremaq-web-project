@@ -27,7 +27,7 @@
   --titulo-feature: 42px;
   --texto-feature: 15px;
 
-  --altura-botao: 40px; /* Reduzido levemente para caber os 2 botões melhor */
+  --altura-botao: 40px; 
   --raio-botao: 8px;
 
   --hover-subir: -2px;
@@ -236,18 +236,27 @@ header { gap: 24px; }
   padding: 16px; 
   display: flex;
   flex-direction: column;
-  flex: 1; /* Faz o corpo esticar e empurra os botões pra baixo */
+  flex: 1; 
 }
 
 .product-body h3 { margin: 0 0 8px; font-size: 14px; font-weight: 800; color: #111; }
-.product-code { display: block; font-size: 12px; font-weight: 700; color: rgba(0,0,0,.55); margin-bottom: 12px; }
+.product-code { display: block; font-size: 12px; font-weight: 700; color: rgba(0,0,0,.55); }
+
+/* --- CLASSE DO PREÇO ADICIONADA AQUI --- */
+.preco {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ff6600; /* Destaque em Laranja para chamar a atenção */
+  margin: 6px 0 14px 0;
+  font-family: 'Poppins', sans-serif;
+}
 
 /* --- BOTÕES DO CARD --- */
 .card-buttons {
-  margin-top: auto; /* Empurra os botões para o final do card */
+  margin-top: auto; 
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Espaço entre o botão de carrinho e o botão de WhatsApp */
+  gap: 8px; 
 }
 
 .btn {
@@ -344,7 +353,6 @@ header { gap: 24px; }
   padding: calc(var(--padding-secao) + 20px) 0;
   background: #1a1a1a;
   color: #fff;
-  border-bottom: 5px solid var(--cor-amarelo); 
 }
 
 .delivery-container {
