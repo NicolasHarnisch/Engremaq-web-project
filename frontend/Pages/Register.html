@@ -11,7 +11,7 @@
 <body class="register-bg">
 
     <header class="header-isolado">
-        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
     </header>
 
     <main class="register-main">
@@ -20,7 +20,7 @@
             <div class="register-header">
                 <h2>Vimos que você é novo na Engremaq! Crie sua conta.</h2>
                 <div class="promo-banner">
-                    <img src="https://img.icons8.com/ios-filled/50/d4a000/discount-front-page.png" alt="Cupom">
+                    <img src="https://img.icons8.com/ios-filled/50/d4a000/discount.png" alt="Cupom">
                     <span><strong>5% OFF</strong> aplicando o cupom <strong>TONAENGREMAQ</strong> na sua primeira compra</span>
                 </div>
             </div>
@@ -50,13 +50,16 @@
                     </div>
                     <div class="input-group full-width">
                         <label>Criar uma senha*</label>
-                        <input type="password" id="cad-senha" placeholder="Digite sua senha" required>
+                        <div style="position: relative; display: flex; align-items: center;">
+                            <input type="password" id="cad-senha" placeholder="Digite sua senha" required style="width: 100%; padding-right: 40px;">
+                            <img src="https://img.icons8.com/ios-filled/50/666666/visible--v1.png" id="toggle-senha" style="position: absolute; right: 15px; width: 22px; cursor: pointer; opacity: 0.7;" alt="Ver Senha">
+                        </div>
                         <span class="password-hint">ⓘ A senha deve conter no mínimo 8 caracteres, 1 letra maiúscula e 1 número.</span>
                     </div>
                 </div>
 
                 <div class="checkbox-group">
-                    <label><input type="checkbox" checked> Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp!</label>
+                    <label><input type="checkbox" id="cad-ofertas"> Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp!</label>
                     <label><input type="checkbox" required> Sou maior de 18 anos</label>
                     <label><input type="checkbox" required> Li e estou de acordo com as <a href="#">políticas da empresa e políticas de privacidade.</a>*</label>
                 </div>
@@ -69,7 +72,5 @@
         </div>
     </main>
     <script src="../Assets/Js/register.js"></script>
-</body>
-</html>
 </body>
 </html>

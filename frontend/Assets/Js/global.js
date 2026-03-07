@@ -1,5 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     
+    // Busca os produtos ao Back-end para a barra de pesquisa
+    let produtosEngremaq = [];
+    try {
+        const res = await fetch('http://localhost:3000/api/produtos');
+        if (res.ok) {
+            const dados = await res.json();
+            produtosEngremaq = dados.map(p => ({
+                id: p.codigo,
+                nome: p.nome,
+                img: p.imagem
+            }));
+        }
+    } catch(e) { console.log("Pesquisa a aguardar Back-end..."); }
+
     // ==========================================
     // 1. LÓGICA DA BARRA DE PESQUISA ESTILO KABUM!
     // ==========================================
@@ -8,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.querySelector('.search-bar button');
 
     if (searchBar && searchInput && searchButton) {
-        
         const wrapper = document.createElement('div');
         wrapper.style.cssText = `position: relative; flex: 1; max-width: 350px; min-width: 200px; margin: 0 20px;`;
         searchBar.parentNode.insertBefore(wrapper, searchBar);
@@ -24,17 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             max-height: 300px; overflow-y: auto; z-index: 9999; display: none;
         `;
         wrapper.appendChild(dropdown);
-
-        // Banco de dados de peças
-        const produtosEngremaq = [
-            { id: "000001", nome: "Correia de Reposição", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/8PK1930GOOD_02.webp" },
-            { id: "000002", nome: "Peça metálica — linha pesada", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/images.jpeg" },
-            { id: "000003", nome: "Filtro de ar Massey", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/filtro_ar_trator_massey_ant_292_295_296_610_620_640_jogo_1081_1_00686a861dfc45d1cf5521491040ea81_20240528141146.webp" },
-            { id: "100001", nome: "Filtro de óleo", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/download.jpeg" },
-            { id: "100002", nome: "Kit manutenção de motor 229", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/pecas-para-tratores-kit-manutencao-motor-229-4-cilindros-aspirado-p-1739990766956.png" },
-            { id: "100003", nome: "Engrenagem de Tração Trator MF", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" },
-            { id: "100004", nome: "Bomba Injetora New Holland", img: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/bomba-injetora-trator-new-holland-7610-dps-ano-inicial-1992-ano-final-motor-fnh-268-cu-in-codigo-montadora-esnn9a543va-0d8e4a0a.webp" }
-        ];
 
         const isHome = window.location.pathname.toLowerCase().includes('index.html') || window.location.pathname.endsWith('/');
         const linkProdutos = isHome ? 'Pages/Products.html' : 'Products.html';
@@ -65,15 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span style="font-size: 11px; color: #888;">COD: ${produto.id}</span>
                         </div>
                     `;
-
                     item.addEventListener('mouseenter', () => item.style.backgroundColor = '#f9f9f9');
                     item.addEventListener('mouseleave', () => item.style.backgroundColor = 'transparent');
-                    
                     item.addEventListener('click', () => {
                         searchInput.value = produto.nome;
                         executarBusca();
                     });
-
                     dropdown.appendChild(item);
                 });
             } else {
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!isHome && produtosNaTela.length > 0) {
                 let encontrou = false;
-                
                 produtosNaTela.forEach(card => {
                     const texto = card.innerText.toLowerCase();
                     if(texto.includes(termo)) {
@@ -132,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     msgErro.id = 'msg-erro-pesquisa';
                     msgErro.style.width = '100%';
                     msgErro.style.gridColumn = '1 / -1';
-                    msgErro.innerHTML = `<p style="text-align: center; color: #666; font-size: 15px; padding: 40px;">Nenhum produto encontrado para "<strong>${termoOriginal}</strong>".</p>`;
+                    msgErro.innerHTML = `<p style="text-align: center; color: #666; font-size: 15px; padding: 40px;">Nenhuma peça encontrada para "<strong>${termoOriginal}</strong>".</p>`;
                     container.appendChild(msgErro);
                 }
 
@@ -146,27 +144,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         searchButton.addEventListener('click', executarBusca);
-        
         searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault(); 
-                executarBusca();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); executarBusca(); }
         });
     }
 
     // ==========================================
-    // 2. SISTEMA DE USUÁRIO E DROPDOWN
+    // 2. SISTEMA DE USUÁRIO E DROPDOWN (COM VERIFICAÇÃO JWT BÁSICA)
     // ==========================================
-    const loginLink = document.querySelector('.user-actions .action-link[href*="Login.html"]') || 
-                      document.querySelector('.user-actions .action-link[href*="Login"]');
+    const loginLink = document.querySelector('.user-actions .action-link[href*="Login.html"]') || document.querySelector('.user-actions .action-link[href*="Login"]');
     
     if (loginLink) {
         const usuario = JSON.parse(localStorage.getItem('usuarioEngremaq'));
+        const token = localStorage.getItem('tokenEngremaq');
 
-        if (usuario) {
+        // Só mostra logado se tiver o Token também, dificultando falsificações no Front-end!
+        if (usuario && usuario.nome && token) {
             const spanNome = loginLink.querySelector('span');
-            if (spanNome) spanNome.textContent = `Olá, ${usuario.nome.split(' ')[0]}`;
+            
+            if (spanNome) {
+                let primeiroNome = usuario.nome.split(' ')[0];
+                primeiroNome = primeiroNome.charAt(0).toUpperCase() + primeiroNome.slice(1).toLowerCase();
+                spanNome.textContent = `Olá, ${primeiroNome}`;
+            }
             
             const isHome = window.location.pathname.toLowerCase().includes('index.html') || window.location.pathname.endsWith('/');
             const prefix = isHome ? 'Pages/' : '';
@@ -208,46 +208,38 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('btn-sair-conta').addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('usuarioEngremaq'); 
+                localStorage.removeItem('tokenEngremaq'); // Limpa a chave também
                 window.location.reload(); 
             });
         }
     }
 
     // ==========================================
-    // 3. ATUALIZAÇÃO GLOBAL DO CARRINHO (NOVO!)
+    // 3. ATUALIZAÇÃO GLOBAL DO CARRINHO
     // ==========================================
     window.atualizarCarrinhoHeader = function() {
         const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
-        
         let quantidadeTotal = 0;
         let precoTotal = 0;
 
-        // Calcula a quantidade de itens e o preço total
         carrinho.forEach(item => {
             quantidadeTotal += item.quantidade;
             precoTotal += (item.preco * item.quantidade);
         });
 
-        // Procura os elementos visuais no Cabeçalho
         const badge = document.querySelector('.cart-badge');
         const priceLabel = document.querySelector('.cart-price');
 
         if (badge) {
             badge.textContent = quantidadeTotal;
-            // Oculta a bolinha vermelha se não houver produtos no carrinho
             badge.style.display = quantidadeTotal > 0 ? 'flex' : 'none';
         }
 
         if (priceLabel) {
-            // Formata para o padrão Brasileiro (R$ 0,00)
             priceLabel.textContent = precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
     };
 
-    // Apelido para garantir compatibilidade com o cart.js antigo
     window.atualizarBadge = window.atualizarCarrinhoHeader;
-
-    // Executa a função imediatamente ao carregar qualquer página
     atualizarCarrinhoHeader();
-
 });

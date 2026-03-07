@@ -56,13 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(inpNum) {
             inpNum.addEventListener('input', (e) => {
-                // Remove tudo que não for número
                 let val = e.target.value.replace(/\D/g, '');
-                // Adiciona espaço a cada 4 números
                 val = val.replace(/(\d{4})(?=\d)/g, '$1 ');
                 e.target.value = val;
                 dispNum.textContent = val || '•••• •••• •••• ••••';
-                e.target.classList.remove('error'); // Remove erro ao digitar
+                e.target.classList.remove('error'); 
             });
         }
 
@@ -91,20 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         radioButtons.forEach(radio => {
             radio.addEventListener('change', (e) => {
-                // Esconde todos
                 cards.forEach(card => {
                     card.classList.remove('active');
                     card.querySelector('.card-body').style.display = 'none';
                     card.style.backgroundColor = '#fff';
                 });
                 
-                // Mostra o ativo
                 const selectedCard = e.target.closest('.payment-card');
                 selectedCard.classList.add('active');
                 selectedCard.style.backgroundColor = '#fffcf0';
                 selectedCard.querySelector('.card-body').style.display = 'block';
 
-                // Altera o texto do total consoante o método
                 if(e.target.value === 'cartao') {
                     textoVista.textContent = 'Total parcelado:';
                 } else {
@@ -114,24 +109,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // =========================================================
+    // CORREÇÃO: PUXAR A TRANSPORTADORA CORRETA E ALINHAMENTO
+    // =========================================================
     function carregarResumoPedido() {
         const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
         if (carrinho.length === 0) return window.location.href = "Cart.html";
 
         const subtotal = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
-        let frete = 0;
-        const enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
-        const selecionadoId = localStorage.getItem('enderecoSelecionado');
-        const endSelecionado = enderecos.find(e => e.id == selecionadoId);
-        if (endSelecionado) frete = endSelecionado.frete || 0;
+        
+        let freteValor = 0;
+        let freteNome = "";
+        
+        // Vai buscar o frete exato que o utilizador selecionou na aba anterior
+        const freteSalvo = JSON.parse(localStorage.getItem('freteSelecionado'));
+        if (freteSalvo) {
+            freteValor = freteSalvo.preco;
+            freteNome = freteSalvo.nome;
+        } else {
+            // Fallback de segurança
+            const enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
+            const selecionadoId = localStorage.getItem('enderecoSelecionado');
+            const endSelecionado = enderecos.find(e => e.id == selecionadoId);
+            if (endSelecionado) freteValor = endSelecionado.frete || 0;
+        }
 
-        totalFinalParaCartao = subtotal + frete;
+        totalFinalParaCartao = subtotal + freteValor;
 
-        document.getElementById('pay-subtotal').textContent = subtotal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-        document.getElementById('pay-frete').textContent = frete.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-        document.getElementById('pay-total').textContent = totalFinalParaCartao.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        const elSubtotal = document.getElementById('pay-subtotal');
+        const elFrete = document.getElementById('pay-frete');
+        const elTotal = document.getElementById('pay-total');
 
-        gerarParcelasSelect(totalFinalParaCartao);
+        if (elSubtotal) elSubtotal.textContent = subtotal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        if (elTotal) elTotal.textContent = totalFinalParaCartao.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        
+        // =========================================================
+        // ALINHAMENTO ABSOLUTO (FORÇADO PARA A DIREITA)
+        // =========================================================
+        if (elFrete) {
+            if (freteNome) {
+                // O display: block com text-align: right força o elemento a ocupar o espaço e empurrar o texto para o canto
+                elFrete.innerHTML = `
+                    <span style="display: block; text-align: right; line-height: 1.4;">
+                        ${freteValor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}
+                        <br><small style="font-size: 11px; color: #888; font-weight: 400;">via ${freteNome}</small>
+                    </span>
+                `;
+            } else {
+                elFrete.textContent = freteValor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            }
+        }
     }
 
     function gerarParcelasSelect(total) {
@@ -139,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!select) return;
         select.innerHTML = '';
         
-        // Simula parcelamento até 12x sem juros (Típico KaBuM! em promoções)
         for(let i = 1; i <= 12; i++) {
             const parcela = total / i;
             const text = i === 1 ? `1x sem juros - ${total.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}` : 

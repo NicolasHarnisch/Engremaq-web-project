@@ -75,36 +75,69 @@ window.removerDoCarrinho = function(id) {
     renderizarCarrinho();
 }
 
-// Lógica de Frete (ViaCEP)
+// =========================================================
+// NOVA Lógica de Frete (ViaCEP + Melhor Envio Backend)
+// =========================================================
 document.getElementById("btn-calcular-frete")?.addEventListener("click", async () => {
-    const cep = document.getElementById("cep-input").value.replace(/\D/g, '');
+    const cepInput = document.getElementById("cep-input").value;
+    const cepNumeros = cepInput.replace(/\D/g, '');
     const display = document.getElementById("frete-display");
     const resumoFrete = document.getElementById("valor-frete-resumo");
 
-    if (cep.length !== 8) return alert("CEP inválido");
+    if (cepNumeros.length !== 8) return alert("CEP inválido. Digite 8 números.");
 
-    display.textContent = "Calculando...";
+    display.innerHTML = `<span style="color: #d4a000; font-weight: bold;">Calculando...</span>`;
     
     try {
-        const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const dados = await resp.json();
+        // 1. Busca localidade no ViaCEP
+        const viaCepResp = await fetch(`https://viacep.com.br/ws/${cepNumeros}/json/`);
+        const dadosViaCep = await viaCepResp.json();
 
-        if (dados.erro) {
+        if (dadosViaCep.erro) {
             display.textContent = "CEP não encontrado";
             return;
         }
 
-        // Regra de negócio: Ceará é mais barato
-        valorFreteGlobal = dados.uf === 'CE' ? 15.00 : 45.00;
-        
-        display.textContent = `Frete para ${dados.localidade}-${dados.uf}`;
-        if(resumoFrete) resumoFrete.textContent = valorFreteGlobal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-        
-        renderizarCarrinho(); 
+        const localidadeTexto = `${dadosViaCep.localidade}-${dadosViaCep.uf}`;
+
+        // 2. Busca valores reais no Backend (Melhor Envio)
+        const freteResp = await fetch('http://localhost:3000/api/frete/calcular', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cepDestino: cepNumeros })
+        });
+
+        const dadosFrete = await freteResp.json();
+
+        if (dadosFrete.sucesso && dadosFrete.fretes.length > 0) {
+            // Pega o mais barato para o resumo
+            const freteMaisBarato = dadosFrete.fretes.reduce((min, f) => f.preco < min.preco ? f : min, dadosFrete.fretes[0]);
+            valorFreteGlobal = freteMaisBarato.preco;
+
+            // Mostra as opções na tela
+            let opcoesHtml = `<div style="font-size: 13px; margin-top: 5px;"><strong>${localidadeTexto}</strong><br>`;
+            dadosFrete.fretes.forEach(f => {
+                opcoesHtml += `<div style="display:flex; justify-content:space-between; margin-top:4px; border-bottom: 1px dotted #ccc;">
+                                <span>${f.nome} (${f.prazo}d)</span>
+                                <strong>${f.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</strong>
+                               </div>`;
+            });
+            opcoesHtml += `</div>`;
+
+            display.innerHTML = opcoesHtml;
+            if(resumoFrete) resumoFrete.textContent = valorFreteGlobal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+            
+            renderizarCarrinho(); 
+        } else {
+            display.innerHTML = "Não foi possível obter opções de envio.";
+        }
+
     } catch (error) {
-        display.textContent = "Erro na conexão";
+        console.error("Erro na conexão:", error);
+        display.textContent = "Erro na conexão com o servidor de frete.";
     }
 });
+// =========================================================
 
 // Limpar todo o carrinho
 document.getElementById("btn-limpar-carrinho")?.addEventListener("click", () => {
@@ -116,17 +149,25 @@ document.getElementById("btn-limpar-carrinho")?.addEventListener("click", () => 
 });
 
 // =========================================================
-// BOTÃO CONTINUAR (IR PARA ENDEREÇO)
+// BOTÃO CONTINUAR (IR PARA ENDEREÇO COM PROTEÇÃO)
 // =========================================================
 document.getElementById("btn-pagar-mp")?.addEventListener("click", () => {
     const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
+    const token = localStorage.getItem('tokenEngremaq'); // Verifica se está logado
     
-    // Trava de segurança: não deixa avançar se o carrinho estiver vazio
+    // Trava 1: Carrinho vazio
     if (carrinho.length === 0) {
         return alert("Seu carrinho está vazio! Adicione produtos antes de continuar.");
     }
     
-    // Redireciona para a página de endereço
+    // Trava 2: Não logado (Guardião do Checkout)
+    if (!token) {
+        alert("Para finalizar a compra, você precisa entrar na sua conta ou se cadastrar.");
+        window.location.href = "Login.html?redirect=Address.html"; 
+        return;
+    }
+    
+    // Passou nas travas: vai para o endereço
     window.location.href = "Address.html";
 });
 

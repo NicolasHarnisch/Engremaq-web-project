@@ -1,16 +1,52 @@
 // =========================================================
-// 1. BANCO DE DADOS (ARRAY DE PRODUTOS)
+// 1. BANCO DE DADOS (AGORA VEM DO BACK-END)
 // =========================================================
-const bancoDeProdutos = [
-    { id: "100001", nome: "Filtro de Óleo", preco: 150.00, categoria: "filtros", marca: "mahle", imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/download.jpeg" },
-    { id: "100003", nome: "Engrenagem de Tração Trator MF", preco: 820.00, categoria: "engrenagens", marca: "massey", imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" },
-    { id: "000001", nome: "Correia de Reposição", preco: 250.00, categoria: "correias", marca: "multimarca", imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/8PK1930GOOD_02.webp" },
-    { id: "100004", nome: "Bomba Injetora New Holland", preco: 3500.00, categoria: "bombas", marca: "newholland", imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/bomba-injetora-trator-new-holland-7610-dps-ano-inicial-1992-ano-final-motor-fnh-268-cu-in-codigo-montadora-esnn9a543va-0d8e4a0a.webp" },
-    { id: "000002", nome: "Peça Metálica Linha Pesada", preco: 450.00, categoria: "acessorios", marca: "multimarca", imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/images.jpeg" },
-    { id: "000003", nome: "Filtro de Ar Massey", preco: 180.00, categoria: "filtros", marca: "massey", imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/filtro_ar_trator_massey_ant_292_295_296_610_620_640_jogo_1081_1_00686a861dfc45d1cf5521491040ea81_20240528141146.webp" }
-];
-
+let bancoDeProdutos = []; // Começa vazio
 const gridProdutos = document.getElementById("grid-produtos");
+
+// Função para buscar os produtos no MongoDB
+async function carregarProdutosDoServidor() {
+    if (!gridProdutos) return;
+    
+    gridProdutos.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; padding: 40px;'>Carregando produtos da nuvem... ☁️</p>";
+    
+    try {
+        const resposta = await fetch('http://localhost:3000/api/produtos');
+        if (resposta.ok) {
+            const produtosDoBanco = await resposta.json();
+            
+            // Mapeia os dados do MongoDB para o formato que o seu Front-end já entende
+            bancoDeProdutos = produtosDoBanco.map(p => ({
+                id: p.codigo,
+                nome: p.nome,
+                preco: p.preco,
+                categoria: p.categoria,
+                marca: p.marca,
+                imagem: p.imagem
+            }));
+
+            atualizarContadoresFiltros();
+            
+            // Lê a URL para ver se veio uma pesquisa da Home
+            const urlParams = new URLSearchParams(window.location.search);
+            const termoBusca = urlParams.get('busca');
+
+            if (termoBusca) {
+                const inputTopo = document.querySelector('.search-bar input');
+                const inputLateral = document.getElementById("busca-nome");
+                if (inputTopo) inputTopo.value = termoBusca;
+                if (inputLateral) inputLateral.value = termoBusca;
+            }
+
+            aplicarFiltrosEOrdenar(true);
+        } else {
+            gridProdutos.innerHTML = "<p style='color: red; text-align: center;'>Erro ao buscar produtos no servidor.</p>";
+        }
+    } catch (erro) {
+        console.error(erro);
+        gridProdutos.innerHTML = "<p style='color: red; text-align: center;'>Erro de conexão. O servidor está rodando?</p>";
+    }
+}
 
 // =========================================================
 // 2. CONTADORES REAIS (Mostra a quantidade de cada filtro)
@@ -43,7 +79,6 @@ function renderizarProdutos(produtos, termoBusca = "") {
     if (!gridProdutos) return;
     gridProdutos.innerHTML = "";
 
-    // Mensagem amigável se a busca não encontrar nada
     if (produtos.length === 0) {
         let msgErro = termoBusca 
             ? `<p style='grid-column: 1 / -1; text-align: center; padding: 40px; font-size: 16px; font-weight: 600; color: #666;'>Nenhuma peça encontrada para "<strong>${termoBusca}</strong>".</p>`
@@ -98,7 +133,6 @@ window.adicionarAoCarrinho = function(idProduto) {
 function aplicarFiltrosEOrdenar(ignorarScroll = false) {
     let filtrados = [...bancoDeProdutos];
 
-    // Sincroniza a busca da barra do topo com a lateral
     const inputLateral = document.getElementById("busca-nome");
     const inputTopo = document.querySelector('.search-bar input');
     
@@ -123,16 +157,12 @@ function aplicarFiltrosEOrdenar(ignorarScroll = false) {
     else if (ordem === "maior-preco") filtrados.sort((a, b) => b.preco - a.preco);
     else if (ordem === "nome-az") filtrados.sort((a, b) => a.nome.localeCompare(b.nome));
 
-    // Desce a tela levemente só se o clique for nos checkboxes (ignora ao digitar)
-    if (!ignorarScroll) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (!ignorarScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
 
     renderizarProdutos(filtrados, busca);
     atualizarTituloPesquisa(busca);
 }
 
-// Cria/Atualiza o título "Você pesquisou por:" dinamicamente
 function atualizarTituloPesquisa(termo) {
     if (!gridProdutos) return;
     let tituloContainer = document.getElementById("titulo-pesquisa-dinamico");
@@ -143,7 +173,6 @@ function atualizarTituloPesquisa(termo) {
             tituloContainer.id = "titulo-pesquisa-dinamico";
             tituloContainer.style.width = "100%";
             tituloContainer.style.marginBottom = "20px";
-            // Insere antes da grade de produtos
             gridProdutos.parentNode.insertBefore(tituloContainer, gridProdutos);
         }
         tituloContainer.innerHTML = `<h3 style="font-size: 18px; font-weight: 700; color: #333; margin:0;">Você pesquisou por: <span style="color: #666; font-weight: 400;">"${termo}"</span></h3>`;
@@ -157,32 +186,14 @@ function atualizarTituloPesquisa(termo) {
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
     if (gridProdutos) {
-        atualizarContadoresFiltros();
-        
-        // 1. Lê a URL para ver se veio uma pesquisa da Home
-        const urlParams = new URLSearchParams(window.location.search);
-        const termoBusca = urlParams.get('busca');
+        // CHAMA O BACKEND ASSIM QUE A PÁGINA CARREGA
+        carregarProdutosDoServidor();
 
-        // Se tiver busca na URL, preenche os campos automaticamente
-        if (termoBusca) {
-            const inputTopo = document.querySelector('.search-bar input');
-            const inputLateral = document.getElementById("busca-nome");
-            if (inputTopo) inputTopo.value = termoBusca;
-            if (inputLateral) inputLateral.value = termoBusca;
-        }
-
-        // Renderiza os produtos inicialmente já aplicando o filtro (se houver)
-        aplicarFiltrosEOrdenar(true); 
-
-        // 2. MANTÉM 'input' para busca (para ser instantâneo conforme digita)
         const inputLateral = document.getElementById("busca-nome");
         const inputTopo = document.querySelector('.search-bar input');
         
-        if (inputLateral) {
-            inputLateral.addEventListener("input", () => aplicarFiltrosEOrdenar(true));
-        }
+        if (inputLateral) inputLateral.addEventListener("input", () => aplicarFiltrosEOrdenar(true));
         
-        // Faz a barra do topo e a lateral trabalharem juntas em sincronia
         if (inputTopo) {
             inputTopo.addEventListener("input", (e) => {
                 if (inputLateral) inputLateral.value = e.target.value; 
@@ -190,17 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 3. ALTERADO PARA 'change' nos preços (corrige o bug de pular para o topo)
         document.getElementById("preco-min")?.addEventListener("change", () => aplicarFiltrosEOrdenar());
         document.getElementById("preco-max")?.addEventListener("change", () => aplicarFiltrosEOrdenar());
         
-        // 4. MANTÉM 'change' para seletores e checkboxes
         document.getElementById("ordenar")?.addEventListener("change", () => aplicarFiltrosEOrdenar());
         document.querySelectorAll("input[type='checkbox']").forEach(cb => {
             cb.addEventListener("change", () => aplicarFiltrosEOrdenar());
         });
         
-        // 5. Botão Limpar Tudo
         document.getElementById("btn-limpar")?.addEventListener("click", () => {
             document.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
             ["preco-min", "preco-max", "busca-nome"].forEach(id => {
@@ -212,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const sort = document.getElementById("ordenar");
             if(sort) sort.value = "relevancia";
 
-            // Limpa a URL para não manter o "busca=" ao recarregar a página
             const url = new URL(window.location);
             url.searchParams.delete('busca');
             window.history.pushState({}, '', url);

@@ -1,53 +1,102 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     
-    // 1. Gera o número de pedido e preenche em todos os blocos possíveis
-    const numeroPedido = Math.floor(10000000 + Math.random() * 90000000);
+    // 1. Recuperar dados do LocalStorage
+    const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
+    const usuario = JSON.parse(localStorage.getItem('usuarioEngremaq')) || { nome: "Cliente", email: "cliente@teste.com" };
+    const enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
+    const idSel = localStorage.getItem('enderecoSelecionado');
+    const metodo = localStorage.getItem('metodoPagamento') || 'pix';
+    const numeroPedido = localStorage.getItem('ultimoNumeroPedido') || "ENG-" + Math.floor(Math.random() * 90000);
+
+    // 2. Cálculo do Valor
+    const subtotal = carrinho.reduce((acc, item) => acc + (item.preco * (item.quantidade || 1)), 0);
+    const frete = enderecos.find(e => e.id == idSel)?.frete || 0;
+    const total = subtotal + frete;
+
+    // 3. Exibir número do pedido
     document.querySelectorAll('.display-pedido').forEach(el => {
         el.textContent = numeroPedido;
     });
 
-    // 2. Descobre qual foi o método pago e esconde os outros
-    const metodoSelecionado = localStorage.getItem('metodoPagamento') || 'pix';
-    
-    const blocoPix = document.getElementById('bloco-pix');
-    const blocoCartao = document.getElementById('bloco-cartao');
-    const blocoBoleto = document.getElementById('bloco-boleto');
-    
     const subtitle = document.getElementById('conclude-subtitle');
-    const areaInstrucoes = document.getElementById('area-instrucoes');
-    const textInstrucao1 = document.getElementById('instrucao-texto-1');
 
-    if (metodoSelecionado === 'cartao') {
-        blocoCartao.style.display = 'block';
-        subtitle.textContent = "ESTAMOS A PREPARAR O SEU ENVIO"; // Cartão não precisa "pagar agora"
-        areaInstrucoes.style.display = 'none'; // Esconde regras de Pix/Boleto
-        
-    } else if (metodoSelecionado === 'boleto') {
-        blocoBoleto.style.display = 'block';
-        subtitle.textContent = "AGORA É SÓ PAGAR O SEU BOLETO";
-        textInstrucao1.textContent = "Imprima o boleto ou copie a linha digitável e pague no aplicativo do seu banco.";
-        
-    } else { // Padrao: PIX
-        blocoPix.style.display = 'block';
-        subtitle.textContent = "AGORA É SÓ REALIZAR O PAGAMENTO VIA PIX";
-        textInstrucao1.textContent = "Utilize o aplicativo do seu banco copiando o código PIX ou escaneando o QR-Code acima.";
-    }
-
-    // 3. Limpa o carrinho e dados sensíveis (a compra já acabou)
-    localStorage.removeItem('carrinhoEngremaq');
-    localStorage.removeItem('metodoPagamento');
-
-    // 4. Lógica do botão "Copiar PIX"
-    const btnCopiar = document.getElementById('btn-copiar-pix');
-    if (btnCopiar) {
-        const msgCopiado = document.getElementById('copy-msg');
-        const codigoPix = "00020126580014BR.GOV.BCB.PIX0136nicolasgomeshar@gmail.com5204000053039995802BR5913Engremaq6009Fortaleza62070503***63041A2B";
-
-        btnCopiar.addEventListener('click', () => {
-            navigator.clipboard.writeText(codigoPix).then(() => {
-                msgCopiado.style.display = 'block';
-                setTimeout(() => { msgCopiado.style.display = 'none'; }, 3000);
-            }).catch(err => { alert("Não foi possível copiar o código."); });
+    // 4. Chamada ao Servidor
+    try {
+        const resposta = await fetch('http://localhost:3000/api/pagamento/pix', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                metodo: metodo,
+                email: usuario.email,
+                nome: usuario.nome,
+                valorTotal: total,
+                descricaoPedido: `Pedido ${numeroPedido} - Engremaq`
+            })
         });
+
+        const dados = await resposta.json();
+
+        console.log("DADOS RECEBIDOS DO BACKEND:", dados);
+
+        if (dados.sucesso) {
+            // Mostra o bloco correto e esconde os outros
+            document.querySelectorAll('.bloco-pagamento').forEach(b => b.classList.add('hidden'));
+            const blocoAtual = document.getElementById(`bloco-${metodo}`);
+            if (blocoAtual) blocoAtual.classList.remove('hidden');
+
+            if (metodo === 'pix') {
+                const imgQr = document.getElementById('img-qr-code');
+                if (imgQr) {
+                    // O SEGREDO ESTÁ AQUI: Adicionar o prefixo para o navegador reconhecer a imagem
+                    imgQr.src = `data:image/png;base64,${dados.qrCodeBase64}`;
+                }
+                configurarBotaoCopiar(dados.pixCopiaECola);
+
+                // ==========================================================
+                // TRUQUE DE APRESENTAÇÃO: Simular a aprovação do PIX
+                // ==========================================================
+                setTimeout(() => {
+                    const telaAguardando = document.getElementById('pix-aguardando');
+                    const telaAprovado = document.getElementById('pix-aprovado');
+                    const instrucoes = document.getElementById('area-instrucoes');
+                    const subtitle = document.getElementById('conclude-subtitle');
+
+                    if (telaAguardando && telaAprovado) {
+                        // 1. Muda a tela visualmente
+                        telaAguardando.classList.add('hidden');
+                        if (instrucoes) instrucoes.classList.add('hidden');
+                        telaAprovado.classList.remove('hidden');
+                        if (subtitle) subtitle.textContent = "PAGAMENTO CONFIRMADO!";
+
+                        // 💡 CORREÇÃO 1: Esvaziar o Carrinho
+                        localStorage.removeItem('carrinhoEngremaq');
+
+                        // 💡 CORREÇÃO 2: Atualizar o status do pedido para "Aprovado" no Dashboard
+                        let pedidos = JSON.parse(localStorage.getItem('pedidosEngremaq')) || [];
+                        let pedidoAtual = pedidos.find(p => p.numero === numeroPedido); // Usa a variável numeroPedido que já existe no topo
+                        if (pedidoAtual) {
+                            pedidoAtual.status = "Pagamento Aprovado";
+                            localStorage.setItem('pedidosEngremaq', JSON.stringify(pedidos));
+                        }
+                    }
+                }, 8000); // Aguarda 8 segundos
+                // ==========================================================
+            }
+        }
+    } catch (erro) {
+        console.error("Erro na conexão:", erro);
+        if (subtitle) subtitle.textContent = "SERVIDOR OFFLINE - ABRA O TERMINAL E RODE O NODE";
     }
 });
+
+function configurarBotaoCopiar(codigo) {
+    const btn = document.getElementById('btn-copiar-pix');
+    const msg = document.getElementById('copy-msg');
+    if (btn) {
+        btn.onclick = () => {
+            navigator.clipboard.writeText(codigo);
+            msg?.classList.remove('hidden');
+            setTimeout(() => msg?.classList.add('hidden'), 3000);
+        };
+    }
+}

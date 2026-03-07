@@ -5,21 +5,42 @@
 .step img { width: 24px; }
 .step-line { width: 30px; height: 2px; background: #eee; margin: 0 15px; }
 
+/* Auxiliares da Barra de Progresso */
+.step-text-yellow { color: #d4a000; }
+.step-line-yellow { background: #ffcc00; }
+
 /* Cabeçalho de Sucesso */
 .success-header { text-align: center; margin-bottom: 40px; }
-.success-header svg { width: 60px; height: 60px; margin-bottom: 15px; }
+.icon-success { width: 60px; height: 60px; margin-bottom: 15px; }
 .success-header h1 { color: #22c55e; font-size: 28px; font-weight: 900; margin: 0 0 5px 0; }
 .success-header h2 { color: #22c55e; font-size: 18px; font-weight: 700; margin: 0; }
 
-/* Cartão do PIX */
+/* Estrutura dos Blocos e Cartões */
+.bloco-pagamento { display: block; }
+.hidden { display: none !important; }
+
 .conclude-card { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 40px; }
 
+/* Variantes do Cartão (Para Boleto e Cartão de Crédito) */
+.center-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 60px 40px; }
+.icon-approved { width: 80px; height: 80px; fill: #22c55e; margin-bottom: 20px; }
+.approved-title { font-size: 24px; color: #111; margin-bottom: 10px; }
+.approved-desc { color: #666; font-size: 15px; max-width: 500px; }
+.top-margin-30 { margin-top: 30px; }
+
+.icon-boleto { width: 100px; height: 60px; fill: #333; margin-bottom: 20px; }
+.boleto-title { font-size: 20px; color: #111; margin-bottom: 10px; }
+.boleto-desc { color: #666; font-size: 14px; max-width: 600px; margin-bottom: 20px; }
+
+/* QR Code (PIX) */
 .qr-col { display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid #eee; padding-right: 40px; }
 .qr-box { padding: 15px; border: 1px dashed #ccc; border-radius: 8px; margin-bottom: 20px; }
 .qr-box img { width: 220px; height: 220px; object-fit: contain; }
 .btn-copy-pix { background: none; border: none; color: #d4a000; font-weight: 800; font-size: 16px; cursor: pointer; text-decoration: none; font-family: 'Poppins', sans-serif; transition: 0.2s; }
 .btn-copy-pix:hover { text-decoration: underline; color: #ffcc00; }
+.msg-copiado { color: #22c55e; font-size: 13px; margin-top: 5px; font-weight: 700; }
 
+/* Lado Direito do PIX */
 .info-col { display: flex; flex-direction: column; justify-content: center; padding-left: 10px; }
 .timer-alert { display: flex; align-items: flex-start; gap: 15px; background: #fff9e6; border: 1px solid #ffcc00; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
 .timer-alert svg { width: 28px; height: 28px; flex-shrink: 0; margin-top: 2px; }
@@ -31,9 +52,20 @@
 .order-number-box strong { color: #333; font-size: 38px; font-weight: 900; letter-spacing: 2px; display: block; }
 .scan-text { color: #555; font-size: 14px; line-height: 1.6; text-align: center; margin: 0; }
 
+/* Animação Loading do PIX */
+.loading-alert { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding: 15px; background: #e0f2fe; border: 1px solid #7dd3fc; border-radius: 8px; }
+.spinner { width: 30px; height: 30px; animation: spin 1s linear infinite; }
+.loading-text { color: #0284c7; font-weight: 700; font-size: 15px; }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Animação de Surgimento (Fade in) */
+.fade-in { animation: fadeIn 0.8s ease-in-out; }
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
 /* Instruções */
 .instructions-section { max-width: 800px; margin: 0 auto 50px auto; }
-.instructions-section h3 { color: #333; font-size: 18px; margin-bottom: 20px; }
+.instructions-title { color: #333; font-size: 18px; margin-bottom: 20px; }
 .instructions-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
 .instructions-list li { display: flex; align-items: center; gap: 20px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
 .instructions-list li svg { width: 32px; height: 32px; flex-shrink: 0; }
@@ -45,7 +77,12 @@
 .btn-outline:hover { background: #fff9e6; }
 .btn-solid { padding: 15px 40px; background: #ffcc00; color: #111; font-weight: 800; text-decoration: none; border-radius: 6px; transition: 0.3s; }
 .btn-solid:hover { background: #e6b800; }
+.print-btn { padding: 15px 40px; margin-bottom: 30px; border: none; font-family: 'Poppins', sans-serif; cursor: pointer; }
 
+/* Auxiliares Gerais (Footer) */
+.text-yellow { color: #ffcc00; }
+
+/* Responsividade */
 @media (max-width: 900px) { 
     .conclude-card { grid-template-columns: 1fr; gap: 30px; } 
     .qr-col { border-right: none; padding-right: 0; border-bottom: 1px solid #eee; padding-bottom: 30px; }

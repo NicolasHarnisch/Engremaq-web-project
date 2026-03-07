@@ -26,7 +26,7 @@
 
     <header>
         <a href="../index.html">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
         </a>
         <div class="search-bar">
             <input type="text" placeholder="Buscar peças...">
@@ -71,7 +71,10 @@
                 </div>
                 <div class="form-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                    <div style="position: relative; width: 100%;">
+                        <input type="password" id="login-senha" placeholder="Digite sua senha" style="width: 100%; padding-right: 40px;" required>
+                        <img src="https://img.icons8.com/ios-filled/50/666666/visible--v1.png" id="toggle-senha-login" alt="Mostrar Senha" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); width: 22px; cursor: pointer; opacity: 0.6; transition: 0.2s;">
+                    </div>
                 </div>
                 <div class="form-options">
                     <label class="remember-me">
@@ -92,7 +95,7 @@
         <div class="footer-overlay"></div>
         <div class="footer-main container">
             <div class="footer-column col-logo">
-                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Logo Branca" class="footer-logo">
+                <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/Engremaq-removebg-preview(branco).png" alt="Logo Branca" class="footer-logo">
                 <span class="redes-text">Nos siga nas Redes Sociais</span>
                 <div class="social-links-footer">
                     <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp"></a>

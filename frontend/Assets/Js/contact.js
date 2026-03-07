@@ -6,19 +6,33 @@ document.getElementById("form-contato")?.addEventListener("submit", function(e) 
 
     if (envios[email] >= 10) return document.getElementById("msg-erro").style.display = "block";
 
-    btn.textContent = "Enviando...";
+    btn.textContent = "A Enviar...";
     btn.disabled = true;
 
-    fetch("https://formsubmit.co/ajax/nicolasgomeshar@gmail.com", {
+    // Constrói os dados no formato JSON
+    const payload = {
+        nome: document.getElementById("nome")?.value,
+        email: email,
+        assunto: document.getElementById("assunto")?.value,
+        mensagem: document.getElementById("mensagem")?.value
+    };
+
+    // Aponta para o seu Back-end em vez do FormSubmit
+    fetch("http://localhost:3000/api/contato", {
         method: "POST",
-        body: new FormData(this)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
     }).then(r => r.json()).then(data => {
         if(data.success) {
             document.getElementById("msg-sucesso").style.display = "block";
             this.reset();
             envios[email] = (envios[email] || 0) + 1;
             localStorage.setItem("historicoEnvios", JSON.stringify(envios));
+        } else {
+            alert("Erro ao enviar a mensagem. Tente novamente mais tarde.");
         }
+    }).catch(() => {
+        alert("Erro de conexão com o servidor.");
     }).finally(() => {
         btn.textContent = "Enviar Mensagem";
         btn.disabled = false;
