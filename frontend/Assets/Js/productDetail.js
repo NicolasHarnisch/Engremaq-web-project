@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!produtoId) { window.location.href = "Products.html"; return; }
 
     try {
-        const resposta = await fetch('http://localhost:3000/api/produtos');
+        const resposta = await fetch('https://api-engremaq.onrender.com/api/produtos');
         const produtosBanco = await resposta.json();
         
         const produto = produtosBanco.find(p => String(p.codigo) === String(produtoId));
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         result.innerHTML = `<span style="color:#d4a000;">Calculando as melhores opções...</span>`;
 
         try {
-            const freteResp = await fetch('http://localhost:3000/api/frete/calcular', {
+            const freteResp = await fetch('https://api-engremaq.onrender.com/api/frete/calcular', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cepDestino: cep })
             });
             const dadosFrete = await freteResp.json();

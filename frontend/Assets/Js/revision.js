@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const freteValor = freteSalvo ? freteSalvo.preco : 0;
                 const totalGeralComDesconto = (subtotalOriginal - totalDesconto) + freteValor;
 
-                const respostaPagamento = await fetch('http://localhost:3000/api/pagamento/checkout', {
+                const respostaPagamento = await fetch('https://api-engremaq.onrender.com/api/pagamento/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     totalGeral: totalGeralComDesconto
                 };
 
-                const respostaPedido = await fetch('http://localhost:3000/api/pedidos', {
+                const respostaPedido = await fetch('https://api-engremaq.onrender.com/api/pedidos', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payloadPedido)

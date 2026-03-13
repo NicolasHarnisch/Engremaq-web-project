@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. BUSCA OS PRODUTOS NO MONGODB
     try {
-        const res = await fetch('http://localhost:3000/api/produtos');
+        const res = await fetch('https://api-engremaq.onrender.com/api/produtos');
         if (res.ok) {
             const produtosNoBanco = await res.json();
             bancoDePrecosHome = produtosNoBanco; 

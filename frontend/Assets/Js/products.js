@@ -79,7 +79,7 @@ async function carregarProdutosDoServidor() {
     gridProdutos.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; padding: 40px;'>Carregando catálogo de peças... </p>";
     
     try {
-        const resposta = await fetch('http://localhost:3000/api/produtos');
+        const resposta = await fetch('https://api-engremaq.onrender.com/api/produtos');
         if (resposta.ok) {
             const produtosDoBanco = await resposta.json();
             

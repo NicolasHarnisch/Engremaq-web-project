@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Busca os produtos ao Back-end para a barra de pesquisa
     let produtosEngremaq = [];
     try {
-        const res = await fetch('http://localhost:3000/api/produtos');
+        const res = await fetch('https://api-engremaq.onrender.com/api/produtos');
         if (res.ok) {
             const dados = await res.json();
             produtosEngremaq = dados.map(p => ({

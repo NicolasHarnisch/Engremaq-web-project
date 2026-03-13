@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnEntrar.disabled = true;
 
         try {
-            const resposta = await fetch('http://localhost:3000/api/auth/login', {
+            const resposta = await fetch('https://api-engremaq.onrender.com/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: emailInput.value.trim(), senha: senhaInput.value.trim() })

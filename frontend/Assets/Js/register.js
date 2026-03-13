@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnSubmit.disabled = true;
 
             try {
-                const resposta = await fetch('http://localhost:3000/api/auth/registrar', {
+                const resposta = await fetch('https://api-engremaq.onrender.com/api/auth/registrar', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 

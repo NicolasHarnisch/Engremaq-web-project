@@ -208,7 +208,7 @@ async function buscarOpcoesDeFrete(idEndereco) {
     if(listaFretes) listaFretes.innerHTML = '<p style="color: #666; padding: 20px;">Calculando opções de frete...</p>';
 
     try {
-        const freteResp = await fetch('http://localhost:3000/api/frete/calcular', {
+        const freteResp = await fetch('https://api-engremaq.onrender.com/api/frete/calcular', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cepDestino: cepNumeros })
         });
         const dadosFrete = await freteResp.json();

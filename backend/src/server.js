@@ -66,6 +66,11 @@ async function start() {
 
     console.log("🟢 CONECTADO COM SUCESSO AO MONGODB ATLAS!");
 
+    // Rota para manter o servidor acordado
+    app.get('/ping', (req, res) => {
+        res.status(200).send('Servidor Engremaq está acordado! 🚜');
+    });
+
     app.listen(PORT, () => {
       console.log(`🚀 API da Engremaq iniciada na porta ${PORT}`);
     });

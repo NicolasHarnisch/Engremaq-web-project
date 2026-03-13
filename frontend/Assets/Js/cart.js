@@ -118,7 +118,7 @@ document.getElementById("btn-calcular-frete")?.addEventListener("click", async (
         if (dadosViaCep.erro) { display.textContent = "CEP não encontrado"; return; }
         const localidadeTexto = `${dadosViaCep.localidade}-${dadosViaCep.uf}`;
 
-        const freteResp = await fetch('http://localhost:3000/api/frete/calcular', {
+        const freteResp = await fetch('https://api-engremaq.onrender.com/api/frete/calcular', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cepDestino: cepNumeros })
         });
         const dadosFrete = await freteResp.json();

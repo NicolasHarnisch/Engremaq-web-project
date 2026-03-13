@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ordersList.innerHTML = "<p style='padding: 20px; text-align: center;'>A carregar pedidos...</p>";
 
         try {
-            const resposta = await fetch(`http://localhost:3000/api/pedidos/${usuario.email}`);
+            const resposta = await fetch(`https://api-engremaq.onrender.com/api/pedidos/${usuario.email}`);
             const pedidosReal = await resposta.json();
 
             if (pedidosReal.length === 0) {
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const resposta = await fetch('http://localhost:3000/api/pagamento/gerar', {
+            const resposta = await fetch('https://api-engremaq.onrender.com/api/pagamento/gerar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusAprovacao.style.color = "#27ae60";
             }
             
-            await fetch(`http://localhost:3000/api/pedidos/${pedidoSendoGerenciado.numeroPedido}/aprovar`, { 
+            await fetch(`https://api-engremaq.onrender.com/api/pedidos/${pedidoSendoGerenciado.numeroPedido}/aprovar`, { 
                 method: 'PUT' 
             });
             
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
 
         try {
-            const resposta = await fetch(`http://localhost:3000/api/pedidos/${pedidoSendoGerenciado.numeroPedido}/cancelar`, {
+            const resposta = await fetch(`https://api-engremaq.onrender.com/api/pedidos/${pedidoSendoGerenciado.numeroPedido}/cancelar`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ motivo: motivoFinalStr })
@@ -724,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modal-seguranca-title').textContent = 'Enviando código...';
         
         try {
-            const resposta = await fetch('http://localhost:3000/api/auth/solicitar-codigo', {
+            const resposta = await fetch('https://api-engremaq.onrender.com/api/auth/solicitar-codigo', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: usuario.email, acao: acao })
             });
@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const codigoDigitado = otpInput.value.trim().replace(/\s/g, '');
         if (codigoDigitado.length !== 6) return alert('O código deve ter 6 números!');
         try {
-            const resposta = await fetch('http://localhost:3000/api/auth/verificar-codigo', {
+            const resposta = await fetch('https://api-engremaq.onrender.com/api/auth/verificar-codigo', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: usuario.email, codigo: codigoDigitado })
             });
@@ -751,7 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (resposta.ok) {
                 codigoAutenticado = codigoDigitado; stepOtp.style.display = 'none';
                 if (acaoSegurancaPendente === 'excluir') {
-                    const resExcluir = await fetch('http://localhost:3000/api/auth/confirmar-exclusao', {
+                    const resExcluir = await fetch('https://api-engremaq.onrender.com/api/auth/confirmar-exclusao', {
                         method: 'POST', headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: usuario.email, codigo: codigoDigitado })
                     });
@@ -766,7 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const novoEmail = document.getElementById('novo-email-input').value.trim();
         if(!novoEmail.includes('@') || !novoEmail.includes('.')) return alert("E-mail inválido.");
         try {
-            const resposta = await fetch('http://localhost:3000/api/auth/alterar-email', {
+            const resposta = await fetch('https://api-engremaq.onrender.com/api/auth/alterar-email', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ emailAtual: usuario.email, novoEmail: novoEmail, codigo: codigoAutenticado })
             });
@@ -784,7 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!regexSenha.test(novaSenha)) return alert("Senha fraca.");
         if(novaSenha !== confirmacao) return alert("Senhas não coincidem.");
         try {
-            const resposta = await fetch('http://localhost:3000/api/auth/alterar-senha', {
+            const resposta = await fetch('https://api-engremaq.onrender.com/api/auth/alterar-senha', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: usuario.email, novaSenha: novaSenha, codigo: codigoAutenticado })
             });

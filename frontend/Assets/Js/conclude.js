@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // SE FOI PIX OU BOLETO (Faz a requisição ao Backend)
     // ==========================================
     try {
-        const resposta = await fetch('http://localhost:3000/api/pagamento/gerar', {
+        const resposta = await fetch('https://api-engremaq.onrender.com/api/pagamento/gerar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ metodo, valorTotal, nome, email })
