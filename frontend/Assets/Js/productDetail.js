@@ -20,33 +20,48 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('pd-marca').textContent = produto.marca.toUpperCase();
             document.getElementById('pd-img').src = produto.imagem;
             
-            // 2. LÓGICA DE PROMOÇÃO (Apenas "menos vendidos")
-            // Vamos simular: se o último número do código for 3, 6, ou 9, ele ganha uma mega promoção.
+            // 2. LÓGICA DE PROMOÇÃO (REGRA DE OURO DEFINITIVA)
+            // Mega promoção apenas para os itens 000001 a 000004
             const ultimoDigito = parseInt(String(produto.codigo).slice(-1));
-            const isPromocao = [3, 6, 9].includes(ultimoDigito);
+            const isPromocao = [1, 2, 3, 4].includes(ultimoDigito) && String(produto.codigo).startsWith("000");
 
             const precoNormal = produto.preco;
             let precoPix, precoAntigo, textoDesconto;
 
+            // Busca a tag HTML que diz "À vista no PIX com X% de desconto"
+            // (Assumindo que essa tag está logo abaixo do pd-preco-vista)
+            const elTextoDescontoAbaixo = document.getElementById('pd-preco-vista').nextElementSibling;
+
             if (isPromocao) {
-                // MEGA PROMOÇÃO PARA CHAMAR COMPRADORES
-                precoAntigo = precoNormal * 1.30; // 30% mais caro antigamente
-                precoPix = precoNormal * 0.85;    // 15% de desconto à vista
+                // MEGA PROMOÇÃO 15% (Para as 4 primeiras peças)
+                precoAntigo = precoNormal * 1.30; // Preço antigo fictício (+30%) para mostrar o riscado
+                precoPix = precoNormal * 0.85;    // 15% de desconto real à vista
                 textoDesconto = "15% de desconto";
                 
                 document.getElementById('pd-preco-antigo').textContent = precoAntigo.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
                 document.getElementById('pd-preco-antigo').style.display = 'block';
-                document.getElementById('pd-tag-promo').style.display = 'inline-block';
+                
+                const tagPromo = document.getElementById('pd-tag-promo');
+                if(tagPromo) {
+                    tagPromo.textContent = "-15%";
+                    tagPromo.style.display = 'inline-block';
+                }
+
+                if (elTextoDescontoAbaixo) elTextoDescontoAbaixo.innerHTML = `À vista no PIX com <strong>15% de desconto</strong>`;
+
             } else {
                 // PREÇO PADRÃO (Apenas 5% desconto no PIX)
                 precoPix = precoNormal * 0.95;
                 textoDesconto = "5% de desconto";
+                
                 document.getElementById('pd-preco-antigo').style.display = 'none';
-                document.getElementById('pd-tag-promo').style.display = 'none';
+                if(document.getElementById('pd-tag-promo')) document.getElementById('pd-tag-promo').style.display = 'none';
+                
+                if (elTextoDescontoAbaixo) elTextoDescontoAbaixo.innerHTML = `À vista no PIX com <strong>5% de desconto</strong>`;
             }
 
+            // ATUALIZA OS VALORES NA TELA
             document.getElementById('pd-preco-vista').textContent = precoPix.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-            document.getElementById('pd-txt-desconto').textContent = textoDesconto;
             document.getElementById('pd-preco-parcelado').textContent = `Ou ${precoNormal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} em até 10x s/ juros no cartão`;
 
             // 3. TEXTOS GERADOS "TIPO KABUM"
@@ -56,10 +71,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const adicionarAoLocalStorage = () => {
                 const qtd = parseInt(document.getElementById('pd-qtd').value);
                 let carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
-                const item = carrinho.find(i => i.id === produto.codigo);
+                const item = carrinho.find(i => i.id === String(produto.codigo));
                 
                 if (item) item.quantidade += qtd;
-                else carrinho.push({ id: produto.codigo, nome: produto.nome, preco: precoNormal, imagem: produto.imagem, quantidade: qtd });
+                else carrinho.push({ id: String(produto.codigo), nome: produto.nome, preco: precoNormal, imagem: produto.imagem, quantidade: qtd });
                 
                 localStorage.setItem('carrinhoEngremaq', JSON.stringify(carrinho));
                 if(window.atualizarBadge) window.atualizarBadge();
@@ -72,13 +87,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             document.getElementById('btn-add-carrinho').addEventListener('click', (e) => {
                 adicionarAoLocalStorage();
-                e.target.innerHTML = "✓ ADICIONADO!";
-                e.target.style.background = "#e8f5e9";
-                e.target.style.color = "#2e7d32";
-                e.target.style.borderColor = "#2e7d32";
+                
+                // Salva o conteúdo original para voltar depois
+                const conteudoOriginal = e.currentTarget.innerHTML;
+                
+                e.currentTarget.innerHTML = "✓ ADICIONADO!";
+                e.currentTarget.style.background = "#e8f5e9";
+                e.currentTarget.style.color = "#2e7d32";
+                e.currentTarget.style.borderColor = "#2e7d32";
+                
                 setTimeout(() => {
-                    e.target.innerHTML = `<img src="https://img.icons8.com/ios-filled/50/005599/shopping-cart.png" style="width: 18px;"> Adicionar ao carrinho`;
-                    e.target.style = "";
+                    e.currentTarget.innerHTML = conteudoOriginal;
+                    e.currentTarget.style = "";
                 }, 2000);
             });
 

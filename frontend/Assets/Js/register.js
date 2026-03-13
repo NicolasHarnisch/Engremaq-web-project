@@ -1,12 +1,24 @@
-// register.js - Lógica da página de Cadastro
+// register.js - Lógica da página de Cadastro (Estilo KaBuM!)
 
 document.addEventListener('DOMContentLoaded', () => {
     
     // ==========================================
+    // INJEÇÃO DE CSS (Design Limpo e Alertas Vermelhos)
+    // ==========================================
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .input-error { border-color: #ef4444 !important; }
+        .error-msg { color: #ef4444; font-size: 12px; display: flex; align-items: center; gap: 5px; margin-top: 6px; }
+        .form-control-kbm { width: 100%; padding: 14px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; font-family: 'Poppins', sans-serif; transition: 0.3s; outline: none; box-sizing: border-box; }
+        .form-control-kbm:focus { border-color: #ffcc00; }
+    `;
+    document.head.appendChild(style);
+
+    // ==========================================
     // FUNÇÕES DE VALIDAÇÃO MATEMÁTICA (Receita Federal)
     // ==========================================
     function validarCPF(cpf) {
-        cpf = cpf.replace(/[^\d]+/g,''); // Tira pontos e traços
+        cpf = cpf.replace(/[^\d]+/g,''); 
         if(cpf == '') return false;
         if (cpf.length != 11 || /^(\d)\1{10}$/.test(cpf)) return false; 
         
@@ -57,65 +69,137 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 1. Lógica das Abas e MÁSCARAS AUTOMÁTICAS
+    // 1. LÓGICA DAS ABAS, LABELS DINÂMICOS E MÁSCARAS
     // ==========================================
     const tabCpf = document.getElementById('tab-cpf');
     const tabCnpj = document.getElementById('tab-cnpj');
-    const labelDoc = document.getElementById('label-doc');
+    
     const inputDoc = document.getElementById('cad-doc');
+    const inputNome = document.getElementById('cad-nome');
+    const inputTelefone = document.getElementById('cad-telefone');
 
     let tipoDocumento = 'CPF'; 
 
+    // Função para achar o Label (mesmo que ele não tenha ID)
+    const getLabel = (inputEl) => document.querySelector(`label[for="${inputEl.id}"]`) || inputEl.previousElementSibling;
+
     if (tabCpf && tabCnpj) {
-        // Troca para CPF
         tabCpf.addEventListener('click', () => {
             tabCpf.classList.add('active');
             tabCnpj.classList.remove('active');
-            labelDoc.innerText = 'CPF*';
-            inputDoc.placeholder = '000.000.000-00';
             tipoDocumento = 'CPF';
-            inputDoc.value = ''; // Limpa o campo ao trocar
+            
+            const labelDoc = getLabel(inputDoc);
+            const labelNome = getLabel(inputNome);
+            
+            if(labelDoc) labelDoc.innerText = 'CPF*';
+            if(labelNome) labelNome.innerText = 'Nome completo*';
+            
+            inputDoc.placeholder = '000.000.000-00';
+            inputNome.placeholder = 'Digite seu nome completo';
+            
+            inputDoc.value = ''; clearError(inputDoc);
             inputDoc.focus();
         });
 
-        // Troca para CNPJ
         tabCnpj.addEventListener('click', () => {
             tabCnpj.classList.add('active');
             tabCpf.classList.remove('active');
-            labelDoc.innerText = 'CNPJ*';
-            inputDoc.placeholder = '00.000.000/0000-00';
             tipoDocumento = 'CNPJ';
-            inputDoc.value = ''; // Limpa o campo ao trocar
+            
+            const labelDoc = getLabel(inputDoc);
+            const labelNome = getLabel(inputNome);
+            
+            if(labelDoc) labelDoc.innerText = 'CNPJ*';
+            if(labelNome) labelNome.innerText = 'Razão Social*'; // Muda para Razão Social automaticamente
+            
+            inputDoc.placeholder = '00.000.000/0000-00';
+            inputNome.placeholder = 'Digite a razão social da empresa';
+            
+            inputDoc.value = ''; clearError(inputDoc);
             inputDoc.focus();
         });
     }
 
-    // O "Mágico" que formata enquanto o usuário digita
+    // Máscara Dinâmica de CPF/CNPJ
     if (inputDoc) {
         inputDoc.addEventListener('input', (e) => {
-            let valor = e.target.value.replace(/\D/g, ''); // Tira tudo que não for número
+            let valor = e.target.value.replace(/\D/g, ''); 
 
             if (tipoDocumento === 'CPF') {
-                if (valor.length > 11) valor = valor.slice(0, 11); // Limita a 11 números
-                // Aplica a máscara: 000.000.000-00
+                if (valor.length > 11) valor = valor.slice(0, 11); 
                 valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
                 valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
                 valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
             } else {
-                if (valor.length > 14) valor = valor.slice(0, 14); // Limita a 14 números
-                // Aplica a máscara: 00.000.000/0000-00
+                if (valor.length > 14) valor = valor.slice(0, 14); 
                 valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
                 valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
                 valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
                 valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
             }
+            e.target.value = valor; 
+        });
+    }
 
-            e.target.value = valor; // Devolve o valor formatado para o input
+    // Máscara Automática de Telefone
+    if (inputTelefone) {
+        inputTelefone.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length > 11) v = v.slice(0, 11);
+            v = v.replace(/^(\d{2})(\d)/g, '($1) $2');
+            v = v.replace(/(\d)(\d{4})$/, '$1-$2');
+            e.target.value = v;
         });
     }
 
     // ==========================================
-    // 2. Lógica de Mostrar/Esconder Senha (O Olhinho)
+    // 2. VALIDAÇÃO EM TEMPO REAL (Alertas Vermelhos)
+    // ==========================================
+    const inputsValidacao = [
+        { id: 'cad-email', msgVazio: 'É necessário informar o seu e-mail.' },
+        { id: 'cad-nome', msgVazio: 'O campo nome/razão social é obrigatório.' },
+        { id: 'cad-doc', msgVazio: 'É necessário informar o documento.' },
+        { id: 'cad-telefone', msgVazio: 'É necessário informar o telefone.' },
+        { id: 'cad-senha', msgVazio: 'A senha é obrigatória.' }
+    ];
+
+    function showError(input, msg) {
+        input.classList.add('input-error');
+        let errorSpan = input.nextElementSibling;
+        if (!errorSpan || !errorSpan.classList.contains('error-msg')) {
+            errorSpan = document.createElement('span');
+            errorSpan.className = 'error-msg';
+            // Ícone de erro idêntico ao da KaBuM
+            errorSpan.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="#ef4444" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${msg}`;
+            input.parentNode.insertBefore(errorSpan, input.nextSibling);
+        } else {
+            errorSpan.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="#ef4444" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${msg}`;
+        }
+    }
+
+    function clearError(input) {
+        input.classList.remove('input-error');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('error-msg')) {
+            errorSpan.remove();
+        }
+    }
+
+    inputsValidacao.forEach(campo => {
+        const el = document.getElementById(campo.id);
+        if (el) {
+            el.classList.add('form-control-kbm'); // Aplica CSS limpo
+            el.addEventListener('blur', () => {
+                if (!el.value.trim()) showError(el, campo.msgVazio);
+                else clearError(el);
+            });
+            el.addEventListener('input', () => clearError(el));
+        }
+    });
+
+    // ==========================================
+    // 3. Lógica de Mostrar/Esconder Senha
     // ==========================================
     const toggleSenha = document.getElementById('toggle-senha');
     const cadSenha = document.getElementById('cad-senha');
@@ -133,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 3. Lógica do Formulário (Integração com Back-end)
+    // 4. ENVIO DO FORMULÁRIO
     // ==========================================
     const form = document.getElementById('form-cadastro');
 
@@ -141,35 +225,44 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const nomeInput = document.getElementById('cad-nome').value.trim();
-            const emailInput = document.getElementById('cad-email').value.trim();
-            const docInput = document.getElementById('cad-doc').value.trim(); 
-            const telefoneInput = document.getElementById('cad-telefone').value.trim();
-            const senhaInput = document.getElementById('cad-senha').value.trim();
+            const nomeInput = document.getElementById('cad-nome');
+            const emailInput = document.getElementById('cad-email');
+            const docInput = document.getElementById('cad-doc'); 
+            const telefoneInput = document.getElementById('cad-telefone');
+            const senhaInput = document.getElementById('cad-senha');
             const receberOfertas = document.getElementById('cad-ofertas').checked;
 
-            // VALIDAÇÃO DE DOCUMENTOS (Receita Federal)
+            let temErro = false;
+
+            // Força a validação de vazios ao tentar enviar
+            inputsValidacao.forEach(campo => {
+                const el = document.getElementById(campo.id);
+                if (!el.value.trim()) {
+                    showError(el, campo.msgVazio);
+                    temErro = true;
+                }
+            });
+
+            if (temErro) return;
+
+            // VALIDAÇÃO DE DOCUMENTOS 
             if (tipoDocumento === 'CPF') {
-                if (!validarCPF(docInput)) {
-                    alert('❌ O CPF digitado é inválido. Verifique os números.');
-                    document.getElementById('cad-doc').focus();
-                    return; 
+                if (!validarCPF(docInput.value)) {
+                    showError(docInput, "O CPF digitado é inválido.");
+                    docInput.focus(); return; 
                 }
             } else {
-                if (!validarCNPJ(docInput)) {
-                    alert('❌ O CNPJ digitado é inválido. Verifique os números.');
-                    document.getElementById('cad-doc').focus();
-                    return;
+                if (!validarCNPJ(docInput.value)) {
+                    showError(docInput, "O CNPJ digitado é inválido.");
+                    docInput.focus(); return;
                 }
             }
 
-            // NOVA VALIDAÇÃO RIGOROSA DE SENHA (RegEx)
-            // Exige: mínimo de 8 caracteres, pelo menos 1 letra maiúscula e 1 número.
+            // VALIDAÇÃO DE SENHA 
             const regexSenha = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-            if (!regexSenha.test(senhaInput)) {
-                alert('❌ A senha deve conter no mínimo 8 caracteres, 1 letra maiúscula e 1 número.');
-                document.getElementById('cad-senha').focus();
-                return;
+            if (!regexSenha.test(senhaInput.value)) {
+                showError(senhaInput, "Mínimo 8 caracteres, 1 maiúscula e 1 número.");
+                senhaInput.focus(); return;
             }
 
             const btnSubmit = form.querySelector('.btn-continuar');
@@ -182,11 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        nome: nomeInput, 
-                        email: emailInput, 
-                        cpf: docInput,
-                        telefone: telefoneInput, 
-                        senha: senhaInput,
+                        nome: nomeInput.value.trim(), 
+                        email: emailInput.value.trim(), 
+                        cpf: docInput.value.trim(), // O Backend recebe na prop "cpf", mesmo sendo CNPJ
+                        telefone: telefoneInput.value.trim(), 
+                        senha: senhaInput.value.trim(),
                         receberOfertas: receberOfertas 
                     })
                 });
@@ -201,7 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
             } catch (erro) {
-                console.error("Erro na requisição:", erro);
                 alert('❌ Erro de conexão com o servidor. Verifique se o back-end está rodando.');
             } finally {
                 btnSubmit.innerText = textoOriginal;

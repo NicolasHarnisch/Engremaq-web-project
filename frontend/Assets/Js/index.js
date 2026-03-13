@@ -3,6 +3,44 @@ let bancoDePrecosHome = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     
+    // INJEÇÃO DO CSS PARA A ANIMAÇÃO DO BOTÃO "COMPRAR"
+    const styleAnimacao = document.createElement('style');
+    styleAnimacao.innerHTML = `
+        .btn-comprar-home {
+            background-color: #ffcc00;
+            color: #111;
+            width: 100%;
+            text-transform: uppercase;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-comprar-home:hover {
+            background-color: #e6b800;
+        }
+        .cart-icon-btn-home {
+            width: 0;
+            height: 20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            margin-right: 0;
+            overflow: hidden;
+        }
+        .btn-comprar-home:hover .cart-icon-btn-home {
+            width: 20px;
+            opacity: 1;
+            margin-right: 10px;
+        }
+    `;
+    document.head.appendChild(styleAnimacao);
+
     // 1. BUSCA OS PRODUTOS NO MONGODB
     try {
         const res = await fetch('http://localhost:3000/api/produtos');
@@ -66,13 +104,13 @@ function renderizarVitrinesHome(produtos) {
     const maisVendidos = produtos.slice(4, 8); 
 
     if (gridPromocoes) {
-        gridPromocoes.className = "cards-grid cards-grid-4"; // Garante 4 colunas
+        gridPromocoes.className = "cards-grid cards-grid-4"; 
         // Passa o parâmetro 'true' para ativar a etiqueta de -15%
         gridPromocoes.innerHTML = promocoes.map(p => gerarHtmlCardModerno(p, true)).join('');
     }
     
     if (gridMaisVendidos) {
-        // Passa o parâmetro 'false' para Ocultar a etiqueta (aplica só os 5% do PIX padrão)
+        // Passa o parâmetro 'false' para Ocultar a etiqueta e o preço riscado
         gridMaisVendidos.innerHTML = maisVendidos.map(p => gerarHtmlCardModerno(p, false)).join('');
     }
 }
@@ -86,44 +124,66 @@ function gerarHtmlCardModerno(produto, isPromocao) {
     const precoDesconto = precoOriginal * (1 - descontoPercent);
     const parcela = precoOriginal / 10;
 
-    // A Etiqueta amarela SÓ APARECE se isPromocao for verdadeiro!
-    const etiquetaDescontoHtml = isPromocao 
-        ? `<span style="background:#ffcc00; color:#111; font-size:11px; font-weight:800; padding:3px 6px; border-radius:4px; margin-left: 8px;">-15%</span>` 
-        : ``;
+    let htmlPrecoAntigo = '';
+    let htmlTagPromo = '';
+
+    if (isPromocao) {
+        // Mostra o preço original riscado e a tag -15%
+        htmlPrecoAntigo = `<span style="text-decoration:line-through; color:#aaa; font-size:12px; font-weight: 500; display: block; margin-bottom: 2px;">
+                            ${precoOriginal.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}
+                          </span>`;
+        htmlTagPromo = `<span style="background:#ffcc00; color:#111; font-size:11px; font-weight:800; padding:3px 6px; border-radius:4px; margin-left: 8px;">-15%</span>`;
+    } else {
+        // Coloca um espaço invisível para manter o alinhamento perfeito dos cards
+        htmlPrecoAntigo = `<span style="font-size: 12px; display: block; margin-bottom: 2px;">&nbsp;</span>`;
+        htmlTagPromo = '';
+    }
 
     return `
     <article class="card" style="display:flex; flex-direction:column; background:#fff; border:1px solid #eee; border-radius:8px; padding:20px; transition:0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.05)';">
-        <div style="height:180px; display:flex; align-items:center; justify-content:center; margin-bottom:15px; padding: 10px;">
-            <img src="${produto.imagem}" alt="${produto.nome}" style="max-height:100%; max-width:100%; object-fit:contain;">
-        </div>
         
-        <h3 style="font-size:15px; color:#333; margin-bottom:10px; font-weight:600; line-height:1.4;">${produto.nome}</h3>
-        
-        <div style="margin-top:auto;">
-            <span style="text-decoration:line-through; color:#aaa; font-size:12px; font-weight: 500;">
-                ${precoOriginal.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}
-            </span>
+        <a href="Pages/ProductDetail.html?id=${produto.codigo}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1;">
             
-            <div style="display:flex; align-items:center; margin:2px 0 5px 0;">
-                <strong style="color:#d4a000; font-size:22px; font-weight:800;">
-                    ${precoDesconto.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}
-                </strong>
-                ${etiquetaDescontoHtml}
+            <div style="height:180px; display:flex; align-items:center; justify-content:center; margin-bottom:15px; padding: 10px;">
+                <img src="${produto.imagem}" alt="${produto.nome}" style="max-height:100%; max-width:100%; object-fit:contain;">
             </div>
             
-            <p style="color:#666; font-size:12px; margin:0 0 2px 0;">À vista no PIX</p>
-            <p style="color:#666; font-size:12px; margin:0 0 15px 0;">ou até <strong>10x de ${parcela.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</strong></p>
-            
-            <button onclick="window.adicionarAoCarrinhoHome('${produto.codigo}', event)" style="width:100%; background:#ffcc00; color:#111; font-weight:800; border:none; padding:12px; border-radius:4px; cursor:pointer; font-size:14px; transition:0.2s;" onmouseover="this.style.filter='brightness(0.95)'" onmouseout="this.style.filter='brightness(1)'">
-                COMPRAR
-            </button>
-        </div>
+            <div style="flex: 1; display: flex; flex-direction: column;">
+                <h3 style="font-size:15px; color:#333; margin-bottom:10px; font-weight:600; line-height:1.4;">${produto.nome}</h3>
+                
+                <div style="margin-top:auto;">
+                    
+                    ${htmlPrecoAntigo}
+                    
+                    <div style="display:flex; align-items:center; margin:2px 0 5px 0;">
+                        <strong style="color:#d4a000; font-size:22px; font-weight:900;">
+                            ${precoDesconto.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}
+                        </strong>
+                        ${htmlTagPromo}
+                    </div>
+                    
+                    <p style="color:#666; font-size:12px; margin:0 0 2px 0;">À vista no PIX</p>
+                    <p style="color:#666; font-size:12px; margin:0 0 15px 0;">ou até <strong>10x de ${parcela.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</strong></p>
+                </div>
+            </div>
+        </a>
+
+        <button class="btn-comprar-home" onclick="window.adicionarAoCarrinhoHome('${produto.codigo}', event)">
+            <svg class="cart-icon-btn-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span>COMPRAR</span>
+        </button>
+        
     </article>
     `;
 }
 
-// 4. LÓGICA DE ADICIONAR AO CARRINHO
+// 4. LÓGICA DE ADICIONAR AO CARRINHO (Mantida)
 window.adicionarAoCarrinhoHome = function(codigoStr, event) {
+    if (event) event.preventDefault(); // Impede que o clique no botão abra a página do detalhe
     if (event) event.stopPropagation(); 
 
     const produtoData = bancoDePrecosHome.find(p => String(p.codigo) === String(codigoStr));

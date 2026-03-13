@@ -23,14 +23,13 @@ styleAnimacao.innerHTML = `
         background-color: #e6b800;
     }
     .cart-icon-btn {
-        width: 0; /* Começa invisível e sem ocupar espaço */
+        width: 0;
         height: 20px;
         opacity: 0;
-        transition: all 0.3s ease; /* Faz a animação suave */
+        transition: all 0.3s ease;
         margin-right: 0;
         overflow: hidden;
     }
-    /* Quando passar o mouse no botão, o carrinho expande e o texto desliza */
     .btn-comprar-card:hover .cart-icon-btn {
         width: 20px;
         opacity: 1;
@@ -38,6 +37,35 @@ styleAnimacao.innerHTML = `
     }
 `;
 document.head.appendChild(styleAnimacao);
+
+// =========================================================
+// FUNÇÕES AUXILIARES DE "MATCH PERFEITO" (O SEGREDO DO FILTRO)
+// =========================================================
+
+// 1. Remove TUDO (acentos, espaços, traços, maiúsculas). Deixa apenas letras lisas.
+// Ex: "Acessórios em Geral" vira "acessoriosemgeral"
+function normalizarFiltro(texto) {
+    if (!texto) return "";
+    return String(texto)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // Remove acentos
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, ""); // Remove espaços e caracteres especiais
+}
+
+// 2. Se o HTML estiver sem "value", ele rouba o texto da label inteligentemente!
+function getValorFiltro(checkbox) {
+    let val = checkbox.value;
+    if (!val || val === "on") {
+        let clone = checkbox.parentElement.cloneNode(true);
+        let span = clone.querySelector('.count');
+        if (span) span.remove();
+        let input = clone.querySelector('input');
+        if (input) input.remove();
+        val = clone.textContent.trim();
+    }
+    return normalizarFiltro(val);
+}
 
 // =========================================================
 // 1. BANCO DE DADOS 
@@ -86,24 +114,31 @@ async function carregarProdutosDoServidor() {
     }
 }
 
+// =========================================================
+// 2. ATUALIZAR CONTADORES (COM NORMALIZAÇÃO DE SEGURANÇA)
+// =========================================================
 function atualizarContadoresFiltros() {
     if(!gridProdutos) return;
     const contagemCat = {};
     const contagemMarca = {};
 
     bancoDeProdutos.forEach(p => {
-        contagemCat[p.categoria] = (contagemCat[p.categoria] || 0) + 1;
-        contagemMarca[p.marca] = (contagemMarca[p.marca] || 0) + 1;
+        const catNorm = normalizarFiltro(p.categoria);
+        const marcaNorm = normalizarFiltro(p.marca);
+        contagemCat[catNorm] = (contagemCat[catNorm] || 0) + 1;
+        contagemMarca[marcaNorm] = (contagemMarca[marcaNorm] || 0) + 1;
     });
 
-    document.querySelectorAll("#filter-categorias input").forEach(cb => {
+    document.querySelectorAll("#filter-categorias input[type='checkbox']").forEach(cb => {
         const countSpan = cb.parentElement.querySelector(".count");
-        if(countSpan) countSpan.textContent = `(${contagemCat[cb.value] || 0})`;
+        const valNorm = getValorFiltro(cb);
+        if(countSpan) countSpan.textContent = `(${contagemCat[valNorm] || 0})`;
     });
 
-    document.querySelectorAll("#filter-marcas input").forEach(cb => {
+    document.querySelectorAll("#filter-marcas input[type='checkbox']").forEach(cb => {
         const countSpan = cb.parentElement.querySelector(".count");
-        if(countSpan) countSpan.textContent = `(${contagemMarca[cb.value] || 0})`;
+        const valNorm = getValorFiltro(cb);
+        if(countSpan) countSpan.textContent = `(${contagemMarca[valNorm] || 0})`;
     });
 }
 
@@ -123,13 +158,11 @@ function renderizarProdutos(produtos, termoBusca = "") {
     }
 
     produtos.forEach(produto => {
-        // REGRA DE OURO: Verifica a posição real do produto no banco original
-        // Se estiver entre os 4 primeiros, é Promoção!
-        const indexRealNoBanco = bancoDeProdutos.findIndex(p => p.id === produto.id);
-        const isPromocao = indexRealNoBanco >= 0 && indexRealNoBanco < 4;
+        const ultimoDigito = parseInt(String(produto.id).slice(-1));
+        const isPromocao = [1, 2, 3, 4].includes(ultimoDigito) && String(produto.id).startsWith("000"); 
         
         const precoNormal = produto.preco;
-        let descontoDecimal = isPromocao ? 0.15 : 0.05; // 15% se for promo, senão 5% PIX padrão
+        let descontoDecimal = isPromocao ? 0.15 : 0.05; 
         let precoPix = precoNormal * (1 - descontoDecimal);
         
         let htmlPrecoAntigo = '';
@@ -139,14 +172,12 @@ function renderizarProdutos(produtos, termoBusca = "") {
             htmlPrecoAntigo = `<span style="font-size: 12px; color: #888; text-decoration: line-through; display: block; margin-bottom: 2px;">${precoNormal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span>`;
             htmlTagPromo = `<span style="background-color: #ffcc00; color: #111; font-size: 11px; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">-15%</span>`;
         } else {
-            // Usa o mesmo espaço vertical para o card não quebrar, mas sem valor e sem o R$
             htmlPrecoAntigo = `<span style="font-size: 12px; display: block; margin-bottom: 2px;">&nbsp;</span>`;
             htmlTagPromo = '';
         }
 
         const card = document.createElement("div");
         card.className = "card";
-        // Estilo moderno aplicado diretamente no card
         card.style.cssText = "display:flex; flex-direction:column; background:#fff; border:1px solid #eee; border-radius:8px; transition:0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow:hidden;";
         card.onmouseover = function() { this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)'; };
         card.onmouseout = function() { this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.05)'; };
@@ -208,37 +239,43 @@ window.adicionarAoCarrinho = function(idProduto) {
 }
 
 // =========================================================
-// 5. FILTROS E ORDENAÇÃO (COM PROMOÇÕES PRIMEIRO)
+// 5. FILTROS E ORDENAÇÃO (TOTALMENTE BLINDADA)
 // =========================================================
 function aplicarFiltrosEOrdenar(ignorarScroll = false) {
     let filtrados = [...bancoDeProdutos];
 
     const inputLateral = document.getElementById("busca-nome");
     const inputTopo = document.querySelector('.search-bar input');
-    const busca = (inputTopo?.value || inputLateral?.value || "").toLowerCase().trim();
+    const busca = normalizarFiltro(inputTopo?.value || inputLateral?.value);
+    
     const min = parseFloat(document.getElementById("preco-min")?.value) || 0;
     const max = parseFloat(document.getElementById("preco-max")?.value) || Infinity;
     const ordem = document.getElementById("ordenar")?.value;
 
-    const catMarcadas = Array.from(document.querySelectorAll("#filter-categorias input:checked")).map(cb => cb.value);
-    const marcasMarcadas = Array.from(document.querySelectorAll("#filter-marcas input:checked")).map(cb => cb.value);
+    const catMarcadas = Array.from(document.querySelectorAll("#filter-categorias input:checked")).map(getValorFiltro);
+    const marcasMarcadas = Array.from(document.querySelectorAll("#filter-marcas input:checked")).map(getValorFiltro);
 
-    // Aplica todos os filtros (Busca, Preço, Categoria, Marca)
+    // Aplica todos os filtros
     filtrados = filtrados.filter(p => {
-        const bateBusca = !busca || p.nome.toLowerCase().includes(busca) || p.id.includes(busca);
+        const pNomeNorm = normalizarFiltro(p.nome);
+        const pIdNorm = normalizarFiltro(p.id);
+        const pCatNorm = normalizarFiltro(p.categoria);
+        const pMarcaNorm = normalizarFiltro(p.marca);
+
+        const bateBusca = !busca || pNomeNorm.includes(busca) || pIdNorm.includes(busca);
         const batePreco = p.preco >= min && p.preco <= max;
-        const bateCat = catMarcadas.length === 0 || catMarcadas.includes(p.categoria);
-        const bateMarca = marcasMarcadas.length === 0 || marcasMarcadas.includes(p.marca);
+        
+        const bateCat = catMarcadas.length === 0 || catMarcadas.includes(pCatNorm);
+        const bateMarca = marcasMarcadas.length === 0 || marcasMarcadas.includes(pMarcaNorm);
+        
         return bateBusca && batePreco && bateCat && bateMarca;
     });
 
-    // Função utilitária para saber se é promoção (Baseada na posição real do banco)
     const isPromo = (id) => {
-        const idx = bancoDeProdutos.findIndex(p => p.id === id);
-        return idx >= 0 && idx < 4;
+        const ultimoDigito = parseInt(String(id).slice(-1));
+        return [1, 2, 3, 4].includes(ultimoDigito) && String(id).startsWith("000");
     };
 
-    // Aplica a ordenação
     if (ordem === "menor-preco") {
         filtrados.sort((a, b) => a.preco - b.preco);
     } else if (ordem === "maior-preco") {
@@ -246,7 +283,6 @@ function aplicarFiltrosEOrdenar(ignorarScroll = false) {
     } else if (ordem === "nome-az") {
         filtrados.sort((a, b) => a.nome.localeCompare(b.nome));
     } else {
-        // ORDENAÇÃO PADRÃO (RELEVÂNCIA): Joga as promoções para o início
         filtrados.sort((a, b) => {
             const promoA = isPromo(a.id) ? 1 : 0;
             const promoB = isPromo(b.id) ? 1 : 0;

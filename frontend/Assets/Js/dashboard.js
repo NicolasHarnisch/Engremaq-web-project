@@ -5,9 +5,18 @@ let enderecoEmEdicao = null; // Variável para controlar edição de endereço
 document.addEventListener('DOMContentLoaded', () => {
     
     // =========================================================
-    // 1. DADOS DO USUÁRIO
+    // 1. PROTEÇÃO DE ROTA E DADOS DO USUÁRIO
     // =========================================================
-    const usuario = JSON.parse(localStorage.getItem('usuarioEngremaq')) || { nome: "Nicolas Gomes Harnisch", email: "nicolasgomeshar@gmail.com" };
+    const usuarioString = localStorage.getItem('usuarioEngremaq');
+    const tokenString = localStorage.getItem('tokenEngremaq');
+
+    // BLINDAGEM: Se não houver dados de acesso, expulsa para a página inicial!
+    if (!usuarioString || !tokenString) {
+        window.location.replace("../index.html");
+        return; // Trava a execução do restante do código
+    }
+
+    const usuario = JSON.parse(usuarioString);
 
     document.getElementById('display-user-name').textContent = usuario.nome;
     document.getElementById('display-user-email').textContent = usuario.email;
@@ -19,13 +28,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if(inputEmail) inputEmail.value = usuario.email;
 
     // =========================================================
+    // 1.5 LÓGICA DE "SAIR DA CONTA" DEFINITIVA
+    // =========================================================
+    // Captura todos os botões ou links do menu que servem para sair
+    const botoesSair = document.querySelectorAll('#logout-btn, .nav-item[data-tab="sair"], a[href="#sair"]');
+    
+    botoesSair.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(confirm("Deseja realmente sair da sua conta?")) {
+                // Limpa as chaves de acesso do navegador
+                localStorage.removeItem('usuarioEngremaq'); 
+                localStorage.removeItem('tokenEngremaq');
+                
+                // Redireciona imediatamente
+                window.location.replace('../index.html'); 
+            }
+        });
+    });
+
+    // =========================================================
     // 2. NAVEGAÇÃO ENTRE ABAS
     // =========================================================
     const menuItems = document.querySelectorAll('.nav-item[data-tab]');
     const tabPanes = document.querySelectorAll('.tab-pane');
 
     function ativarAba(tabId) {
-        if (!tabId) return;
+        if (!tabId || tabId === 'sair') return; // Ignora se a aba for "sair"
         menuItems.forEach(i => i.classList.remove('active'));
         tabPanes.forEach(p => p.classList.remove('active'));
         const itemAtivar = document.querySelector(`.nav-item[data-tab="${tabId}"]`);
@@ -38,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function lerHashDaURL() {
         let hash = window.location.hash.substring(1);
+        if (hash === 'sair') return; // Previne erro de navegação
         if (['central', 'pedidos', 'enderecos', 'dados'].includes(hash)) {
             ativarAba(hash);
         } else {
@@ -48,7 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     menuItems.forEach(item => {
         item.addEventListener('click', () => {
             const tabId = item.getAttribute('data-tab');
-            window.location.hash = tabId; 
+            if (tabId !== 'sair') {
+                window.location.hash = tabId; 
+            }
         });
     });
 
@@ -63,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lerHashDaURL();
 
     // =========================================================
-    // 3. RENDERIZAÇÃO DE PEDIDOS E MODAIS KABUM!
+    // 3. RENDERIZAÇÃO DE PEDIDOS E MODAIS
     // =========================================================
     async function carregarPedidosDoUsuario() {
         const ordersList = document.getElementById('orders-list');
@@ -354,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (btn) { btn.innerText = "TENTAR NOVAMENTE"; btn.disabled = false; }
             }
         } catch (erro) {
-            alert("Erro de connection com o servidor de pagamentos.");
+            alert("Erro de conexão com o servidor de pagamentos.");
             if (btn) { btn.innerText = "TENTAR NOVAMENTE"; btn.disabled = false; }
         }
     };
@@ -530,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // =========================================================
-    // 4. SISTEMA DE ENDEREÇOS (DASHBOARD) - AGORA COM EDIÇÃO!
+    // 4. SISTEMA DE ENDEREÇOS (DASHBOARD) - COM EDIÇÃO
     // =========================================================
     carregarEnderecosDash();
 
@@ -574,7 +606,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.tornarPadrao = (id) => { localStorage.setItem('enderecoSelecionado', id); renderizarGridEnderecos(); };
     
-    // Novas funções de Editar/Remover para o Dashboard
     window.removerEnderecoDash = (id) => {
         if(confirm("Deseja realmente remover este endereço?")) {
             let enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
@@ -672,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 5. SISTEMA DE SEGURANÇA
+    // 5. SISTEMA DE SEGURANÇA E DADOS GERAIS
     // =========================================================
     let acaoSegurancaPendente = ''; let codigoAutenticado = ''; 
     const modalSeguranca = document.getElementById('modal-seguranca');
@@ -771,13 +802,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formDados.addEventListener('submit', async (e) => {
             e.preventDefault(); usuario.nome = document.getElementById('dados-nome').value;
             localStorage.setItem('usuarioEngremaq', JSON.stringify(usuario)); alert("✅ Nome atualizado!"); window.location.reload();
-        });
-    }
-
-    const logoutBtn = document.getElementById('logout-btn');
-    if(logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            if(confirm("Deseja sair da conta?")) { localStorage.removeItem('usuarioEngremaq'); window.location.href = '../index.html'; }
         });
     }
 });

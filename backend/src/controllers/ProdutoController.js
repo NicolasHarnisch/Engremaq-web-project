@@ -54,7 +54,7 @@ exports.popularBancoIncial = async (req, res) => {
                 codigo: "000004",
                 nome: "Turbina Original Mahle",
                 preco: 2150.00,
-                imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/download.jpeg?raw=true",
+                imagem: "https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/Turbina%20Original%20Mahle.webp?raw=true",
                 categoria: "Acessórios em Geral",
                 marca: "Mahle"
             },
