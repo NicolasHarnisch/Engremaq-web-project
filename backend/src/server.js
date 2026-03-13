@@ -15,7 +15,8 @@ const freteRoutes = require('./routes/freteRoutes');
 const pagamentoRoutes = require('./routes/pagamentoRoutes');
 
 const FreteController = require('./controllers/FreteController'); 
-const PedidoController = require('./controllers/PedidoController'); // <--- A LINHA MÁGICA QUE FALTAVA!
+const PedidoController = require('./controllers/PedidoController'); 
+const PagamentoController = require('./controllers/PagamentoController'); // <--- NOVA IMPORTAÇÃO AQUI!
 
 const app = express();
 
@@ -39,8 +40,12 @@ app.use('/api', pagamentoRoutes);
 
 // Rotas diretas soltas
 app.post('/api/frete/calcular', FreteController.calcularFrete); 
-app.put('/api/pedidos/:numero/cancelar', PedidoController.cancelarPedido); // Agora ele sabe quem é o PedidoController!
+app.put('/api/pedidos/:numero/cancelar', PedidoController.cancelarPedido); 
 app.put('/api/pedidos/:numero/aprovar', PedidoController.aprovarPedido);
+
+// Novas rotas Universais de Pagamento (PIX, Boleto e Cartão)
+app.post('/api/pagamento/checkout', PagamentoController.processarPagamentoCheckout); // Para a aba de Revisão Final
+app.post('/api/pagamento/gerar', PagamentoController.gerarPagamento); // Para o botão do Dashboard
 
 const PORT = process.env.PORT || 3000;
 
@@ -50,6 +55,8 @@ async function start() {
     console.log("🔄 Tentando conectar ao MongoDB Atlas...");
 
     // Evita que comandos sejam executados sem conexão ativa
+    mongoose.set('bufferCommands', false);
+    dns.setServers(['8.8.8.8', '8.8.4.4']);
     mongoose.set('bufferCommands', false);
 
     await mongoose.connect(process.env.MONGO_URI, {
