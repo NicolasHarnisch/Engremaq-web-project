@@ -1,23 +1,62 @@
 // =========================================================
-// 1. BANCO DE DADOS (AGORA VEM DO BACK-END)
+// INJEÇÃO DE CSS PARA A ANIMAÇÃO DO BOTÃO COMPRAR
 // =========================================================
-let bancoDeProdutos = []; // Começa vazio
+const styleAnimacao = document.createElement('style');
+styleAnimacao.innerHTML = `
+    .btn-comprar-card {
+        background-color: #ffcc00;
+        color: #111;
+        width: 100%;
+        text-transform: uppercase;
+        padding: 12px;
+        border-radius: 4px;
+        font-weight: 900;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-comprar-card:hover {
+        background-color: #e6b800;
+    }
+    .cart-icon-btn {
+        width: 0; /* Começa invisível e sem ocupar espaço */
+        height: 20px;
+        opacity: 0;
+        transition: all 0.3s ease; /* Faz a animação suave */
+        margin-right: 0;
+        overflow: hidden;
+    }
+    /* Quando passar o mouse no botão, o carrinho expande e o texto desliza */
+    .btn-comprar-card:hover .cart-icon-btn {
+        width: 20px;
+        opacity: 1;
+        margin-right: 10px;
+    }
+`;
+document.head.appendChild(styleAnimacao);
+
+// =========================================================
+// 1. BANCO DE DADOS 
+// =========================================================
+let bancoDeProdutos = []; 
 const gridProdutos = document.getElementById("grid-produtos");
 
-// Função para buscar os produtos no MongoDB
 async function carregarProdutosDoServidor() {
     if (!gridProdutos) return;
     
-    gridProdutos.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; padding: 40px;'>Carregando produtos da nuvem... ☁️</p>";
+    gridProdutos.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; padding: 40px;'>Carregando catálogo de peças... </p>";
     
     try {
         const resposta = await fetch('http://localhost:3000/api/produtos');
         if (resposta.ok) {
             const produtosDoBanco = await resposta.json();
             
-            // Mapeia os dados do MongoDB para o formato que o seu Front-end já entende
             bancoDeProdutos = produtosDoBanco.map(p => ({
-                id: p.codigo,
+                id: String(p.codigo),
                 nome: p.nome,
                 preco: p.preco,
                 categoria: p.categoria,
@@ -27,7 +66,6 @@ async function carregarProdutosDoServidor() {
 
             atualizarContadoresFiltros();
             
-            // Lê a URL para ver se veio uma pesquisa da Home
             const urlParams = new URLSearchParams(window.location.search);
             const termoBusca = urlParams.get('busca');
 
@@ -48,9 +86,6 @@ async function carregarProdutosDoServidor() {
     }
 }
 
-// =========================================================
-// 2. CONTADORES REAIS (Mostra a quantidade de cada filtro)
-// =========================================================
 function atualizarContadoresFiltros() {
     if(!gridProdutos) return;
     const contagemCat = {};
@@ -73,7 +108,7 @@ function atualizarContadoresFiltros() {
 }
 
 // =========================================================
-// 3. RENDERIZAÇÃO DOS PRODUTOS (Cards Dinâmicos)
+// 3. RENDERIZAÇÃO DOS PRODUTOS 
 // =========================================================
 function renderizarProdutos(produtos, termoBusca = "") {
     if (!gridProdutos) return;
@@ -88,28 +123,73 @@ function renderizarProdutos(produtos, termoBusca = "") {
     }
 
     produtos.forEach(produto => {
-        const mensagemAjustada = `Olá! Gostaria de comprar a peça: ${produto.nome} (CÓD: ${produto.id})`;
-        const linkWhats = `https://api.whatsapp.com/send?phone=5585996883588&text=${encodeURIComponent(mensagemAjustada)}`;
+        // REGRA DE OURO: Verifica a posição real do produto no banco original
+        // Se estiver entre os 4 primeiros, é Promoção!
+        const indexRealNoBanco = bancoDeProdutos.findIndex(p => p.id === produto.id);
+        const isPromocao = indexRealNoBanco >= 0 && indexRealNoBanco < 4;
+        
+        const precoNormal = produto.preco;
+        let descontoDecimal = isPromocao ? 0.15 : 0.05; // 15% se for promo, senão 5% PIX padrão
+        let precoPix = precoNormal * (1 - descontoDecimal);
+        
+        let htmlPrecoAntigo = '';
+        let htmlTagPromo = '';
+
+        if (isPromocao) {
+            htmlPrecoAntigo = `<span style="font-size: 12px; color: #888; text-decoration: line-through; display: block; margin-bottom: 2px;">${precoNormal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span>`;
+            htmlTagPromo = `<span style="background-color: #ffcc00; color: #111; font-size: 11px; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">-15%</span>`;
+        } else {
+            // Usa o mesmo espaço vertical para o card não quebrar, mas sem valor e sem o R$
+            htmlPrecoAntigo = `<span style="font-size: 12px; display: block; margin-bottom: 2px;">&nbsp;</span>`;
+            htmlTagPromo = '';
+        }
 
         const card = document.createElement("div");
         card.className = "card";
+        // Estilo moderno aplicado diretamente no card
+        card.style.cssText = "display:flex; flex-direction:column; background:#fff; border:1px solid #eee; border-radius:8px; transition:0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow:hidden;";
+        card.onmouseover = function() { this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)'; };
+        card.onmouseout = function() { this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.05)'; };
+        
         card.innerHTML = `
-            <div class="card-img"><img src="${produto.imagem}" alt="${produto.nome}"></div>
-            <div class="card-info">
-                <h3>${produto.nome}</h3>
-                <span class="product-code">COD: ${produto.id}</span>
-                <p class="preco">${produto.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
-                <div class="card-buttons">
-                    <button class="btn-action btn-cart" onclick="adicionarAoCarrinho('${produto.id}')">Adicionar ao Carrinho</button>
-                    <a class="btn-action btn-whats" href="${linkWhats}" target="_blank">Comprar pelo WhatsApp</a>
+            <a href="ProductDetail.html?id=${produto.id}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1; cursor: pointer; padding: 20px;">
+                <div class="card-img" style="height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; padding: 10px;">
+                    <img src="${produto.imagem}" alt="${produto.nome}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
-            </div>`;
+                
+                <div class="card-info" style="padding: 0; text-align: left; display: flex; flex-direction: column; flex: 1;">
+                    <h3 style="font-size: 15px; color: #333; font-weight: 600; line-height: 1.4; margin: 0 0 10px 0;">${produto.nome}</h3>
+                    
+                    <div style="margin-top: auto;">
+                        ${htmlPrecoAntigo}
+                        
+                        <div style="display: flex; align-items: center; margin: 2px 0 5px 0;">
+                            <strong style="font-size: 22px; color: #d4a000; font-weight: 800; line-height: 1;">
+                                ${precoPix.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}
+                            </strong>
+                            ${htmlTagPromo}
+                        </div>
+                        
+                        <p style="font-size: 12px; color: #666; margin: 0 0 2px 0;">À vista no PIX</p>
+                        <p style="font-size: 12px; color: #666; margin: 0 0 15px 0;">ou até <strong>10x de ${(precoNormal/10).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</strong></p>
+                    </div>
+                </div>
+                
+                <button class="btn-comprar-card" onclick="event.preventDefault(); window.adicionarAoCarrinho('${produto.id}')">
+                    <svg class="cart-icon-btn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span>COMPRAR</span>
+                </button>
+            </a>`;
         gridProdutos.appendChild(card);
     });
 }
 
 // =========================================================
-// 4. LÓGICA DO CARRINHO (LocalStorage)
+// 4. LÓGICA DO CARRINHO
 // =========================================================
 window.adicionarAoCarrinho = function(idProduto) {
     const produto = bancoDeProdutos.find(p => p.id === idProduto);
@@ -128,16 +208,14 @@ window.adicionarAoCarrinho = function(idProduto) {
 }
 
 // =========================================================
-// 5. FILTROS E ORDENAÇÃO AUTOMÁTICA
+// 5. FILTROS E ORDENAÇÃO (COM PROMOÇÕES PRIMEIRO)
 // =========================================================
 function aplicarFiltrosEOrdenar(ignorarScroll = false) {
     let filtrados = [...bancoDeProdutos];
 
     const inputLateral = document.getElementById("busca-nome");
     const inputTopo = document.querySelector('.search-bar input');
-    
     const busca = (inputTopo?.value || inputLateral?.value || "").toLowerCase().trim();
-
     const min = parseFloat(document.getElementById("preco-min")?.value) || 0;
     const max = parseFloat(document.getElementById("preco-max")?.value) || Infinity;
     const ordem = document.getElementById("ordenar")?.value;
@@ -145,6 +223,7 @@ function aplicarFiltrosEOrdenar(ignorarScroll = false) {
     const catMarcadas = Array.from(document.querySelectorAll("#filter-categorias input:checked")).map(cb => cb.value);
     const marcasMarcadas = Array.from(document.querySelectorAll("#filter-marcas input:checked")).map(cb => cb.value);
 
+    // Aplica todos os filtros (Busca, Preço, Categoria, Marca)
     filtrados = filtrados.filter(p => {
         const bateBusca = !busca || p.nome.toLowerCase().includes(busca) || p.id.includes(busca);
         const batePreco = p.preco >= min && p.preco <= max;
@@ -153,9 +232,27 @@ function aplicarFiltrosEOrdenar(ignorarScroll = false) {
         return bateBusca && batePreco && bateCat && bateMarca;
     });
 
-    if (ordem === "menor-preco") filtrados.sort((a, b) => a.preco - b.preco);
-    else if (ordem === "maior-preco") filtrados.sort((a, b) => b.preco - a.preco);
-    else if (ordem === "nome-az") filtrados.sort((a, b) => a.nome.localeCompare(b.nome));
+    // Função utilitária para saber se é promoção (Baseada na posição real do banco)
+    const isPromo = (id) => {
+        const idx = bancoDeProdutos.findIndex(p => p.id === id);
+        return idx >= 0 && idx < 4;
+    };
+
+    // Aplica a ordenação
+    if (ordem === "menor-preco") {
+        filtrados.sort((a, b) => a.preco - b.preco);
+    } else if (ordem === "maior-preco") {
+        filtrados.sort((a, b) => b.preco - a.preco);
+    } else if (ordem === "nome-az") {
+        filtrados.sort((a, b) => a.nome.localeCompare(b.nome));
+    } else {
+        // ORDENAÇÃO PADRÃO (RELEVÂNCIA): Joga as promoções para o início
+        filtrados.sort((a, b) => {
+            const promoA = isPromo(a.id) ? 1 : 0;
+            const promoB = isPromo(b.id) ? 1 : 0;
+            return promoB - promoA; 
+        });
+    }
 
     if (!ignorarScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -181,12 +278,8 @@ function atualizarTituloPesquisa(termo) {
     }
 }
 
-// =========================================================
-// 6. INICIALIZAÇÃO DA PÁGINA
-// =========================================================
 document.addEventListener('DOMContentLoaded', () => {
     if (gridProdutos) {
-        // CHAMA O BACKEND ASSIM QUE A PÁGINA CARREGA
         carregarProdutosDoServidor();
 
         const inputLateral = document.getElementById("busca-nome");
@@ -203,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById("preco-min")?.addEventListener("change", () => aplicarFiltrosEOrdenar());
         document.getElementById("preco-max")?.addEventListener("change", () => aplicarFiltrosEOrdenar());
-        
         document.getElementById("ordenar")?.addEventListener("change", () => aplicarFiltrosEOrdenar());
         document.querySelectorAll("input[type='checkbox']").forEach(cb => {
             cb.addEventListener("change", () => aplicarFiltrosEOrdenar());

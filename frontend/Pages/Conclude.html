@@ -7,6 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Css/Global.css">
     <link rel="stylesheet" href="../Assets/Css/Style Conclude.css">
+    <style>
+        .conclude-page-bg { background-color: #f8f9fa; min-height: 80vh; padding: 40px 0; }
+        .conclude-box { max-width: 650px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    </style>
 </head>
 <body>
 
@@ -17,7 +21,7 @@
     <main class="conclude-page-bg">
         <div class="container">
             
-            <div class="checkout-steps">
+            <div class="checkout-steps" style="margin-bottom: 40px;">
                 <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/shopping-cart.png" alt="Carrinho"><span class="step-text-yellow">Carrinho</span></div>
                 <div class="step-line finished-line step-line-yellow"></div>
                 <div class="step finished"><img src="https://img.icons8.com/ios-filled/50/ffcc00/marker.png" alt="Endereço"><span class="step-text-yellow">Endereço</span></div>
@@ -29,86 +33,14 @@
                 <div class="step active"><img src="https://img.icons8.com/ios-filled/50/ffcc00/ok--v1.png" alt="Concluir"><span class="step-text-yellow">Concluir</span></div>
             </div>
 
-            <div class="success-header">
-                <svg id="icone-sucesso-global" class="icon-success" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                <h1 id="conclude-title">PEDIDO REALIZADO COM SUCESSO!</h1>
-                <h2 id="conclude-subtitle">AGORA É SÓ REALIZAR O PAGAMENTO</h2>
-            </div>
-
-            <div id="bloco-pix" class="bloco-pagamento hidden">
-                <div class="conclude-card" id="pix-aguardando">
-                    <div class="qr-col">
-                        <div class="qr-box">
-                            <img id="img-qr-code" src="" alt="QR Code PIX">
-                        </div>
-                        <button class="btn-copy-pix" id="btn-copiar-pix">COPIAR CÓDIGO PIX</button>
-                        <p id="copy-msg" class="msg-copiado hidden">Código copiado!</p>
-                    </div>
-                    <div class="info-col">
-                        <div class="loading-alert">
-                            <svg class="spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#0284c7" stroke-width="4" stroke-linecap="round" stroke-dasharray="90 150"></circle></svg>
-                            <span class="loading-text">Aguardando pagamento...</span>
-                        </div>
-
-                        <div class="timer-alert">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#d4a000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            <div>
-                                <strong>Aproveite! Este código tem validade de 12 horas.</strong>
-                                <p>A tela será atualizada automaticamente assim que pagar.</p>
-                            </div>
-                        </div>
-                        <div class="order-number-box">
-                            <p>O número do seu pedido é:</p>
-                            <strong class="display-pedido">Gerando...</strong>
-                        </div>
-                        <p class="scan-text">Escaneie o <strong>QR Code</strong> ou copie o <strong>código PIX</strong>.</p>
-                    </div>
-                </div>
-
-                <div class="conclude-card center-card hidden fade-in" id="pix-aprovado">
-                    <svg class="icon-approved" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    <h3 class="approved-title">Pix Confirmado!</h3>
-                    <p class="approved-desc">Recebemos o seu pagamento via PIX instantaneamente. O seu pedido já foi enviado para a separação!</p>
-                    <div class="order-number-box top-margin-30">
-                        <p>O número do seu pedido é:</p>
-                        <strong class="display-pedido">Gerando...</strong>
-                    </div>
+            <div class="conclude-box" id="conclude-content">
+                <div style="text-align: center; color: #888;">
+                    <svg viewBox="0 0 50 50" style="width: 40px; height: 40px; animation: rotate 2s linear infinite; margin-bottom: 15px;"><circle cx="25" cy="25" r="20" fill="none" stroke="#ffcc00" stroke-width="5" stroke-dasharray="90 150"></circle></svg>
+                    <h3>Processando pagamento oficial...</h3>
                 </div>
             </div>
 
-            <div id="bloco-cartao" class="bloco-pagamento hidden">
-                <div class="conclude-card center-card">
-                    <svg class="icon-approved" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    <h3 class="approved-title">Pagamento Aprovado!</h3>
-                    <p class="approved-desc">A sua transação com Cartão de Crédito foi processada. A sua nota fiscal será emitida em breve.</p>
-                    <div class="order-number-box top-margin-30">
-                        <p>O número do seu pedido é:</p>
-                        <strong class="display-pedido">Gerando...</strong>
-                    </div>
-                </div>
-            </div>
-
-            <div id="bloco-boleto" class="bloco-pagamento hidden">
-                <div class="conclude-card center-card">
-                    <svg class="icon-boleto" viewBox="0 0 24 24"><path d="M3 5h2v14H3V5zm4 0h1v14H7V5zm3 0h3v14h-3V5zm5 0h1v14h-1V5zm3 0h3v14h-3V5zm5 0h1v14h-1V5z"/></svg>
-                    <h3 class="boleto-title">Boleto gerado com sucesso!</h3>
-                    <p class="boleto-desc">O vencimento é em <strong>2 dias úteis</strong>.</p>
-                    
-                    <div class="boleto-copy-box" style="background: #f8f8f8; padding: 15px; margin: 20px 0; border: 1px dashed #ccc; border-radius: 8px;">
-                        <p style="font-size: 11px; color: #777; margin-bottom: 5px; text-transform: uppercase;">Linha Digitável:</p>
-                        <code id="linha-digitavel" style="font-family: monospace; font-size: 14px; font-weight: bold; color: #333;">Carregando...</code>
-                    </div>
-
-                    <button class="btn-solid" onclick="window.print()" style="max-width: 250px; margin: 0 auto;">IMPRIMIR BOLETO</button>
-
-                    <div class="order-number-box top-margin-20">
-                        <p>O número do seu pedido é:</p>
-                        <strong class="display-pedido">Gerando...</strong>
-                    </div>
-                </div>
-            </div>
-
-            <div class="instructions-section" id="area-instrucoes">
+            <div class="instructions-section" id="area-instrucoes" style="max-width: 650px; margin: 30px auto 0 auto;">
                 <h3 id="instrucao-titulo" class="instructions-title">Como pagar</h3>
                 <ul class="instructions-list">
                     <li>
@@ -126,9 +58,9 @@
                 </ul>
             </div>
 
-            <div class="final-actions">
+            <div class="final-actions" style="max-width: 650px; margin: 30px auto;">
                 <a href="Dashboard.html#pedidos" class="btn-outline">VER MEUS PEDIDOS</a>
-                <a href="../index.html" class="btn-solid">CONTINUAR NAVEGANDO</a>
+                <a href="../index.html" class="btn-solid" style="background-color: #ffcc00; color: #111;">CONTINUAR NAVEGANDO</a>
             </div>
 
         </div>
@@ -139,7 +71,7 @@
             <div class="container text-center">
                 <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/Engremaq-removebg-preview(branco).png" class="iso-logo" alt="Logo Branca Engremaq">
                 <p class="iso-grupo">Uma loja oficial do grupo <strong class="text-yellow">ENGREMAQ</strong></p>
-                <p class="iso-legal-text">Engremaq® é uma marca registrada de ENGREMAQ S.A | Todos os direitos reservados.</p>
+                <p class="iso-legal-text">Engremaq® é uma marca registrada de ENGREMAQ S.A | Todos os direitos reservados. Ambiente 100% Seguro.</p>
             </div>
         </div>
     </footer>

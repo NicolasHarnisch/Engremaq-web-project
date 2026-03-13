@@ -1,23 +1,19 @@
-/* Variáveis de Cores (Alinhadas com a Home) */
-:root {
-    --cor-amarelo: #ffcc00;
-    --cor-preto: #111;
-    --bg-branco: #fff;
-    --bg-dark: #1a1a1a;
-    --sombra-card: 0 10px 22px rgba(0,0,0,.08);
-}
+/* ==========================================================================
+   STYLE ABOUT (Layout Clássico Restaurado)
+   ========================================================================== */
 
 /* Utilitários Gerais */
-.sec { padding: 60px 0; background: var(--bg-branco); }
-.sec-dark { padding: 80px 0; background: var(--bg-dark); }
+.sec { padding: 60px 0; background: #ffffff; }
+.sec-dark { padding: 80px 0; background: #1a1a1a; }
 .text-center { text-align: center; }
 
-.sec-head h2 { margin: 0; font-size: 32px; font-weight: 900; color: var(--cor-preto); }
-.sec-head p { margin: 10px 0 0; font-size: 15px; color: #555; }
+.sec-head h2 { margin: 0; font-size: 32px; font-weight: 800; color: #111; }
+.sec-dark .sec-head h2 { color: #fff; }
+.sec-head p { margin: 10px 0 0; font-size: 15px; color: #666; }
 
 .linha-destaque {
     width: 60px; height: 5px;
-    background: var(--cor-amarelo);
+    background: #ffcc00;
     margin: 16px 0 20px;
     border-radius: 4px;
 }
@@ -27,12 +23,12 @@
     background-image: url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=1200&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     height: 350px; 
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    width: 100%;
 }
 
 .hero-overlay {
@@ -51,23 +47,21 @@
 
 .hero-content h1 {
     font-size: 42px; 
-    font-weight: 900;
+    font-weight: 800;
     margin: 0 0 10px 0;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    color: var(--cor-amarelo);
+    color: #ffcc00;
 }
 
 .hero-content p {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
-    opacity: 0.9;
 }
 
-/* --- NOSSA HISTÓRIA (Idêntico ao layout da Home) --- */
+/* --- NOSSA HISTÓRIA --- */
 .feature-container {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1fr 1fr;
     gap: 50px;
     align-items: center;
 }
@@ -75,91 +69,78 @@
 .feature-text p {
     font-size: 15px;
     color: #555;
-    line-height: 1.8;
+    line-height: 1.6;
     margin-bottom: 15px;
 }
 
 .historia-imagem img {
     width: 100%;
     max-width: 600px;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     display: block;
     margin: 0 auto;
 }
 
-/* Botões Padronizados */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    padding: 0 25px;
-    border-radius: 8px;
-    font-weight: 900;
+.btn-primary {
+    display: inline-block;
+    background: #ffcc00;
+    color: #111;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: 700;
     text-decoration: none;
     font-size: 14px;
-    transition: all 0.2s ease;
-}
-
-.btn-primary {
-    background: var(--cor-amarelo);
-    color: #111;
+    transition: 0.3s;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     background: #e6b800;
 }
 
-/* --- MISSÃO, VISÃO, VALORES (Cards) --- */
+/* --- MISSÃO, VISÃO, VALORES --- */
 .mvv-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    margin-top: 40px;
 }
 
 .mvv-card {
     background: #252525;
     padding: 40px 30px;
-    border-radius: 12px;
+    border-radius: 8px;
     text-align: center;
-    border-bottom: 5px solid var(--cor-amarelo);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 4px solid #ffcc00;
+    transition: transform 0.3s ease;
 }
 
 .mvv-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    transform: translateY(-5px);
 }
 
 .mvv-icon {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 204, 0, 0.1);
-    border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
 }
 
 .mvv-icon img {
-    width: 45px;
+    width: 50px;
 }
 
 .mvv-card h3 {
-    font-size: 22px;
+    font-size: 20px;
     color: #fff;
     margin-bottom: 15px;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .mvv-card p {
     font-size: 14px;
     color: #bbb;
     line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 .lista-valores {
@@ -173,11 +154,11 @@
 .lista-valores li {
     font-size: 14px;
     color: #bbb;
-    margin-bottom: 12px;
-    font-weight: 600;
+    margin-bottom: 10px;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 /* --- DIFERENCIAIS --- */
@@ -189,15 +170,12 @@
 
 .diferencial-item {
     background: #fff;
-    padding: 30px 20px;
-    border-radius: 10px;
+    padding: 20px;
     text-align: center;
-    box-shadow: var(--sombra-card);
-    border: 1px solid #f0f0f0;
 }
 
 .diferencial-item img {
-    width: 40px;
+    width: 50px;
     margin-bottom: 15px;
 }
 
@@ -205,7 +183,7 @@
     font-size: 16px;
     color: #111;
     margin: 0 0 10px 0;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .diferencial-item span {
@@ -217,8 +195,9 @@
 
 /* --- FAIXA AMARELA CTA FINAL --- */
 .cta-yellow {
-    background-color: var(--cor-amarelo);
-    padding: 30px 0; 
+    background-color: #ffcc00;
+    padding: 5px 0; 
+    width: 100%;
 }
 
 .cta-container {
@@ -228,58 +207,39 @@
 }
 
 .cta-container span {
-    font-size: 20px; 
-    font-weight: 800;
+    font-size: 22px; 
+    font-weight: 700;
     color: #111;
 }
 
 .btn-cta {
     background-color: #111;
     color: #ffcc00;
-    padding: 14px 35px; 
-    border-radius: 8px;
+    padding: 12px 30px; 
+    border-radius: 6px;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 15px;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 .btn-cta:hover {
     background-color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
-/* --- RESPONSIVIDADE PÁGINA SOBRE --- */
-@media (max-width: 950px) {
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
     .feature-container {
         grid-template-columns: 1fr;
         text-align: center;
     }
-    
-    .linha-destaque {
-        margin: 16px auto 20px auto;
-    }
-    
-    .mvv-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .diferenciais-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .cta-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
+    .linha-destaque { margin: 16px auto 20px auto; }
+    .mvv-grid { grid-template-columns: 1fr; }
+    .diferenciais-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-container { flex-direction: column; text-align: center; gap: 20px; }
 }
 
 @media (max-width: 500px) {
-    .diferenciais-grid {
-        grid-template-columns: 1fr;
-    }
-    
+    .diferenciais-grid { grid-template-columns: 1fr; }
     .hero-content h1 { font-size: 32px; }
 }

@@ -1,5 +1,7 @@
 // dashboard.js - Lógica funcional para o Painel do Cliente
 
+let enderecoEmEdicao = null; // Variável para controlar edição de endereço
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // =========================================================
@@ -91,14 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dataEntregaStr = p.dataEntrega ? new Date(p.dataEntrega).toLocaleDateString('pt-BR') : 'A calcular';
                 
                 let statusExibicao = p.pagamento.status;
-                let corStatus = '#27ae60'; // Verde (Padrão Aprovado)
+                let corStatus = '#27ae60'; 
 
                 if (p.pagamento.status === 'AGUARDANDO_PAGAMENTO') {
                     statusExibicao = '⏳ Aguardando Pagamento';
-                    corStatus = '#e67e22'; // Laranja/Amarelo
+                    corStatus = '#e67e22'; 
                 } else if (p.pagamento.status === 'CANCELADO') {
                     statusExibicao = '❌ Compra Cancelada';
-                    corStatus = '#ef4444'; // Vermelho
+                    corStatus = '#ef4444'; 
                 }
 
                 let itensHtml = '';
@@ -153,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let pedidoSendoGerenciado = null;
 
-    // Abertura do Modal 1 (Principal)
     window.gerenciarPedido = (numeroDoPedido) => {
         const pedidos = JSON.parse(localStorage.getItem('pedidosEngremaq')) || [];
         const pedido = pedidos.find(p => String(p.numeroPedido) === String(numeroDoPedido));
@@ -173,18 +174,30 @@ document.addEventListener('DOMContentLoaded', () => {
             btnContinuar.textContent = 'CONTINUAR';
             document.getElementById('aviso-cancelamento').style.display = 'none';
 
-            // Garante que as opções de ajuda estão visíveis ao abrir
             const blocoOpcoes = document.getElementById('bloco-opcoes-ajuda');
             if (blocoOpcoes) blocoOpcoes.style.display = 'block';
 
             const blocoPagamento = document.getElementById('bloco-pagamento-pendente');
+            
             if (pedido.pagamento && pedido.pagamento.status === 'AGUARDANDO_PAGAMENTO') {
                 blocoPagamento.style.display = 'block';
-                // Sempre que abre, repõe a caixinha amarela original
+                
+                const metodo = pedido.pagamento.metodo || 'pix';
+                let btnText = "💸 PAGAR VIA PIX";
+                let descText = "O seu pedido já está reservado. Realize o pagamento para iniciar a separação.";
+
+                if (metodo === 'boleto') {
+                    btnText = "📄 GERAR BOLETO BANCÁRIO";
+                    descText = "O seu pedido está aguardando a geração do boleto.";
+                } else if (metodo === 'cartao') {
+                    btnText = "💳 TENTAR PAGAMENTO NOVAMENTE";
+                    descText = "Houve uma falha na comunicação com a operadora. Tente novamente.";
+                }
+
                 blocoPagamento.innerHTML = `
                     <strong style="color: #d4a000; display: block; margin-bottom: 5px;">⚠️ Pagamento Pendente!</strong>
-                    <p style="font-size: 13px; color: #666; margin-bottom: 10px;">O seu pedido já está reservado. Realize o pagamento para iniciar a separação.</p>
-                    <button id="btn-gerar-pix-pendente" onclick="gerarPixPendente()" style="background: #ffcc00; color: #111; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; width: 100%;">💸 PAGAR VIA PIX</button>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 10px;">${descText}</p>
+                    <button id="btn-processar-pagamento" onclick="processarPagamentoPendente('${metodo}')" style="background: #ffcc00; color: #111; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; width: 100%;">${btnText}</button>
                 `;
             } else {
                 blocoPagamento.style.display = 'none';
@@ -199,13 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modal-motivo-cancelamento').style.display = 'none';
     };
 
-    // Botão Continuar do Modal 1 (Transição para Modal 2)
     window.processarAcaoGerenciar = () => {
         const radioCancelar = document.getElementById('radio-cancelar');
         if (radioCancelar && radioCancelar.checked) {
             document.getElementById('modal-gerenciar-pedido').style.display = 'none';
             
-            // Reseta opções do modal 2
             const radiosMotivos = document.querySelectorAll('input[name="motivo_cancelamento"]');
             radiosMotivos.forEach(r => r.checked = false);
             document.getElementById('texto-motivo-extra').value = '';
@@ -232,93 +243,150 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.style.cursor = 'pointer';
     };
 
-    // =========================================================
-    // NOVA MÁGICA: GERAR PIX E APROVAR AUTOMATICAMENTE!
-    // =========================================================
-    window.gerarPixPendente = async () => {
+    window.processarPagamentoPendente = async (metodo) => {
         if (!pedidoSendoGerenciado) return;
 
-        const btn = document.getElementById('btn-gerar-pix-pendente');
+        const btn = document.getElementById('btn-processar-pagamento');
         if (btn) {
-            btn.innerText = "GERANDO PIX...";
+            btn.innerText = "PROCESSANDO...";
             btn.disabled = true;
         }
 
         try {
-            // 1. Puxa o código PIX do Back-end
-            const resposta = await fetch('http://localhost:3000/api/pagamento/pix', {
+            const resposta = await fetch('http://localhost:3000/api/pagamento/gerar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    metodo: 'pix',
+                    metodo: metodo,
                     email: usuario.email,
                     nome: usuario.nome,
                     valorTotal: pedidoSendoGerenciado.totalGeral,
-                    descricaoPedido: `Pedido ${pedidoSendoGerenciado.numeroPedido}`
                 })
             });
 
             const dados = await resposta.json();
 
             if (dados.sucesso) {
-                // 💡 UX INTELIGENTE: Esconde a opção de cancelar para focar no pagamento e limpar a tela
                 const blocoOpcoes = document.getElementById('bloco-opcoes-ajuda');
                 if (blocoOpcoes) blocoOpcoes.style.display = 'none';
 
-                // 2. Injeta o QR Code de forma limpa e centralizada
                 const blocoPendente = document.getElementById('bloco-pagamento-pendente');
-                blocoPendente.innerHTML = `
-                    <div style="text-align: center;">
-                        <strong style="color: #27ae60; display: block; margin-bottom: 5px; font-size: 15px;">✅ PIX Gerado com Sucesso!</strong>
-                        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Escaneie o QR Code abaixo no app do seu banco:</p>
-                        
-                        <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #eee; display: inline-block; margin-bottom: 15px;">
-                            <img src="data:image/png;base64,${dados.qrCodeBase64}" style="width: 150px; height: 150px; display: block;">
-                        </div>
-                        
-                        <div style="display: flex; gap: 5px; margin-bottom: 15px;">
-                            <input type="text" value="${dados.pixCopiaECola}" id="input-pix-copia" readonly style="flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; color: #666; outline: none; background: #f9f9f9;">
-                            <button onclick="navigator.clipboard.writeText(document.getElementById('input-pix-copia').value); alert('Código PIX Copiado!');" style="background: #ffcc00; color: #111; border: none; padding: 0 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px; white-space: nowrap;">COPIAR</button>
-                        </div>
-                        
-                        <div id="simulador-aprovacao" style="color: #e67e22; font-weight: bold; font-size: 13px; display: flex; justify-content: center; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid #eee;">
-                            <svg viewBox="0 0 50 50" style="width: 16px; height: 16px; animation: rotate 2s linear infinite;"><circle cx="25" cy="25" r="20" fill="none" stroke="#e67e22" stroke-width="5" stroke-dasharray="90 150"></circle></svg>
-                            Aguardando pagamento...
-                        </div>
-                    </div>
-                `;
 
-                // 3. O TRUQUE: Aguarda 8 segundos e aprova automaticamente!
-                setTimeout(async () => {
-                    const statusAprovacao = document.getElementById('simulador-aprovacao');
-                    if (statusAprovacao) {
-                        statusAprovacao.innerHTML = "✅ Pagamento identificado! Atualizando...";
-                        statusAprovacao.style.color = "#27ae60";
-                    }
-                    
-                    // Avisa o Back-end que o cliente pagou
-                    await fetch(`http://localhost:3000/api/pedidos/${pedidoSendoGerenciado.numeroPedido}/aprovar`, { 
-                        method: 'PUT' 
-                    });
-                    
-                    setTimeout(() => {
-                        window.location.reload(); 
-                    }, 2000);
-                    
-                }, 8000);
+                if (metodo === 'pix') {
+                    blocoPendente.innerHTML = `
+                        <div style="text-align: center;">
+                            <strong style="color: #27ae60; display: block; margin-bottom: 5px; font-size: 15px;">✅ PIX Gerado com Sucesso!</strong>
+                            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Escaneie o QR Code abaixo:</p>
+                            <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #eee; display: inline-block; margin-bottom: 15px;">
+                                <img src="data:image/png;base64,${dados.qrCodeBase64}" style="width: 150px; height: 150px; display: block;">
+                            </div>
+                            <div style="display: flex; gap: 5px; margin-bottom: 15px;">
+                                <input type="text" value="${dados.pixCopiaECola}" id="input-pix-copia" readonly style="flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; color: #666; outline: none; background: #f9f9f9;">
+                                <button onclick="navigator.clipboard.writeText(document.getElementById('input-pix-copia').value); alert('Código Copiado!');" style="background: #ffcc00; color: #111; border: none; padding: 0 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px;">COPIAR</button>
+                            </div>
+                            ${gerarHTMLSpinner("Aguardando pagamento no app...")}
+                        </div>
+                    `;
+                    iniciarSimulacaoAprovacao(8000); 
+                } 
+                else if (metodo === 'boleto') {
+                    const dataVenc = new Date();
+                    dataVenc.setDate(dataVenc.getDate() + 3);
+                    const vencStr = dataVenc.toLocaleDateString('pt-BR');
+                    const linhaDigitavelOficial = dados.linhaDigitavel || "23793.38128 60083.430009 17001.210004 1 96500000000100";
+
+                    blocoPendente.innerHTML = `
+                        <div style="background: #fff; border: 1px solid #ccc; padding: 15px; border-radius: 8px; font-family: monospace; color: #111; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                            <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 10px; margin-bottom: 15px; align-items: center;">
+                                <strong style="font-size: 18px; color: #cc0000; font-family: 'Poppins', sans-serif;">Bradesco</strong>
+                                <span style="font-size: 18px; border-left: 2px solid #111; border-right: 2px solid #111; padding: 0 10px;">237-2</span>
+                                <span style="font-size: 12px; font-weight: bold; text-align: right;">${linhaDigitavelOficial}</span>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                                <div style="flex: 1; border-right: 1px solid #eee; padding-right: 10px;">
+                                    <p style="margin: 0 0 4px 0; color: #555;">Beneficiário</p>
+                                    <p style="margin: 0; font-size: 12px; font-weight: bold;">ENGREMAQ S.A - 00.000.000/0001-00</p>
+                                </div>
+                                <div style="flex: 1; padding-left: 10px; text-align: right;">
+                                    <p style="margin: 0 0 4px 0; color: #555;">Vencimento</p>
+                                    <p style="margin: 0; font-size: 14px; font-weight: bold; color: #cc0000;">${vencStr}</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 15px;">
+                                <div style="flex: 1;">
+                                    <p style="margin: 0 0 4px 0; color: #555;">Pagador</p>
+                                    <p style="margin: 0; font-size: 12px;">${usuario.nome.toUpperCase()}</p>
+                                </div>
+                                <div style="flex: 1; text-align: right;">
+                                    <p style="margin: 0 0 4px 0; color: #555;">(=) Valor do Documento</p>
+                                    <p style="margin: 0; font-size: 16px; font-weight: bold;">${pedidoSendoGerenciado.totalGeral.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
+                                </div>
+                            </div>
+
+                            <div style="background: #f9f9f9; text-align: center; border-top: 1px dashed #ccc; padding-top: 10px; margin-bottom: 15px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/UPC-A-036000291452.svg" style="height: 40px; width: 80%; opacity: 0.7; filter: grayscale(100%);">
+                            </div>
+
+                            <button onclick="navigator.clipboard.writeText('${linhaDigitavelOficial}'); alert('Linha Digitável Copiada!');" style="background: #ffcc00; color: #111; border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px; width: 100%; font-family: 'Poppins', sans-serif;">📋 COPIAR LINHA DIGITÁVEL</button>
+                            
+                            <div style="margin-top: 15px; font-family: 'Poppins', sans-serif;">
+                                ${gerarHTMLSpinner("Aguardando compensação bancária...")}
+                            </div>
+                        </div>
+                    `;
+                    iniciarSimulacaoAprovacao(8000); 
+                }
+                else if (metodo === 'cartao') {
+                    blocoPendente.innerHTML = `
+                        <div style="text-align: center; padding: 20px 0;">
+                            <strong style="color: #27ae60; display: block; margin-bottom: 5px; font-size: 15px;">💳 Processando Cartão...</strong>
+                            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Comunicação segura com a operadora estabelecida.</p>
+                            ${gerarHTMLSpinner("Aguardando aprovação da operadora...")}
+                        </div>
+                    `;
+                    iniciarSimulacaoAprovacao(4000); 
+                }
 
             } else {
-                alert("Falha ao gerar código PIX.");
-                if (btn) { btn.innerText = "💸 PAGAR VIA PIX"; btn.disabled = false; }
+                alert("Falha ao processar pagamento.");
+                if (btn) { btn.innerText = "TENTAR NOVAMENTE"; btn.disabled = false; }
             }
         } catch (erro) {
-            alert("Erro de conexão com o servidor de pagamentos.");
-            if (btn) { btn.innerText = "💸 PAGAR VIA PIX"; btn.disabled = false; }
+            alert("Erro de connection com o servidor de pagamentos.");
+            if (btn) { btn.innerText = "TENTAR NOVAMENTE"; btn.disabled = false; }
         }
     };
 
+    function gerarHTMLSpinner(texto) {
+        return `
+            <div id="simulador-aprovacao" style="color: #e67e22; font-weight: bold; font-size: 13px; display: flex; justify-content: center; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid #eee;">
+                <svg viewBox="0 0 50 50" style="width: 16px; height: 16px; animation: rotate 2s linear infinite;"><circle cx="25" cy="25" r="20" fill="none" stroke="#e67e22" stroke-width="5" stroke-dasharray="90 150"></circle></svg>
+                ${texto}
+            </div>
+        `;
+    }
 
-    // Ação Real do Cancelamento (Modal 2 -> Back-end)
+    function iniciarSimulacaoAprovacao(tempoEsperaMs) {
+        setTimeout(async () => {
+            const statusAprovacao = document.getElementById('simulador-aprovacao');
+            if (statusAprovacao) {
+                statusAprovacao.innerHTML = "✅ Pagamento aprovado! Atualizando o sistema...";
+                statusAprovacao.style.color = "#27ae60";
+            }
+            
+            await fetch(`http://localhost:3000/api/pedidos/${pedidoSendoGerenciado.numeroPedido}/aprovar`, { 
+                method: 'PUT' 
+            });
+            
+            setTimeout(() => {
+                window.location.reload(); 
+            }, 2000);
+            
+        }, tempoEsperaMs);
+    }
+
     window.confirmarCancelamentoFinal = async () => {
         const motivoSelecionado = document.querySelector('input[name="motivo_cancelamento"]:checked');
         const motivoExtra = document.getElementById('texto-motivo-extra').value.trim();
@@ -342,18 +410,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("✅ O seu pedido foi cancelado com sucesso.");
                 window.location.reload(); 
             } else {
-                alert("❌ Erro ao cancelar o pedido. Verifique se a rota PUT está ativa no Back-end.");
+                alert("❌ Erro ao cancelar o pedido.");
                 btn.textContent = "CONFIRMAR CANCELAMENTO";
                 btn.disabled = false;
             }
         } catch (e) {
-            alert("❌ Erro de conexão com o servidor. O Node.js está rodando?");
+            alert("❌ Erro de conexão com o servidor.");
             btn.textContent = "CONFIRMAR CANCELAMENTO";
             btn.disabled = false;
         }
     };
 
-    // Injeção do HTML dos Dois Modais na Página
     function prepararModalGerenciarHTML() {
         if (!document.getElementById('modal-gerenciar-pedido')) {
             const motivosList = [
@@ -379,9 +446,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const modalsHTML = `
             <div id="modal-gerenciar-pedido" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
                 <div style="background: #fff; width: 90%; max-width: 500px; border-radius: 8px; overflow: hidden; font-family: 'Poppins', sans-serif; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-                    <div style="background: #005599; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="background: #ffcc00; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-size: 24px;">🥷</span>
                             <strong style="font-size: 16px;">PRECISA DE AJUDA?</strong>
                         </div>
                         <button onclick="fecharModalGerenciar()" style="background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; font-weight: bold; line-height: 1;">&times;</button>
@@ -390,9 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p style="margin: 0 0 15px 0; color: #333; font-weight: 600;">Pedido: <span id="modal-gerenciar-num"></span></p>
 
                         <div id="bloco-pagamento-pendente" style="display: none; background: #fffcf0; border: 1px solid #d4a000; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-                            <strong style="color: #d4a000; display: block; margin-bottom: 5px;">⚠️ Pagamento Pendente!</strong>
-                            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">O seu pedido já está reservado. Realize o pagamento para iniciar a separação.</p>
-                            <button id="btn-gerar-pix-pendente" onclick="gerarPixPendente()" style="background: #ffcc00; color: #111; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; width: 100%;">💸 PAGAR VIA PIX</button>
                         </div>
 
                         <div id="bloco-opcoes-ajuda">
@@ -423,9 +486,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div id="modal-motivo-cancelamento" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
                 <div style="background: #fff; width: 90%; max-width: 550px; border-radius: 8px; overflow: hidden; font-family: 'Poppins', sans-serif; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-                    <div style="background: #005599; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="background: #ffcc00; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-size: 24px;">🥷</span>
+                            <span style="font-size: 24px;"></span>
                             <strong style="font-size: 14px;">NOS CONTE O MOTIVO PARA REALIZAR O CANCELAMENTO</strong>
                         </div>
                         <button onclick="fecharModalGerenciar()" style="background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; font-weight: bold; line-height: 1;">&times;</button>
@@ -449,7 +512,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             document.body.insertAdjacentHTML('beforeend', modalsHTML);
 
-            // 💡 UX INTELIGENTE: Se clicar em cancelar, esconde a caixa amarela do PIX!
             document.getElementById('radio-cancelar').addEventListener('change', (e) => {
                 const btn = document.getElementById('btn-continuar-gerenciar');
                 const aviso = document.getElementById('aviso-cancelamento');
@@ -461,15 +523,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.style.cursor = 'pointer';
                     btn.disabled = false;
                     aviso.style.display = 'block';
-                    
-                    if(blocoPix) blocoPix.style.display = 'none'; // Esconde o PIX para limpar a tela
+                    if(blocoPix) blocoPix.style.display = 'none'; 
                 }
             });
         }
     }
     
     // =========================================================
-    // 4. SISTEMA DE ENDEREÇOS E SEGURANÇA (MANTIDOS INTACTOS)
+    // 4. SISTEMA DE ENDEREÇOS (DASHBOARD) - AGORA COM EDIÇÃO!
     // =========================================================
     carregarEnderecosDash();
 
@@ -500,11 +561,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="address-card ${isDefault ? 'default' : ''}" onclick="tornarPadrao(${e.id})">
                     <h4>${e.identificacao} ${isDefault ? '<small style="color:#d4a000; font-size:12px;">(Padrão)</small>' : ''}</h4>
                     <p>${e.rua}, ${e.numero}</p>
-                    <p>${e.bairro} - ${e.cidade}, ${e.uf}</p>
+                    <p>${e.bairro || 'Centro'} - ${e.cidade}, ${e.uf}</p>
                     <p>CEP: ${e.cep}</p>
-                    <div class="address-actions">
-                        <button onclick="event.stopPropagation(); alert('Para editar, remova e crie um novo.')">Editar</button>
-                        <button style="color: #ef4444;" onclick="event.stopPropagation(); removerEndereco(${e.id})">Remover</button>
+                    <div class="address-actions" style="margin-top: 15px; border-top: 1px dashed #eee; padding-top: 10px;">
+                        <button onclick="event.stopPropagation(); editarEnderecoDash(${e.id})" style="background: none; border: none; color: #d4a000; cursor: pointer; font-size: 13px; font-weight: 600; text-decoration: underline;">Editar</button>
+                        <button onclick="event.stopPropagation(); removerEnderecoDash(${e.id})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; text-decoration: underline; margin-left: 10px;">Remover</button>
                     </div>
                 </div>
             `;
@@ -512,7 +573,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.tornarPadrao = (id) => { localStorage.setItem('enderecoSelecionado', id); renderizarGridEnderecos(); };
-    window.removerEndereco = (id) => {
+    
+    // Novas funções de Editar/Remover para o Dashboard
+    window.removerEnderecoDash = (id) => {
         if(confirm("Deseja realmente remover este endereço?")) {
             let enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
             enderecos = enderecos.filter(e => e.id != id);
@@ -521,9 +584,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    window.editarEnderecoDash = function(id) {
+        const enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
+        const end = enderecos.find(e => e.id === id);
+        if (!end) return;
+
+        enderecoEmEdicao = id;
+        
+        document.getElementById('dash-identificacao').value = end.identificacao || '';
+        document.getElementById('dash-cep').value = end.cep || '';
+        document.getElementById('dash-rua').value = end.rua || '';
+        document.getElementById('dash-numero').value = end.numero || '';
+        document.getElementById('dash-complemento').value = end.complemento || '';
+        document.getElementById('dash-bairro').value = end.bairro || '';
+        document.getElementById('dash-cidade').value = end.cidade || '';
+        document.getElementById('dash-uf').value = end.uf || '';
+
+        document.getElementById('modal-endereco-dash').classList.add('active');
+    };
+
     const modalEndereco = document.getElementById('modal-endereco-dash');
-    document.getElementById('btn-add-address')?.addEventListener('click', () => modalEndereco.classList.add('active'));
-    window.fecharModalEndereco = () => { modalEndereco.classList.remove('active'); document.getElementById('form-novo-endereco').reset(); };
+    document.getElementById('btn-add-address')?.addEventListener('click', () => {
+        enderecoEmEdicao = null;
+        document.getElementById('form-novo-endereco').reset();
+        modalEndereco.classList.add('active');
+    });
+    
+    window.fecharModalEndereco = () => { 
+        modalEndereco.classList.remove('active'); 
+        document.getElementById('form-novo-endereco').reset(); 
+        enderecoEmEdicao = null;
+    };
 
     const inputCep = document.getElementById('dash-cep');
     if (inputCep) {
@@ -548,22 +639,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formNovoEnd) {
         formNovoEnd.addEventListener('submit', (e) => {
             e.preventDefault();
-            const novoId = Date.now();
-            const novoEndereco = {
-                id: novoId, identificacao: document.getElementById('dash-identificacao').value,
-                rua: document.getElementById('dash-rua').value, numero: document.getElementById('dash-numero').value,
-                complemento: document.getElementById('dash-complemento').value, bairro: document.getElementById('dash-bairro').value,
-                cep: document.getElementById('dash-cep').value, cidade: document.getElementById('dash-cidade').value,
-                uf: document.getElementById('dash-uf').value, frete: document.getElementById('dash-uf').value === 'CE' ? 15.00 : 45.00
+            
+            const dadosEndereco = {
+                identificacao: document.getElementById('dash-identificacao').value,
+                rua: document.getElementById('dash-rua').value, 
+                numero: document.getElementById('dash-numero').value,
+                complemento: document.getElementById('dash-complemento').value, 
+                bairro: document.getElementById('dash-bairro').value,
+                cep: document.getElementById('dash-cep').value, 
+                cidade: document.getElementById('dash-cidade').value,
+                uf: document.getElementById('dash-uf').value, 
+                frete: document.getElementById('dash-uf').value === 'CE' ? 15.00 : 45.00
             };
+
             let enderecos = JSON.parse(localStorage.getItem('enderecosEngremaq')) || [];
-            enderecos.push(novoEndereco);
+
+            if (enderecoEmEdicao) {
+                // Atualiza existente
+                const index = enderecos.findIndex(e => e.id === enderecoEmEdicao);
+                if (index !== -1) enderecos[index] = { ...enderecos[index], ...dadosEndereco };
+            } else {
+                // Cria novo
+                dadosEndereco.id = Date.now();
+                enderecos.push(dadosEndereco);
+                localStorage.setItem('enderecoSelecionado', dadosEndereco.id);
+            }
+
             localStorage.setItem('enderecosEngremaq', JSON.stringify(enderecos));
-            localStorage.setItem('enderecoSelecionado', novoId);
-            fecharModalEndereco(); renderizarGridEnderecos();
+            fecharModalEndereco(); 
+            renderizarGridEnderecos();
         });
     }
 
+    // =========================================================
+    // 5. SISTEMA DE SEGURANÇA
+    // =========================================================
     let acaoSegurancaPendente = ''; let codigoAutenticado = ''; 
     const modalSeguranca = document.getElementById('modal-seguranca');
     const stepOtp = document.getElementById('step-otp');
@@ -593,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert(dados.erro.includes('Aguarde') ? '⏳ ' + dados.erro : '❌ ' + dados.erro); fecharModalSeguranca();
             }
-        } catch (erro) { console.error(erro); alert('Erro de conexão. Servidor desligado.'); fecharModalSeguranca(); }
+        } catch (erro) { console.error(erro); alert('Erro de conexão.'); fecharModalSeguranca(); }
     }
 
     window.fecharModalSeguranca = () => { modalSeguranca.classList.remove('active'); };

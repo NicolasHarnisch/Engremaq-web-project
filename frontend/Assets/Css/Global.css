@@ -87,10 +87,24 @@ header {
     justify-content: space-between; 
     align-items: center;
     gap: 20px;
+    /* --- ADICIONADO APENAS A TRANSIÇÃO PARA O EFEITO ROLAR --- */
+    transition: padding 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- ADICIONADA A CLASSE QUE ENCOLHE O CABEÇALHO NO SCROLL --- */
+header.header-shrink {
+    padding: 8px 40px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
 }
 
 header .logo {
     height: 65px; 
+    /* --- ADICIONADO TRANSIÇÃO NA LOGO --- */
+    transition: height 0.3s ease;
+}
+
+header.header-shrink .logo {
+    height: 58px;
 }
 
 .right-section {
@@ -173,6 +187,9 @@ header .logo {
     align-items: center;
 }
 
+/* ==========================================================================
+   AÇÕES DO USUÁRIO (CABEÇALHO) - HOVER SUAVE
+   ========================================================================== */
 .action-link {
     display: flex;
     align-items: center;
@@ -182,36 +199,24 @@ header .logo {
     transition: color 0.3s;
 }
 
-.action-link:hover {
-    color: #ffcc00;
-}
-
 .action-link span {
     font-weight: 600;
     font-size: 14px; 
 }
 
-.action-link img {
-    width: 22px; 
-    transition: filter 0.3s ease; 
+/* Transição suave do Ícone SVG */
+.action-link svg {
+    transition: stroke 0.2s ease, transform 0.2s ease;
 }
 
-/* --- CORREÇÃO DEFINITIVA DO ÍCONE (SEM ARCO-ÍRIS) --- */
-.action-link img, 
-.cart-icon-wrapper img {
-    width: 22px;
-    transition: filter 0.2s ease, transform 0.2s ease;
+/* Fica Amarelo no texto e na linha (stroke) ao passar o mouse */
+.action-link:hover {
+    color: #ffcc00;
 }
 
-.action-link:hover img,
-.cart-icon-wrapper:hover img {
+.action-link:hover svg {
+    stroke: #ffcc00;
     transform: scale(1.1);
-    filter: brightness(0) saturate(100%) invert(84%) sepia(59%) saturate(3474%) hue-rotate(352deg) brightness(101%) contrast(105%) !important;
-}
-
-.action-link:hover span, 
-.action-link:hover .cart-price {
-    color: #ffcc00 !important;
 }
 
 .cart-price {
@@ -224,10 +229,6 @@ header .logo {
     position: relative;
     display: flex;
     align-items: center;
-}
-
-.cart-icon-wrapper img {
-    width: 22px; 
 }
 
 .cart-badge {
@@ -252,7 +253,7 @@ header .logo {
    RODAPÉ (COM IMAGEM DO REPOSITÓRIO E LOGO À ESQUERDA)
    ========================================================================== */
 .footer {
-    background-image: url('https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/Assets/Images/izzuddin-azzam-HKBtu2w52DA-unsplash.jpg');
+    background-image: url('https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/izzuddin-azzam-HKBtu2w52DA-unsplash.jpg');
     background-size: cover;
     background-position: center;
     background-color: #222;
@@ -418,7 +419,6 @@ header .logo {
    NOVA FUNÇÃO DE PAGAMENTOS: CABEÇALHO FIXO E RODAPÉ ISOLADO (CHECKOUT)
    ========================================================================== */
 
-/* NOVO: Cabeçalho Isolado e Fixo para as páginas de pagamento */
 .header-isolado {
     background-color: #fff;
     position: sticky;

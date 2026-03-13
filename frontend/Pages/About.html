@@ -4,30 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - Engremaq</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Css/Global.css">
     <link rel="stylesheet" href="../Assets/Css/Style About.css">
 </head>
 <body>
-    <div class="informacao-topo">
-        <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
-        <div class="contatos-sociais">
-            <div class="contatos">
-                <a href="tel:+5585996883588"><img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588</a>
-                <a href="https://wa.me/5585996883588" target="_blank"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588</a>
-                <a href="mailto:nicolasgomeshar@gmail.com"><img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com</a>
-            </div>
-            <div class="social-icons">
-                <a href="https://www.instagram.com" target="_blank">Instagram</a>
-                <a href="https://www.facebook.com" target="_blank">Facebook</a>
-            </div>
-        </div>
-    </div>
 
     <header>
-        <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
+        <a href="../index.html"><img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo"></a>
         <div class="search-bar">
-            <input type="text" placeholder="Buscar peças...">
+            <input type="text" placeholder="Buscar peças por nome ou código...">
             <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
         </div>
         <div class="right-section">
@@ -39,15 +25,23 @@
                     <li><a href="Contact.html">Contato</a></li>
                 </ul>
             </nav>
-            <div class="user-actions">
-                <a href="Login.html" class="action-link">
-                    <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
+            
+             <div class="user-actions">
+                <a href="Pages/Login.html" class="action-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px;">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
                     <span>Entrar</span>
                 </a>
-                <a href="Cart.html" class="action-link">
+                <a href="Pages/Cart.html" class="action-link">
                     <span class="cart-price">R$ 0,00</span>
                     <div class="cart-icon-wrapper">
-                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px;">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
                         <span class="cart-badge">0</span>
                     </div>
                 </a>
@@ -78,7 +72,7 @@
                 <p>Além da economia financeira, nosso grande diferencial está na disponibilidade imediata, no suporte técnico especializado e na agilidade da entrega. Não deixe seu trator parado!</p>
 
                 <div class="feature-actions" style="margin-top: 25px;">
-                    <a href="Products.html" class="btn btn-primary">Ver nosso Catálogo</a>
+                    <a href="Products.html" class="btn-primary">Ver nosso Catálogo</a>
                 </div>
             </div>
 
@@ -91,8 +85,8 @@
     <section class="sec-dark sec-mvv">
         <div class="container">
             <div class="sec-head text-center" style="margin-bottom: 40px;">
-                <h2 style="color: #fff;">Nosso Propósito</h2>
-                <p style="color: #ccc;">O que nos move todos os dias a entregar o melhor para você.</p>
+                <h2>Nosso Propósito</h2>
+                <p>O que nos move todos os dias a entregar o melhor para você.</p>
             </div>
 
             <div class="mvv-grid">
@@ -207,6 +201,27 @@
         <div class="footer-bottom"><p>© 2026 Engremaq - Todos os direitos reservados.</p></div>
     </footer>
 
+    <script>
+        // Opcional para precaver erro de renderização do Menu
+        document.addEventListener('DOMContentLoaded', () => {
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioEngremaq'));
+            const nomeTopo = document.getElementById('nome-usuario-topo');
+            const menuLogado = document.getElementById('menu-logado');
+            const linkConta = document.getElementById('link-conta-topo');
+
+            if (usuarioLogado && nomeTopo) {
+                const primeiroNome = usuarioLogado.nome.split(' ')[0];
+                nomeTopo.textContent = 'Olá, ' + primeiroNome;
+                linkConta.href = 'Dashboard.html';
+                if(menuLogado) menuLogado.classList.add('dropdown-ativo'); 
+            }
+            window.sairDaContaHeader = (e) => {
+                e.preventDefault();
+                localStorage.removeItem('usuarioEngremaq');
+                window.location.href = '../index.html';
+            };
+        });
+    </script>
     <script src="../Assets/Js/global.js"></script>
 </body>
 </html>

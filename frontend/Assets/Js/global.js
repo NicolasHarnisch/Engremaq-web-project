@@ -1,4 +1,53 @@
+// =========================================================
+// 1. FUNÇÃO GLOBAL DE ATUALIZAR O CARRINHO (CABEÇALHO)
+// =========================================================
+// Tem de se chamar atualizarBadge para comunicar com o products.js e cart.js
+window.atualizarBadge = function() {
+    const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
+    
+    // Calcula a quantidade total de itens (bolinha vermelha)
+    const qtdTotal = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+    
+    // Calcula o valor total COM DESCONTO PIX
+    const valorTotalPix = carrinho.reduce((acc, item) => {
+        // Descobre se o item está em super promoção (15%) ou promoção normal (5%)
+        const ultimoDigito = parseInt(String(item.id).slice(-1));
+        const isPromocao = [3, 6, 9].includes(ultimoDigito);
+        let descontoPercent = isPromocao ? 0.15 : 0.05;
+        
+        // Calcula o preço do item já com o desconto do PIX
+        let precoComDesconto = item.preco * (1 - descontoPercent);
+        
+        return acc + (precoComDesconto * item.quantidade);
+    }, 0);
+
+    // Atualiza os elementos no HTML do cabeçalho
+    const badges = document.querySelectorAll('.cart-badge');
+    const displaysDeValor = document.querySelectorAll('.cart-price, #cart-total-display');
+
+    // Atualiza a bolinha com a quantidade
+    badges.forEach(badge => {
+        if (qtdTotal > 0) {
+            badge.style.display = 'flex';
+            badge.textContent = qtdTotal;
+        } else {
+            badge.style.display = 'none';
+        }
+    });
+
+    // Atualiza o valor em Reais (R$) no cabeçalho
+    displaysDeValor.forEach(display => {
+        display.textContent = valorTotalPix.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+    });
+};
+
+// =========================================================
+// 2. INICIALIZAÇÃO DA PÁGINA (CARREGAMENTO)
+// =========================================================
 document.addEventListener('DOMContentLoaded', async () => {
+    
+    // Atualiza o carrinho logo que a página abre
+    window.atualizarBadge();
     
     // Busca os produtos ao Back-end para a barra de pesquisa
     let produtosEngremaq = [];
@@ -14,8 +63,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } catch(e) { console.log("Pesquisa a aguardar Back-end..."); }
 
+
+    // =========================================================
+    // EFEITO DE ENCOLHER O CABEÇALHO AO ROLAR A PÁGINA
+    // =========================================================
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (header && !header.classList.contains('header-isolado')) {
+            if (window.scrollY > 40) {
+                header.classList.add('header-shrink'); 
+            } else {
+                header.classList.remove('header-shrink'); 
+            }
+        }
+    });
+
     // ==========================================
-    // 1. LÓGICA DA BARRA DE PESQUISA ESTILO KABUM!
+    // LÓGICA DA BARRA DE PESQUISA ESTILO KABUM!
     // ==========================================
     const searchBar = document.querySelector('.search-bar');
     const searchInput = document.querySelector('.search-bar input');
@@ -150,7 +214,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // ==========================================
-    // 2. SISTEMA DE USUÁRIO E DROPDOWN (COM VERIFICAÇÃO JWT BÁSICA)
+    // SISTEMA DE USUÁRIO E DROPDOWN
     // ==========================================
     const loginLink = document.querySelector('.user-actions .action-link[href*="Login.html"]') || document.querySelector('.user-actions .action-link[href*="Login"]');
     
@@ -158,7 +222,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const usuario = JSON.parse(localStorage.getItem('usuarioEngremaq'));
         const token = localStorage.getItem('tokenEngremaq');
 
-        // Só mostra logado se tiver o Token também, dificultando falsificações no Front-end!
         if (usuario && usuario.nome && token) {
             const spanNome = loginLink.querySelector('span');
             
@@ -208,38 +271,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('btn-sair-conta').addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('usuarioEngremaq'); 
-                localStorage.removeItem('tokenEngremaq'); // Limpa a chave também
+                localStorage.removeItem('tokenEngremaq'); 
                 window.location.reload(); 
             });
         }
     }
-
-    // ==========================================
-    // 3. ATUALIZAÇÃO GLOBAL DO CARRINHO
-    // ==========================================
-    window.atualizarCarrinhoHeader = function() {
-        const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
-        let quantidadeTotal = 0;
-        let precoTotal = 0;
-
-        carrinho.forEach(item => {
-            quantidadeTotal += item.quantidade;
-            precoTotal += (item.preco * item.quantidade);
-        });
-
-        const badge = document.querySelector('.cart-badge');
-        const priceLabel = document.querySelector('.cart-price');
-
-        if (badge) {
-            badge.textContent = quantidadeTotal;
-            badge.style.display = quantidadeTotal > 0 ? 'flex' : 'none';
-        }
-
-        if (priceLabel) {
-            priceLabel.textContent = precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
-    };
-
-    window.atualizarBadge = window.atualizarCarrinhoHeader;
-    atualizarCarrinhoHeader();
 });

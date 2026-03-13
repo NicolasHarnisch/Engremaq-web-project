@@ -10,25 +10,10 @@
     <link rel="stylesheet" href="../Assets/Css/Style Contact.css">
 </head>
 <body>
-    <div class="informacao-topo">
-        <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
-        <div class="contatos-sociais">
-            <div class="contatos">
-                <a href="tel:+5585996883588"><img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588</a>
-                <a href="https://wa.me/5585996883588" target="_blank"><img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588</a>
-                <a href="mailto:nicolasgomeshar@gmail.com"><img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com</a>
-            </div>
-            <div class="social-icons">
-                <a href="https://www.instagram.com" target="_blank">Instagram</a>
-                <a href="https://www.facebook.com" target="_blank">Facebook</a>
-            </div>
-        </div>
-    </div>
-
     <header>
         <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/image-removebg-preview.png" alt="Engremaq Logo" class="logo">
         <div class="search-bar">
-            <input type="text" placeholder="Buscar peças...">
+            <input type="text" placeholder="Buscar peças por nome ou código....">
             <button type="button"><img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar"></button>
         </div>
         <div class="right-section">
@@ -40,15 +25,23 @@
                     <li><a href="Contact.html" class="active">Contato</a></li>
                 </ul>
             </nav>
+            
             <div class="user-actions">
                 <a href="Login.html" class="action-link">
-                    <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px;">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
                     <span>Entrar</span>
                 </a>
                 <a href="Cart.html" class="action-link">
                     <span class="cart-price">R$ 0,00</span>
                     <div class="cart-icon-wrapper">
-                        <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px;">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
                         <span class="cart-badge">0</span>
                     </div>
                 </a>
@@ -180,6 +173,5 @@
     </footer>
     <script src="../Assets/Js/global.js"></script>
     <script src="../Assets/Js/contact.js"></script>
-   
 </body>
 </html>

@@ -1,0 +1,270 @@
+/* ==========================================================================
+   STYLE PRODUCT DETAIL (Estilo KaBuM! com Cores Engremaq)
+   ========================================================================== */
+.pd-page-bg {
+    background-color: #f4f4f4;
+    padding: 20px 0 60px 0;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.breadcrumb a { color: #111; text-decoration: none; font-weight: 600; }
+.breadcrumb a:hover { text-decoration: underline; color: #d4a000; }
+
+/* Grid de 3 Colunas (Imagem | Resumo | Caixa de Compra) */
+.pd-main-grid {
+    display: grid;
+    grid-template-columns: 400px 1fr 380px;
+    gap: 30px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    align-items: start;
+}
+
+/* Coluna 1: Imagem */
+.pd-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+.pd-main-img {
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+    object-fit: contain;
+}
+
+/* Coluna 2: Informações do Produto */
+.pd-info-center {
+    display: flex;
+    flex-direction: column;
+}
+.pd-brand-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.pd-brand {
+    color: #888;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+.pd-stars {
+    color: #ffcc00;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+.pd-title {
+    font-size: 24px;
+    color: #111;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 10px 0;
+}
+.pd-vendor {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 20px;
+}
+.pd-vendor strong { color: #d4a000; }
+
+/* Resumo do Produto (Lista) */
+.pd-short-features {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+.pd-short-features h4 {
+    font-size: 14px;
+    color: #d4a000;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.pd-short-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.pd-short-features li {
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+}
+.pd-short-features li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #d4a000;
+    font-weight: bold;
+}
+
+/* Coluna 3: Caixa de Compra (Buy Box) */
+.pd-buy-box {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 25px;
+    background: #fafafa;
+}
+.pd-tag-promo {
+    background: #ef4444; /* Vermelho alerta para promoção */
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+.pd-price-old {
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+    margin-bottom: 5px;
+    display: block;
+}
+.pd-price-vista {
+    font-size: 36px;
+    color: #22c55e; /* Verde padrão Engremaq */
+    font-weight: 800;
+    margin: 0 0 5px 0;
+    line-height: 1;
+}
+.pd-price-desc { font-size: 13px; color: #555; margin: 0 0 15px 0; }
+.pd-price-pix { font-size: 14px; color: #111; font-weight: 600; display: block; margin-bottom: 25px;}
+
+/* Botões */
+.pd-btn-buy {
+    background: #ffcc00;
+    color: #111;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 800;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.pd-btn-buy:hover { background: #e6b800; transform: translateY(-2px); }
+
+.pd-btn-cart {
+    background: #fff;
+    color: #111;
+    border: 2px solid #111;
+    padding: 12px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.pd-btn-cart:hover { background: #111; color: #fff; }
+.pd-btn-cart:hover svg { stroke: #fff !important; }
+
+/* Calculador de Frete */
+.pd-freight-box {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+.pd-freight-box label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.pd-freight-input {
+    display: flex;
+    gap: 5px;
+}
+.pd-freight-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+}
+.pd-freight-input button {
+    background: #111;
+    border: 1px solid #111;
+    color: #ffcc00;
+    font-weight: bold;
+    padding: 0 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.pd-freight-input button:hover { background: #333; }
+
+/* Seção de Descrição Grande */
+.pd-description-section {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-top: 30px;
+}
+.pd-description-section h2 {
+    font-size: 20px;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    color: #111;
+}
+.pd-long-text {
+    color: #444;
+    line-height: 1.8;
+    font-size: 15px;
+}
+.pd-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+.pd-specs-table th, .pd-specs-table td {
+    padding: 15px;
+    border: 1px solid #eee;
+    font-size: 14px;
+}
+.pd-specs-table th {
+    background: #f9f9f9;
+    color: #333;
+    width: 25%;
+    text-align: left;
+}
+
+@media (max-width: 1100px) {
+    .pd-main-grid { grid-template-columns: 1fr 1fr; }
+    .pd-buy-box { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+    .pd-main-grid { grid-template-columns: 1fr; }
+    .pd-main-img { max-width: 100%; }
+}

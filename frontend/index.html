@@ -11,35 +11,12 @@
 </head>
 
 <body>
-  <div class="informacao-topo">
-    <span class="mensagem">Aqui você encontra tudo para o seu trator!</span>
-
-    <div class="contatos-sociais">
-      <div class="contatos">
-        <a href="tel:+55-85-85-996883588">
-          <img src="https://img.icons8.com/ios-filled/50/111111/phone.png" alt="Celular"> (85) 99688-3588
-        </a>
-        <a href="https://wa.me/5585996883588" target="_blank" rel="noopener">
-          <img src="https://img.icons8.com/ios-filled/50/111111/whatsapp--v1.png" alt="WhatsApp"> (85) 99688-3588
-        </a>
-        <a href="mailto:nicolasgomeshar@gmail.com">
-          <img src="https://img.icons8.com/ios-filled/50/111111/new-post.png" alt="Email"> nicolasgomeshar@gmail.com
-        </a>
-      </div>
-
-      <div class="social-icons">
-        <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-  </div>
-
   <header>
     <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/image-removebg-preview.png"
          alt="Engremaq Logo" class="logo">
 
     <div class="search-bar">
-      <input type="text" placeholder="Buscar peças...">
+      <input type="text" placeholder="Buscar peças por nome ou código...">
       <button type="button">
         <img src="https://img.icons8.com/ios-filled/50/111111/search--v1.png" alt="Buscar">
       </button>
@@ -56,21 +33,27 @@
       </nav>
 
       <div class="user-actions">
-        <a href="Pages/Login.html" class="action-link">
-          <img src="https://img.icons8.com/ios-filled/50/111111/user.png" alt="Conta">
-          <span>Entrar</span>
-        </a>
-
-        <a href="Pages/Cart.html" class="action-link">
-          <span class="cart-price">R$ 0,00</span>
-          <div class="cart-icon-wrapper">
-            <img src="https://img.icons8.com/ios-filled/50/111111/shopping-cart.png" alt="Carrinho">
-            <span class="cart-badge">0</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </header>
+                <a href="Pages/Login.html" class="action-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px;">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Entrar</span>
+                </a>
+                <a href="Pages/Cart.html" class="action-link">
+                    <span class="cart-price">R$ 0,00</span>
+                    <div class="cart-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px;">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-badge">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
 
   <section class="hero-old" aria-label="Banner principal">
     <div class="hero-slides" id="heroSlides" aria-hidden="true">
@@ -128,52 +111,8 @@
         <p>Confira a seleção de ofertas que preparamos para você!</p>
       </div>
 
-      <div class="cards-grid">
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/8PK1930GOOD_02.webp" alt="Correia">
-          </div>
-          <div class="product-body">
-            <h3>Correia — reposição rápida</h3>
-            <span class="product-code">COD: 000001</span>
-            <p class="preco">R$ 250,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
+      <div class="cards-grid" id="grid-promocoes"></div>
 
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/images.jpeg" alt="Peça metálica">
-          </div>
-          <div class="product-body">
-            <h3>Peça metálica — linha pesada</h3>
-            <span class="product-code">COD: 000002</span>
-            <p class="preco">R$ 450,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/filtro_ar_trator_massey_ant_292_295_296_610_620_640_jogo_1081_1_00686a861dfc45d1cf5521491040ea81_20240528141146.webp" alt="Filtro de Ar">
-          </div>
-          <div class="product-body">
-            <h3>Filtro de ar Massey — alta eficiência</h3>
-            <span class="product-code">COD: 000003</span>
-            <p class="preco">R$ 180,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
-      </div>
     </div>
   </section>
 
@@ -184,67 +123,8 @@
         <p>Confira os itens mais procurados na nossa loja.</p>
       </div>
 
-      <div class="cards-grid cards-grid-4">
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/download.jpeg" alt="Filtro de óleo">
-          </div>
-          <div class="product-body">
-            <h3>Filtro de óleo</h3>
-            <span class="product-code">COD: 100001</span>
-            <p class="preco">R$ 150,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
+      <div class="cards-grid cards-grid-4" id="grid-mais-vendidos"></div>
 
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/pecas-para-tratores-kit-manutencao-motor-229-4-cilindros-aspirado-p-1739990766956.png" alt="Kit manutenção">
-          </div>
-          <div class="product-body">
-            <h3>Kit manutenção de motor 229</h3>
-            <span class="product-code">COD: 100002</span>
-            <p class="preco">R$ 950,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/engrenagem_satelite_27_d_tracao_trator_mf_660_680_036420r1_1881_1_27082a9123eabe425be96e622170ffd7.webp" alt="Engrenagem de Tração">
-          </div>
-          <div class="product-body">
-            <h3>Engrenagem de Tração</h3>
-            <span class="product-code">COD: 100003</span>
-            <p class="preco">R$ 820,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img">
-            <img src="https://raw.githubusercontent.com/NicolasHarnisch/Engremaq-web-project/main/frontend/Assets/Images/bomba-injetora-trator-new-holland-7610-dps-ano-inicial-1992-ano-final-motor-fnh-268-cu-in-codigo-montadora-esnn9a543va-0d8e4a0a.webp" alt="Injeção diesel">
-          </div>
-          <div class="product-body">
-            <h3>Bomba Injetora New Holland</h3>
-            <span class="product-code">COD: 100004</span>
-            <p class="preco">R$ 3.500,00</p>
-            <div class="card-buttons">
-                <button class="btn btn-cart">Adicionar ao Carrinho</button>
-                <a class="btn btn-whats" href="https://wa.me/5585996883588" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-            </div>
-          </div>
-        </article>
-      </div>
     </div>
   </section>
 
