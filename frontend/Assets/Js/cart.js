@@ -1,3 +1,8 @@
+// --- CONFIGURAÇÃO DE PROMOÇÕES ---
+// Coloque aqui os Códigos (IDs) exatos dos produtos que têm 15% de desconto.
+// O sistema aplicará 15% para esses, e 5% (padrão PIX) para o restante.
+const PRODUTOS_EM_PROMOCAO = ["000001", "000002", "000003", "000004"]; 
+
 let valorFreteGlobal = 0;
 
 function renderizarCarrinho() {
@@ -21,9 +26,14 @@ function renderizarCarrinho() {
         let itemTotalNormal = item.preco * item.quantidade;
         subtotalOriginal += itemTotalNormal;
 
-        // Calcula desconto individual para mostrar no item
-        const ultimoDigito = parseInt(String(item.id).slice(-1));
-        const isPromocao = [3, 6, 9].includes(ultimoDigito);
+        // --- LÓGICA DE DESCONTO CORRIGIDA ---
+        // Normaliza o ID para string e garante que tenha os zeros à esquerda (ex: de 1 para "000001")
+        const idNormalizado = String(item.id).padStart(6, '0');
+        
+        // Verifica se o ID do item está na nossa lista de promoções (PRODUTOS_EM_PROMOCAO)
+        const isPromocao = PRODUTOS_EM_PROMOCAO.includes(idNormalizado) || PRODUTOS_EM_PROMOCAO.includes(String(item.id));
+        
+        // Aplica 15% se estiver na lista, caso contrário aplica 5% padrão do PIX
         let descontoPercent = isPromocao ? 0.15 : 0.05;
         
         let itemTotalPix = itemTotalNormal * (1 - descontoPercent);
