@@ -5,14 +5,20 @@
 window.atualizarBadge = function() {
     const carrinho = JSON.parse(localStorage.getItem('carrinhoEngremaq')) || [];
     
+    // --- LISTA DE PROMOÇÕES (A mesma usada no cart.js) ---
+    const PRODUTOS_EM_PROMOCAO = ["000001", "000002", "000003", "000004"];
+    
     // Calcula a quantidade total de itens (bolinha vermelha)
     const qtdTotal = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
     
     // Calcula o valor total COM DESCONTO PIX
     const valorTotalPix = carrinho.reduce((acc, item) => {
-        // Descobre se o item está em super promoção (15%) ou promoção normal (5%)
-        const ultimoDigito = parseInt(String(item.id).slice(-1));
-        const isPromocao = [3, 6, 9].includes(ultimoDigito);
+        
+        // Verifica se o ID do item está na nossa lista de promoções
+        const idNormalizado = String(item.id).padStart(6, '0');
+        const isPromocao = PRODUTOS_EM_PROMOCAO.includes(idNormalizado) || PRODUTOS_EM_PROMOCAO.includes(String(item.id));
+        
+        // Aplica 15% se estiver na lista, caso contrário aplica 5% padrão
         let descontoPercent = isPromocao ? 0.15 : 0.05;
         
         // Calcula o preço do item já com o desconto do PIX
