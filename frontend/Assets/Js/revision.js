@@ -175,7 +175,7 @@ function carregarDadosRevisao() {
         if (usuario) {
             if (document.getElementById('rev-nome-comprador')) document.getElementById('rev-nome-comprador').textContent = usuario.nome;
             if (document.getElementById('rev-email-comprador')) document.getElementById('rev-email-comprador').textContent = usuario.email;
-            if (document.getElementById('rev-celular-comprador')) document.getElementById('rev-celular-comprador').textContent = usuario.celular || '(85) 99688-3588';
+            if (document.getElementById('rev-celular-comprador')) document.getElementById('rev-celular-comprador').textContent = usuario.celular || '(85) 99997-3965';
         }
 
         // ENDEREÇO (CORREÇÃO DO UNDEFINED)
